@@ -2,19 +2,26 @@
 module Lib2
 where
 
-
-
 someFunc :: IO ()
 someFunc =
-  putStrLn "hi"
+  print "hi"
 
-class Has a c where
+tryHas :: ()
+tryHas =
+   let _ = (view "abc" :: String)
+       _ = (view "efg" :: Int)
+   in ()
+
+class Has a c where -- c is the containing object, a is the extractable part, view extracts it
   view :: c -> a
 
 instance Has a a where
   view = id
 
--- instance Has Day Timestamp where
+instance Has Int String where
+  view s = length s
+
+-- instance Has Day UTCTime where
 --   view = utctDay
 
 {-
