@@ -15,7 +15,7 @@ tryHas =
 class Has a c where -- c is the containing object, a is the extractable part, view extracts it
   view :: c -> a
 
-instance Has a a where
+instance Has a a where -- every object contains itself...but why need this?
   view = id
 
 instance Has Int String where
@@ -24,16 +24,3 @@ instance Has Int String where
 -- instance Has Day UTCTime where
 --   view = utctDay
 
-{-
-makeHasRec :: TH.Name -> [TH.Name] -> TH.DecsQ
-makeHasRec tn fs = do
-  TH.ClassI _ il <- TH.reify ''Has
-  makeHasFor tn =<< mapM (\fn -> do
-    ft <- getFieldType tn fn
-    return (fn, ft, [ st
-      | TH.InstanceD _ (TH.ConT hs `TH.AppT` st `TH.AppT` ft') _ <- il
-      , hs == ''Has
-      , ft' == ft
-      ]))
-    fs
--}
