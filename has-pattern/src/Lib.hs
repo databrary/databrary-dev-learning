@@ -7,6 +7,7 @@ import Data.Hashable (Hashable(..))
 import Data.Int (Int32)
 import Text.Read (Read(..))
 
+--------------  IdType type family example
 type family IdType a
 
 newtype Id a = Id { unId :: IdType a }
@@ -50,4 +51,7 @@ createId =
       recId = Id "def" :: Id Record
       aRec0 = Record0 "abc" 1
       aRec = Record (Id "abc") 1
+      _ = recId == Id "xyz"
   in ()
+
+----------
