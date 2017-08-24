@@ -25,7 +25,7 @@ getFieldType tn fn = do
 
 makeHasFor :: TH.Name -> [(TH.Name, TH.Type, [TH.Type])] -> TH.DecsQ
 makeHasFor tn fs = concat <$> mapM
-  (\(fn, ft, ts) -> concatM
+  (\(fn, ft, ts) -> concatM  -- TODO: understand this
     [d| instance Has $(return ft) $(return tt) where
           view = $(TH.varE fn) |]
     (\st ->
@@ -37,17 +37,14 @@ makeHasFor tn fs = concat <$> mapM
   tt = TH.ConT tn
   concatM i f l = liftM2 (++) i (liftM concat $ mapM f l)
 
-makeHasRec :: TH.Name -> [TH.Name] -> TH.DecsQ
+makeHasRec :: TH.Name -> [TH.Name] -> TH.DecsQ  -- tn is a record or containing type, fs is a list of field names
 makeHasRec tn fs = do
   TH.ClassI _ il <- TH.reify ''Has
   makeHasFor tn =<< mapM (\fn -> do
     ft <- getFieldType tn fn
     return (fn, ft, [ st
-      | TH.InstanceD _ (TH.ConT hs `TH.AppT` st `TH.AppT` ft') _ <- il
+      | TH.InstanceD _ (TH.ConT hs `TH.AppT` st `TH.AppT` ft') _ <- il  -- TODO: read below in more depth
       , hs == ''Has
       , ft' == ft
       ]))
     fs
-
-
-
