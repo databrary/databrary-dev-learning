@@ -18,6 +18,7 @@ library
   exposed-modules:     Lib
                      , Lib2
                      , Lib3
+                     , Lib3th
   build-depends:       base >= 4.7 && < 5
                      , hashable
                      , template-haskell
