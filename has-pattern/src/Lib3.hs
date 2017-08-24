@@ -8,9 +8,15 @@ someFunc :: IO ()
 someFunc =
   print "hi"
 
-data Record = Record
-  { field1 :: Int
+data Record2 = Record2
+  { field1 :: Char  -- why does this cause an error when field1 is an Int??
+  , field2 :: String
   }
 
-makeHasRec ''Record ['field1]
+makeHasRec ''Record2 ['field1, 'field2]
 
+-- getFieldType ''Record2 'field1  -- decide how to turn "type" into [declaration]
+
+makeHasFor ''Record2 []
+
+-- makeHasFor ''Record2 [('field1, .., [...])]
