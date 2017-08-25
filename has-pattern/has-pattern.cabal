@@ -22,6 +22,7 @@ library
                      , Lib4
                      , Lib4th
                      , Lib5
+                     , Lib6
   build-depends:       base >= 4.7 && < 5
                      , hashable
                      , mtl
