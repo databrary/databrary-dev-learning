@@ -12,10 +12,12 @@ import qualified Data.ByteString.UTF8 as U
 class Kinded a where
   kindOf :: a -> String
 
--- enum class and code generation
-class (Kinded a) => DBEnum a
+-- class  PGEnumish a where  -- an instance for this is generated in makePGEnum as well
+--  pgEnumVals :: [(a, String)]
 
--- toCamel
+-- enum class and code generation
+class Kinded a => DBEnum a
+
 toCamel :: String -> String
 toCamel = id
 
