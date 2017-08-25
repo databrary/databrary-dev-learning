@@ -4,6 +4,7 @@ where
 
 import Lib3th
 import qualified Language.Haskell.TH as TH
+import Language.Haskell.TH.Lift (deriveLift)
 
 someFunc :: IO ()
 someFunc =
@@ -32,3 +33,9 @@ makeHasFor ''Record2 []
 
  -- this needs Has SubRecord ValType... a little unclear on what is going on here
 makeHasFor ''Record2 [('field3, TH.ConT ''SubRecord, [TH.ConT ''ValType])]
+
+
+data Record3 = Record3
+  { rc3Field1 :: Int }
+
+deriveLift ''Record3 -- make this usable as parameter to a Template Haskell function which generates Haskell
