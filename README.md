@@ -2,11 +2,11 @@
 Repo for learning Databrary code base
 
 * Functions in Identity.Types
-* Template Haskell basics example
-  * peek
 * MonadHas pattern (see Identity.Types)
 * Example using postgresql-typed
   * Model.SQL & Model.SQL.Select
+* Template Haskell basics example
+  * peek - in progress
 * Service.DB.useTDB?
 * MonadDB, MonadHasIdentity
 * MonadHasRequest, MonadAudit, MonadHas Secret
@@ -19,6 +19,7 @@ Repo for learning Databrary code base
 * Service.DB exposed functions
 
 * Controller related examples
+  * Has.focusIO
 * Generate Angular and serve
 * web-inv-route example
   * R.Paramter R.PathString a

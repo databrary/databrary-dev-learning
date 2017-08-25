@@ -12,6 +12,7 @@ data Record = Record { field1 :: Int }
 -- (Has a c) => ReaderT * c m a
 peek :: (MonadReader c m, Has a c) => m a   -- m is reader monad; c is val in reader context; a is component of c
 peek = reader view
+---- peek generally seems to be used to extract the Identity (user id), to be used in a db query later
 
 -- define some reader based action
 rdrAct :: Reader Int String
@@ -23,7 +24,6 @@ rdrAct = do
 runSimple :: Bool
 runSimple =
   "10" == runReader rdrAct 10
-
 
 -- define some readert based action and run it
 -- rdrAct2 :: ReaderT * Int IO String
