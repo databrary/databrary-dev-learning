@@ -3,7 +3,6 @@ Repo for learning Databrary code base
 
 * Functions in Identity.Types
 * Template Haskell basics example
-  * deriveLiftMany (Metric.Types), deriveLift (Model.Format)
   * peek
 * MonadHas pattern (see Identity.Types)
 * Example using postgresql-typed

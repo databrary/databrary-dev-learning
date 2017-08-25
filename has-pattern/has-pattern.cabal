@@ -21,8 +21,10 @@ library
                      , Lib3th
                      , Lib4
                      , Lib4th
+                     , Lib5
   build-depends:       base >= 4.7 && < 5
                      , hashable
+                     , mtl
                      , template-haskell
                      , th-lift
                      , bytestring

@@ -38,4 +38,5 @@ makeHasFor ''Record2 [('field3, TH.ConT ''SubRecord, [TH.ConT ''ValType])]
 data Record3 = Record3
   { rc3Field1 :: Int }
 
-deriveLift ''Record3 -- make this usable as parameter to a Template Haskell function which generates Haskell
+deriveLift ''Record3 -- make this usable as parameter to a Template Haskell function which generates Haskell.
+                     -- but, what actually needs the Lift instance?
