@@ -1,18 +1,17 @@
 # databrary-dev-learning
 Repo for learning Databrary code base
 
-* MonadHas pattern (see Identity.Types)
 * Kinded
   * paths, solr, enum, ingest.json
+* Model.Enum, makeDbEnum <<
 * Functions in Identity.Types
-* Model.Enum, makeDbEnum
-* Controller related examples
 * Template Haskell basics example - started,
-  * what happens if a record has two fields of same type (Car with front tire, back tire)
+  * what happens if a record has two fields of same type 
   * why are only some of the Model record fields strict?
   * deriveLiftMany (Metric.Types)
   * volumeaccess makehasfor?
   * peek
+* MonadHas pattern (see Identity.Types)
 * Example using postgresql-typed
   * pgparam, pgcolumn
   * range
@@ -22,8 +21,10 @@ Repo for learning Databrary code base
 * Service.DB exposed functions
 * MonadDB, MonadHasIdentity
 * MonadHasRequest, MonadAudit, MonadHas Secret
-* Example demonstrating each operator in Ops
 * Example using deriveLift (see Model.Format)
+* Example demonstrating each operator in Ops
+
+* Controller related examples
 * Generate Angular and serve
 * web-inv-route example
   * R.Paramter R.PathString a
