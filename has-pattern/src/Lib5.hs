@@ -27,10 +27,15 @@ runSimple =
   "10" == runReader rdrAct 10
 
 -- define some readert based action and run it
--- rdrAct2 :: ReaderT * Int IO String
--- rdrAct2 = do
---  v <- ask
---  return (show v)
+rdrAct2 :: ReaderT Int Identity String
+rdrAct2 = do
+  v <- ask
+  return (show v)
+
+runReaderTexample :: Identity Bool
+runReaderTexample = do
+  v <- runReaderT rdrAct2 10
+  pure (v == "10")
 
 -- define some monadreader based action and run it
 
