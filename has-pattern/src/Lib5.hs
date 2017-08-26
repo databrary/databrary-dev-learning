@@ -10,6 +10,9 @@ class Has a c where
 
 data Record = Record { field1 :: Int }
 
+instance Has Int Record where
+  view r = field1 r
+
 -- (Has a c) => ReaderT * c m a
 peek :: (MonadReader c m, Has a c) => m a   -- m is reader monad; c is val in reader context; a is component of c
 peek = reader view
@@ -38,7 +41,6 @@ runReaderTexample = do
   pure (v == "10")
 
 -- define some monadreader based action and run it
-
 rdrAct3 :: (MonadReader Int m) => m String
 rdrAct3 = do
   v <- ask
@@ -50,3 +52,7 @@ runMonadReader = do
   pure (v == "10")
 
 -- define a monadreaader action over a Has Record which runs peek and run it
+runpeek :: Identity Bool
+runpeek = do
+  v <- runReaderT (peek :: ReaderT Record Identity Int) (Record { field1 = 10 })
+  pure (show v == "10")
