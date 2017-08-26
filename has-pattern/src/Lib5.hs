@@ -1,8 +1,9 @@
-{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE MultiParamTypeClasses, FlexibleContexts #-}
 module Lib5
 where
 
 import Control.Monad.Reader (MonadReader(..), ReaderT(..), reader, withReaderT, Reader, runReader)
+import Control.Monad.Identity 
 
 class Has a c where
   view :: c -> a
@@ -32,5 +33,15 @@ runSimple =
 --  return (show v)
 
 -- define some monadreader based action and run it
+
+rdrAct3 :: (MonadReader Int m) => m String
+rdrAct3 = do
+  v <- ask
+  return (show v)
+
+runMonadReader :: Identity Bool
+runMonadReader = do
+  v <- (runReaderT (rdrAct3 :: ReaderT Int Identity String) 10)
+  pure (v == "10")
 
 -- define a monadreaader action over a Has Record which runs peek and run it
