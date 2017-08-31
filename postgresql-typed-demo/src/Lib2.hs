@@ -62,9 +62,7 @@ tagSelector =
   , selectSource = "tag"
   , selectJoined = ",tag"
   }
-    
-
-
+   
 -------------------
 selectColumns :: TH.Name -> String -> [String] -> Selector
 selectColumns f t c =
@@ -79,24 +77,42 @@ data Selector = Selector
   , selectJoined :: String -- get example of where is this used?
   }
 
+--------- Build up columns ------------
+tagCols :: [String]
+tagCols =
+  concatMap
+    (\(SelectColumn t c) -> [t ++ '.' : c])
+    [SelectColumn "tag" "id", SelectColumn "tag" "name"]
 
----------------
+tagCols2 :: [String]
+tagCols2 = ["tag.id", "tag.name"]
 
-
-outputMaybe :: SelectOutput -> SelectOutput
-outputMaybe (OutputJoin False f l) = OutputJoin True f l
-outputMaybe (OutputMap False f l) = OutputMap True f l
-outputMaybe s = s
-
+------------------
 outputColumns :: SelectOutput -> [String]
 outputColumns (SelectColumn t c) = [t ++ '.' : c]
 outputColumns (SelectExpr s) = [s]
 outputColumns (OutputJoin _ _ o) = concatMap outputColumns o
 outputColumns (OutputMap _ _ o) = outputColumns o
 
+------------- Build up list of TH column names -----------
+
+--   nl <- mapM (TH.newName . ('v':) . colVar) cols
+--  colVar s = case takeWhileEnd isLetter s of
+--    [] -> "c"
+--    (h:l) -> toLower h : l
+
+takeWhileEnd :: (a -> Bool) -> [a] -> [a]
+takeWhileEnd p = fst . foldr go ([], False) where
+  go x (rest, done)
+    | not done && p x = (x:rest, False)
+    | otherwise = (rest, True)
+
+
+------------- Run output parser --------------------------
 
 
 
+---------------
 outputParser :: SelectOutput -> StateT [TH.Name] TH.Q TH.Exp
 outputParser (OutputJoin mb f ol) = do
   fi <- lift $ TH.reify f
@@ -137,6 +153,22 @@ outputParser _ = StateT st where
   st (i:l) = return (TH.VarE i, l)
   st [] = fail "outputParser: insufficient values"
 
+outputMaybe :: SelectOutput -> SelectOutput
+outputMaybe (OutputJoin False f l) = OutputJoin True f l
+outputMaybe (OutputMap False f l) = OutputMap True f l
+outputMaybe s = s
+
+
+------------ Make PG Query, Tranform result --------------
+
+-- use mkpgquery
+
+-- make TH function that applies a function to result of mkpgquery, eval the query
+
+-- use makeQuery in its entirety
+
+
+
 
 {-
 makeQuery :: QueryFlags -> (String -> String) -> SelectOutput -> TH.ExpQ
@@ -161,12 +193,4 @@ selectDistinctQuery dist (Selector{ selectOutput = o, selectSource = s }) sqlf =
   select Nothing = "SELECT " -- ALL
   select (Just []) = "SELECT DISTINCT "
   select (Just l) = "SELECT DISTINCT ON (" ++ intercalate "," l ++ ") "
-
-
-
-takeWhileEnd :: (a -> Bool) -> [a] -> [a]
-takeWhileEnd p = fst . foldr go ([], False) where
-  go x (rest, done)
-    | not done && p x = (x:rest, False)
-    | otherwise = (rest, True)
 -}
