@@ -1,4 +1,5 @@
-{-# LANGUAGE TemplateHaskell, OverloadedStrings, QuasiQuotes, ScopedTypeVariables, DataKinds #-}
+{-# LANGUAGE TemplateHaskell, OverloadedStrings, QuasiQuotes, ScopedTypeVariables, DataKinds,
+             FlexibleContexts #-}
 module Lib2
     ( someFunc
     ) where
@@ -21,16 +22,34 @@ useTPGDatabase
 someFunc :: IO ()
 someFunc = do
   putStrLn "hi"
-  c <- pgConnect (defaultPGDatabase { pgDBName = "mydb", pgDBUser = "kanishka", pgDBPass = "1" })
-  -- qry4 c
-  pgDisconnect c
-{-
-qry4 :: PGConnection -> IO ()
-qry4 c = do
-  let val1 :: Int32 = 1
-  people :: [Maybe Int32] <- pgQuery c [pgSQL| SELECT c1 from t1 where c1 = ${val1} |]
-  print people
--}
+  -- tags :: [(String, Int)]
+  --    <- pgQuery c $(selectDistinctQuery Nothing selectTag "$WHERE tag.name = ${n}::varchar")
+
+-- 1. Tag defined as record
+-- 2. simplify w/Tag defined as tuple only
+
+-- 'Tag needs a data definition; possibly pgquery instance that comes with makehasrec
+-- tagRow :: Selector -- ^ @'Tag'@
+-- tagRow = selectColumns 'Tag "tag" ["id", "name"]
+
+-- selectTag :: Selector -- ^ @'Tag'@
+-- selectTag = tagRow
+
+-- dbQuery1 $(selectDistinctQuery Nothing selectTag "$WHERE tag.name = ${n}::varchar")
+
+-------- Making a Selector instance ---------
+data Tag = Tag { tagId :: Int32, tagName :: String }
+
+tagOutput :: SelectOutput
+tagOutput =
+  OutputJoin {
+      outputNullable = False
+    , outputJoiner = 'Tag
+    , outputJoin =
+        [ SelectColumn { _selectTable = "tag", _selectColumn = "id" }
+        , SelectColumn { _selectTable = "tag", _selectColumn = "name" }
+        ]
+  }
 
 data SelectOutput
   = SelectColumn { _selectTable, _selectColumn :: String }
@@ -38,18 +57,15 @@ data SelectOutput
   | OutputJoin { outputNullable :: !Bool, outputJoiner :: TH.Name, outputJoin :: [SelectOutput] }
   | OutputMap { outputNullable :: !Bool, outputMapper :: TH.Exp -> TH.Exp, outputMap :: SelectOutput }
 
-makeQuery :: QueryFlags -> (String -> String) -> SelectOutput -> TH.ExpQ
-makeQuery flags sql output = do
-  -- _ <- useTDB
-  nl <- mapM (TH.newName . ('v':) . colVar) cols
-  (parse, []) <- runStateT (outputParser output) nl
-  TH.AppE (TH.VarE 'fmap `TH.AppE` TH.LamE [TH.TupP $ map TH.VarP nl] parse)
-    <$> makePGQuery flags (sql $ intercalate "," cols)
-  where
-  colVar s = case takeWhileEnd isLetter s of
-    [] -> "c"
-    (h:l) -> toLower h : l
-  cols = outputColumns output
+
+
+selectColumns :: TH.Name -> String -> [String] -> Selector
+selectColumns f t c =
+  selector t $ OutputJoin False f $ map (SelectColumn t) c
+
+selector :: String -> SelectOutput -> Selector
+selector t o = Selector o t (',':t)
+
 
 outputMaybe :: SelectOutput -> SelectOutput
 outputMaybe (OutputJoin False f l) = OutputJoin True f l
@@ -62,16 +78,8 @@ outputColumns (SelectExpr s) = [s]
 outputColumns (OutputJoin _ _ o) = concatMap outputColumns o
 outputColumns (OutputMap _ _ o) = outputColumns o
 
-{-
-selectDistinctQuery :: Maybe [String] -> Selector -> String -> TH.ExpQ
-selectDistinctQuery dist (Selector{ selectOutput = o, selectSource = s }) sqlf =
-  makeQuery flags (\c -> select dist ++ c ++ " FROM " ++ s ++ ' ':sql) o
-  where
-  (flags, sql) = parseQueryFlags sqlf
-  select Nothing = "SELECT " -- ALL
-  select (Just []) = "SELECT DISTINCT "
-  select (Just l) = "SELECT DISTINCT ON (" ++ intercalate "," l ++ ") "
--}
+
+
 
 outputParser :: SelectOutput -> StateT [TH.Name] TH.Q TH.Exp
 outputParser (OutputJoin mb f ol) = do
@@ -116,11 +124,38 @@ outputParser _ = StateT st where
 data Selector = Selector
   { selectOutput :: SelectOutput
   , selectSource :: String
-  , selectJoined :: String
+  , selectJoined :: String -- get example of where is this used?
   }
+
+{-
+makeQuery :: QueryFlags -> (String -> String) -> SelectOutput -> TH.ExpQ
+makeQuery flags sql output = do
+  -- _ <- useTDB
+  nl <- mapM (TH.newName . ('v':) . colVar) cols
+  (parse, []) <- runStateT (outputParser output) nl
+  TH.AppE (TH.VarE 'fmap `TH.AppE` TH.LamE [TH.TupP $ map TH.VarP nl] parse)
+    <$> makePGQuery flags (sql $ intercalate "," cols)
+  where
+  colVar s = case takeWhileEnd isLetter s of
+    [] -> "c"
+    (h:l) -> toLower h : l
+  cols = outputColumns output
+
+
+selectDistinctQuery :: Maybe [String] -> Selector -> String -> TH.ExpQ
+selectDistinctQuery dist (Selector{ selectOutput = o, selectSource = s }) sqlf =
+  makeQuery flags (\c -> select dist ++ c ++ " FROM " ++ s ++ ' ':sql) o
+  where
+  (flags, sql) = parseQueryFlags sqlf
+  select Nothing = "SELECT " -- ALL
+  select (Just []) = "SELECT DISTINCT "
+  select (Just l) = "SELECT DISTINCT ON (" ++ intercalate "," l ++ ") "
+
+
 
 takeWhileEnd :: (a -> Bool) -> [a] -> [a]
 takeWhileEnd p = fst . foldr go ([], False) where
   go x (rest, done)
     | not done && p x = (x:rest, False)
     | otherwise = (rest, True)
+-}
