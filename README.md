@@ -32,6 +32,3 @@ Repo for learning Databrary code base
   * what happens if a record has two fields of same type 
   * why are only some of the Model record fields strict?
   * volumeaccess makehasfor?
-* Template Haskell basics example
-  * peek - in progress
-
