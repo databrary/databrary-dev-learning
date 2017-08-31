@@ -29,15 +29,12 @@ someFunc = do
 -- 2. simplify w/Tag defined as tuple only
 
 -- 'Tag needs a data definition; possibly pgquery instance that comes with makehasrec
--- tagRow :: Selector -- ^ @'Tag'@
--- tagRow = selectColumns 'Tag "tag" ["id", "name"]
-
 -- selectTag :: Selector -- ^ @'Tag'@
--- selectTag = tagRow
+-- selectTag = selectColumns 'Tag "tag" ["id", "name"]
 
 -- dbQuery1 $(selectDistinctQuery Nothing selectTag "$WHERE tag.name = ${n}::varchar")
 
--------- Making a Selector instance ---------
+-------- Making a SelectOutput instance ---------
 data Tag = Tag { tagId :: Int32, tagName :: String }
 
 tagOutput :: SelectOutput
@@ -47,24 +44,43 @@ tagOutput =
     , outputJoiner = 'Tag
     , outputJoin =
         [ SelectColumn { _selectTable = "tag", _selectColumn = "id" }
-        , SelectColumn { _selectTable = "tag", _selectColumn = "name" }
-        ]
+        , SelectColumn { _selectTable = "tag", _selectColumn = "name" } ]
   }
 
+------------------
 data SelectOutput
   = SelectColumn { _selectTable, _selectColumn :: String }
   | SelectExpr String
-  | OutputJoin { outputNullable :: !Bool, outputJoiner :: TH.Name, outputJoin :: [SelectOutput] }
-  | OutputMap { outputNullable :: !Bool, outputMapper :: TH.Exp -> TH.Exp, outputMap :: SelectOutput }
+  | OutputJoin { outputNullable :: !Bool, outputJoiner :: TH.Name, outputJoin :: [SelectOutput] } 
+  | OutputMap { outputNullable :: !Bool, outputMapper :: TH.Exp -> TH.Exp, outputMap :: SelectOutput } -- ?
+
+--------- Making a Selector instance ----------
+tagSelector :: Selector
+tagSelector =
+  Selector {
+    selectOutput = tagOutput
+  , selectSource = "tag"
+  , selectJoined = ",tag"
+  }
+    
 
 
-
+-------------------
 selectColumns :: TH.Name -> String -> [String] -> Selector
 selectColumns f t c =
   selector t $ OutputJoin False f $ map (SelectColumn t) c
 
 selector :: String -> SelectOutput -> Selector
 selector t o = Selector o t (',':t)
+
+data Selector = Selector
+  { selectOutput :: SelectOutput
+  , selectSource :: String
+  , selectJoined :: String -- get example of where is this used?
+  }
+
+
+---------------
 
 
 outputMaybe :: SelectOutput -> SelectOutput
@@ -121,11 +137,6 @@ outputParser _ = StateT st where
   st (i:l) = return (TH.VarE i, l)
   st [] = fail "outputParser: insufficient values"
 
-data Selector = Selector
-  { selectOutput :: SelectOutput
-  , selectSource :: String
-  , selectJoined :: String -- get example of where is this used?
-  }
 
 {-
 makeQuery :: QueryFlags -> (String -> String) -> SelectOutput -> TH.ExpQ
