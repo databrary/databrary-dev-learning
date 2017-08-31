@@ -1,18 +1,12 @@
 # databrary-dev-learning
 Repo for learning Databrary code base
 
-* Example using postgresql-typed
-  * Model.SQL & Model.SQL.Select
+
+* Model.SQL & Model.SQL.Select
 * MonadDB, MonadHasIdentity
 * MonadHasRequest, MonadAudit, MonadHas Secret
-* Example using postgresql-typed
-  * pgparam, pgcolumn
-  * range
-  * makePGQuery
-  * PGQuery
 * Example demonstrating each operator in Ops
 * Service.DB exposed functions
-* Service.DB.useTDB?
 * Controller related examples
   * Has.focusIO
 
@@ -32,3 +26,8 @@ Repo for learning Databrary code base
   * what happens if a record has two fields of same type 
   * why are only some of the Model record fields strict?
   * volumeaccess makehasfor?
+* Example using postgresql-typed
+  * makePGQuery (w/inference), rawPGSimpleQuery (w/o inference)
+  * pgparam, pgcolumn
+  * range
+* Service.DB.useTDB (atomically trigger useTPG only once)

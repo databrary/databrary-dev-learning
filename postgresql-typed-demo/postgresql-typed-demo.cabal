@@ -16,8 +16,12 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Lib
+                     , Lib2
   build-depends:       base >= 4.7 && < 5
                      , postgresql-typed == 0.4.5
+                     , mtl
+                     , template-haskell
+                     , transformers
   default-language:    Haskell2010
 
 executable postgresql-typed-demo-exe
