@@ -59,3 +59,6 @@ someFunc =
 -- to ... ReaderT (Context, Request, Identity) IO Response
 -- to ... Action { actionM :: ActionM Response }
 -- to ... Action { authReq :: Bool, actionM :: ActionM Response }
+
+-- EXAMPLE:
+-- various transformers/classes similar to ActionM
