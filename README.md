@@ -3,6 +3,8 @@ Repo for learning Databrary code base
 
 * web-inv-route example -- IN PROGRESS
   * R.Parameter R.PathString a
+* Http.Path.Parser
+* Controller.Paths.*
 * Basic warp example - IN PROGRESS
 * Action.*
 * Example using postgresql-typed
