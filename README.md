@@ -5,9 +5,14 @@ Repo for learning Databrary code base
   * R.Paramter R.PathString a
 * Basic warp example
 * Action.*
+* Example using postgresql-typed
+  * selectJoin build
+  * selectJoin expansion
 
-* MonadDB, MonadHasIdentity
-* MonadHasRequest, MonadAudit, MonadHas Secret
+* MonadDB
+* MonadHasIdentity, MonadHasRequest,
+* MonadAudit
+* MonadHas Secret
 * Example demonstrating each operator in Ops
 * Service.DB exposed functions
 * Controller related examples
