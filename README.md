@@ -1,9 +1,9 @@
 # databrary-dev-learning
 Repo for learning Databrary code base
 
-* web-inv-route example
-  * R.Paramter R.PathString a
-* Basic warp example
+* web-inv-route example -- IN PROGRESS
+  * R.Parameter R.PathString a
+* Basic warp example - IN PROGRESS
 * Action.*
 * Example using postgresql-typed
   * selectJoin build
