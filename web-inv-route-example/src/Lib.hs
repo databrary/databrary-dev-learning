@@ -43,14 +43,6 @@ someFunc =
 --   r <- act
 --   send r
 
--- SECOND EXAMPLE:
--- invertible - Free - reified monad that allows custom interpretration of join
--- invertible - bijections, monoidal
-
--- THIRD EXAMPLE:
---  *< - discard left
---  monoidal functor
-
 -- OTHER EXAMPLE:
 -- from RouteAction Int String
 -- to ... Response
