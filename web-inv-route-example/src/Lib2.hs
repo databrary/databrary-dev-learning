@@ -110,16 +110,22 @@ pathMaybeDefault = routePath (10 =/= (parameter :: Path Int))
 
 ----------------------- defining reusable primitives
 -- controller.paths
+---- define a bijection between a newtype and unwrapped
+---- match using (fromString literal) >/> (fmap bijectTo (pathParserOfUnwrapped))
+---- match using above w/ a specific unwrapped path parser
 
--- controller.excerpt
+-- controller.excerpt -- trivial combination of above
 
 -- conrolller.web
+---- use R.manyI ?
+---- bijection using function that converts list of strings to StaticPath, and converts StaticPath to list segs
 
 -- action.route
-
+----- use R.unit
+----- bijection from Either API, alternation between JSON or HTML
 ------------------------ other path heleprs
 -- js helpers
 
--- swagger helpers
-
 -- Path module types
+
+-- swagger helpers
