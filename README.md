@@ -17,11 +17,10 @@ Repo for learning Databrary code base
 * MonadHasIdentity, MonadHasRequest,
 * MonadAudit
 * MonadHas Secret
-* Example demonstrating each operator in Ops
+* Has.focusIO
+* Deform library
 * Service.DB exposed functions
-* Controller related examples
-  * Has.focusIO
-* ReForm library
+* Example demonstrating each operator in Ops
 
 * Generate Angular and serve
 
