@@ -17,6 +17,9 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
                      , Lib2
+                     , Lib2th
+                     , Lib3
+                     , Lib4
   build-depends:       base >= 4.7 && < 5
                      , postgresql-typed == 0.4.5
                      , mtl
