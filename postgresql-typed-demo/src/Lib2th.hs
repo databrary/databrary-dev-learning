@@ -246,6 +246,10 @@ selectJoin f l@(h:t) = Selector
 selectJoin _ [] = error "selectJoin: empty list"
 
 
+
+
+
+
 ------------- Build up list of TH column names -----------
 
 --   nl <- mapM (TH.newName . ('v':) . colVar) cols
