@@ -134,15 +134,101 @@ addSelects f s c = s
 ------------- Use joinOn to combine selectors -----------
 
 {-
-makeFunding :: [Maybe T.Text] -> Funder -> Funding
-makeFunding a f = Funding f (map (fromMaybe (error "NULL funding.award")) a)
+Funding :: Double -> Funder -> Funding  -- Amount -> funder -> vol_funding
 
 selectVolumeFunding :: Selector -- ^ @'Funding'@
-selectVolumeFunding = selectJoin '($)
-  [ selectColumns 'makeFunding "volume_funding" ["awards"]
-  , joinOn "volume_funding.funder = funder.fundref_id" selectColumns 'Funder "funder" ["fundref_id", "name"]
-  ]
+selectVolumeFunding =
+  selectJoin
+    '($)
+      [ selectColumns 'Funding "volume_funding" ["awards"]  -- child (xref)
+      , joinOn "volume_funding.funder = funder.fundref_id"
+            (selectColumns 'Funder "funder" ["fundref_id", "name"])  -- parent (lookup)
+      ]
 -}
+
+data TagUse = TagUse { tuRole :: String , tuTag :: Tag } deriving (Eq, Show)
+
+selectTagUse :: Selector
+selectTagUse =
+  selectJoin
+    '($)
+    [ selectColumns 'TagUse "tag_use" ["use_role"]  -- child
+    , joinOn "tag_use.tag_id = tag.id"
+         (selectColumns 'Tag "tag" ["id", "name"])  -- parent
+    ]
+
+selectTagUse2 :: Selector
+selectTagUse2 =
+  selectJoin
+    '($)
+    [ selectColumns 'TagUse "tag_use" ["use_role"]  -- child
+    , joinWith (\s -> " JOIN " ++ s ++ " ON " ++ "tag_use.tag_id = tag.id")
+         (selectColumns 'Tag "tag" ["id", "name"])  -- parent
+    ]
+
+selectTagUse3 :: Selector
+selectTagUse3 =
+  selectJoin
+    '($)
+    [ selectColumns 'TagUse "tag_use" ["use_role"]
+    , joinWith (\s -> " JOIN " ++ s ++ " ON " ++ "tag_use.tag_id = tag.id")
+        (Selector {
+           selectOutput = OutputJoin False 'Tag [SelectColumn "tag" "id", SelectColumn "tag" "name"]
+         , selectSource = "tag"
+         , selectJoined = ",tag"
+         })
+    ]
+
+selectTagUse4 :: Selector
+selectTagUse4 =
+  selectJoin
+    '($)
+    [ selectColumns 'TagUse "tag_use" ["use_role"]
+    , (Selector {
+           selectOutput = OutputJoin False 'Tag [SelectColumn "tag" "id", SelectColumn "tag" "name"]
+         , selectSource = "tag"
+         , selectJoined = (\s -> " JOIN " ++ s ++ " ON " ++ "tag_use.tag_id = tag.id") "tag" })
+    ]
+
+selectTagUse5 :: Selector
+selectTagUse5 =
+  selectJoin
+    '($)
+    [ Selector {
+        selectOutput = OutputJoin False 'TagUse [SelectColumn "tag_use" "use_role"]
+      , selectSource = "tag_use"
+      , selectJoined = ",tag_use" }
+    , (Selector {
+           selectOutput = OutputJoin False 'Tag [SelectColumn "tag" "id", SelectColumn "tag" "name"]
+         , selectSource = "tag"
+         , selectJoined = (\s -> " JOIN " ++ s ++ " ON " ++ "tag_use.tag_id = tag.id") "tag" })
+    ]
+
+selectTagUse6 :: Selector
+selectTagUse6 =
+  Selector
+    { selectOutput =
+        OutputJoin
+          False
+          '($)
+          [ OutputJoin False 'TagUse [SelectColumn "tag_use" "use_role"]
+          , OutputJoin False 'Tag [SelectColumn "tag" "id", SelectColumn "tag" "name"] ]
+    , selectSource = "tag_use" ++ ((\s -> " JOIN " ++ s ++ " ON " ++ "tag_use.tag_id = tag.id") "tag")
+    , selectJoined = ",tag_use" ++ ((\s -> " JOIN " ++ s ++ " ON " ++ "tag_use.tag_id = tag.id") "tag")
+    }
+
+selectTagUse7 :: Selector
+selectTagUse7 =
+  Selector
+    { selectOutput =
+        OutputJoin
+          False
+          '($)
+          [ OutputJoin False 'TagUse [SelectColumn "tag_use" "use_role"]
+          , OutputJoin False 'Tag [SelectColumn "tag" "id", SelectColumn "tag" "name"] ]
+    , selectSource = "tag_use JOIN tag ON tag_use.tag_id = tag.id"
+    , selectJoined = ",tag_use JOIN tag ON tag_use.tag_id = tag.id"
+    }
 
 ----------
 joinOn :: String -> Selector -> Selector
@@ -150,6 +236,15 @@ joinOn on = joinWith (\s -> " JOIN " ++ s ++ " ON " ++ on)
 
 joinWith :: (String -> String) -> Selector -> Selector
 joinWith j sel = sel{ selectJoined = j (selectSource sel) }
+
+selectJoin :: TH.Name -> [Selector] -> Selector
+selectJoin f l@(h:t) = Selector
+  { selectOutput = OutputJoin False f $ map selectOutput l
+  , selectSource = selectSource h ++ joins
+  , selectJoined = selectJoined h ++ joins
+  } where joins = concatMap selectJoined t
+selectJoin _ [] = error "selectJoin: empty list"
+
 
 ------------- Build up list of TH column names -----------
 
