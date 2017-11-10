@@ -5,10 +5,10 @@ Create directory t1 with a file called yo.txt inside of it
 > cd /tmp/
 > mkdir t1
 > cd t1/
+> echo "hi" > yo.txt
 > ls -l t1/
 total 4
 -rw-rw-r-- 1 kanishka kanishka 3 Nov  9 21:03 yo.txt
-> echo "hi" > yo.txt
 ```
 
 Create archive (similar to tar, but more deterministic) from folder t1
