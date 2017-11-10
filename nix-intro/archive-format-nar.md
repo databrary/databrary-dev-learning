@@ -26,4 +26,4 @@ total 4
 -rw-r--r-- 1 kanishka kanishka 3 Nov  9 21:05 yo.txt
 ```
 
-The timestamp is has changed?
+The timestamp has changed?
