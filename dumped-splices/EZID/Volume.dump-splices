@@ -1,0 +1,48 @@
+Databrary/EZID/Volume.hs:38:1-6: Splicing declarations
+    useTDB ======>
+Databrary/EZID/Volume.hs:66:35-85: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL "!SELECT id, doi FROM volume WHERE doi IS NOT NULL"
+  ======>
+    \ -> Database.PostgreSQL.Typed.Query.QueryParser
+           (\ _tenv_aeYfN
+              -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                   (BSC.concat
+                      [Data.String.fromString
+                         "SELECT id, doi FROM volume WHERE doi IS NOT NULL"]))
+           (\ _tenv_aeYfN [_cid_aeYfP, _cdoi_aeYfQ]
+              -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                    _tenv_aeYfN
+                    (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                       Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                    _cid_aeYfP, 
+                  Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                    _tenv_aeYfN
+                    (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                       Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                    _cdoi_aeYfQ))
+Databrary/EZID/Volume.hs:69:38-99: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "UPDATE volume SET doi = ${d} WHERE id = ${v} AND doi IS NULL"
+  ======>
+    (\ _p_aeYg6 _p_aeYg7
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_aeYg5
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (BSC.concat
+                       [Data.String.fromString "UPDATE volume SET doi = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aeYg5
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                          _p_aeYg6,
+                        Data.String.fromString " WHERE id = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aeYg5
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aeYg7,
+                        Data.String.fromString " AND doi IS NULL"]))
+            (\ _tenv_aeYg5 [] -> ()))
+      d v

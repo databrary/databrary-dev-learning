@@ -1,0 +1,43 @@
+Databrary/Model/Release/Types.hs:22:1-20: Splicing declarations
+    deriveLift ''Release
+  ======>
+    instance Language.Haskell.TH.Syntax.Lift Release where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a43VS
+            -> case e_a43VS of {
+                 ReleasePRIVATE
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "ReleasePRIVATE")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Release.Types")))
+                 ReleaseSHARED
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "ReleaseSHARED")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Release.Types")))
+                 ReleaseEXCERPTS
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "ReleaseEXCERPTS")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Release.Types")))
+                 ReleasePUBLIC
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "ReleasePUBLIC")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Release.Types"))) }

@@ -1,0 +1,256 @@
+Databrary/Model/Notification/Notify.hs:27:1-6: Splicing declarations
+    useTDB ======>
+Databrary/Model/Notification/Notify.hs:31:14-120: Splicing expression
+    selectQuery
+      selectNotifyDelivery
+      "$WHERE target = ${partyId $ partyRow $ accountParty a} AND notice = ${n}"
+  ======>
+    fmap
+      (\ (vdelivery_a7Eub) -> fromMaybeDelivery vdelivery_a7Eub)
+      ((\ _p_a7Euy _p_a7Euz
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a7Eux
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT notify_view.delivery FROM notify_view WHERE target = $1 AND notice = $2")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a7Eux
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Euy,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a7Eux
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7Euz]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7Eux
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")])
+               (\ _tenv_a7Eux [_cdelivery_a7EuA]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7Eux
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                        _cdelivery_a7EuA)))
+         (partyId $ partyRow $ accountParty a) n)
+Databrary/Model/Notification/Notify.hs:35:18-130: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "!SELECT notice, delivery FROM notify_view WHERE target = ${partyId $ partyRow $ accountParty a} ORDER BY notice"
+  ======>
+    (\ _p_a7Ewn
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7Ewm
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "SELECT notice, delivery FROM notify_view WHERE target = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Ewm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Ewn,
+                        Data.String.fromString " ORDER BY notice"]))
+            (\ _tenv_a7Ewm [_cnotice_a7Ewo, _cdelivery_a7Ewp]
+               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a7Ewm
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                     _cnotice_a7Ewo, 
+                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a7Ewm
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                     _cdelivery_a7Ewp)))
+      (partyId $ partyRow $ accountParty a)
+Databrary/Model/Notification/Notify.hs:40:12-118: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "UPDATE notify SET delivery = ${d} WHERE target = ${partyId $ partyRow $ accountParty a} AND notice = ${n}"
+  ======>
+    (\ _p_a7ExW _p_a7ExX _p_a7ExY
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7ExV
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "UPDATE notify SET delivery = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7ExV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                          _p_a7ExW,
+                        Data.String.fromString " WHERE target = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7ExV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7ExX,
+                        Data.String.fromString " AND notice = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7ExV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7ExY]))
+            (\ _tenv_a7ExV [] -> ()))
+      d (partyId $ partyRow $ accountParty a) n
+Databrary/Model/Notification/Notify.hs:41:12-118: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "INSERT INTO notify (target, notice, delivery) VALUES (${partyId $ partyRow $ accountParty a}, ${n}, ${d})"
+  ======>
+    (\ _p_a7EyT _p_a7EyU _p_a7EyV
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7EyS
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "INSERT INTO notify (target, notice, delivery) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7EyS
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7EyT,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7EyS
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7EyU,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7EyS
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                          _p_a7EyV,
+                        Data.String.fromString ")"]))
+            (\ _tenv_a7EyS [] -> ()))
+      (partyId $ partyRow $ accountParty a) n d
+Databrary/Model/Notification/Notify.hs:47:21-112: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "DELETE FROM notify WHERE target = ${partyId $ partyRow $ accountParty a} AND notice = ${n}"
+  ======>
+    (\ _p_a7EzO _p_a7EzP
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7EzN
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "DELETE FROM notify WHERE target = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7EzN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7EzO,
+                        Data.String.fromString " AND notice = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7EzN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7EzP]))
+            (\ _tenv_a7EzN [] -> ()))
+      (partyId $ partyRow $ accountParty a) n
+Databrary/Model/Notification/Notify.hs:52:13-118: Splicing expression
+    selectQuery
+      (selectPartyAuthorizationNotify 'ident_a7EA0)
+      "WHERE notice = ${n} AND account.password IS NOT NULL"
+  ======>
+    fmap
+      (\ (vid_a7EAi, vname_a7EAj, vprename_a7EAk, vorcid_a7EAl,
+          vaffiliation_a7EAm, vurl_a7EAn, vemail_a7EAo, vsite_a7EAp,
+          vmember_a7EAq, vdelivery_a7EAr)
+         -> Databrary.Model.Notification.SQL.makePartyAuthorizationNotice
+              (Databrary.Model.Party.SQL.makePartyAuthorization
+                 (Databrary.Model.Party.SQL.permissionParty
+                    (Databrary.Model.Party.SQL.makeParty
+                       (PartyRow
+                          vid_a7EAi
+                          vname_a7EAj
+                          vprename_a7EAk
+                          vorcid_a7EAl
+                          vaffiliation_a7EAm
+                          vurl_a7EAn)
+                       (do { cm_a7EAs <- vemail_a7EAo;
+                             Just (Account cm_a7EAs) }))
+                    Nothing
+                    ident_a7EA0)
+                 (do { cm_a7EAw <- vsite_a7EAp;
+                       cm_a7EAx <- vmember_a7EAq;
+                       Just (Access cm_a7EAw cm_a7EAx) }))
+              (fromMaybeDelivery vdelivery_a7EAr))
+      ((\ _p_a7EAQ
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a7EAP
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_view.site,authorize_view.member,notify_view.delivery FROM party LEFT JOIN account USING (id) LEFT JOIN authorize_view ON party.id = authorize_view.child AND authorize_view.parent = 0 JOIN notify_view ON id = target WHERE notice = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a7EAP
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                             _p_a7EAQ,
+                           Data.String.fromString " AND account.password IS NOT NULL"]))
+               (\ _tenv_a7EAP
+                  [_cid_a7EAR,
+                   _cname_a7EAS,
+                   _cprename_a7EAT,
+                   _corcid_a7EAU,
+                   _caffiliation_a7EAV,
+                   _curl_a7EAW,
+                   _cemail_a7EAX,
+                   _csite_a7EAY,
+                   _cmember_a7EAZ,
+                   _cdelivery_a7EB0]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7EAR, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7EAS, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cprename_a7EAT, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
+                        _corcid_a7EAU, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _caffiliation_a7EAV, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _curl_a7EAW, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cemail_a7EAX, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _csite_a7EAY, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cmember_a7EAZ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7EAP
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                        _cdelivery_a7EB0)))
+         n)

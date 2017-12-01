@@ -1,0 +1,36 @@
+Databrary/Service/Types.hs:54:1-244: Splicing declarations
+    makeHasRec
+      ''Service
+      ['serviceSecret, 'serviceEntropy, 'servicePasswd, 'serviceLogs,
+       'serviceMessages, 'serviceDB, 'serviceStorage, 'serviceAV,
+       'serviceWeb, 'serviceHTTPClient, 'serviceStatic, 'serviceIngest,
+       'serviceSolr, 'serviceNotification]
+  ======>
+    instance Databrary.Has.Has Secret Service where
+      Databrary.Has.view = serviceSecret
+    instance Databrary.Has.Has Entropy Service where
+      Databrary.Has.view = serviceEntropy
+    instance Databrary.Has.Has Passwd Service where
+      Databrary.Has.view = servicePasswd
+    instance Databrary.Has.Has Logs Service where
+      Databrary.Has.view = serviceLogs
+    instance Databrary.Has.Has Messages Service where
+      Databrary.Has.view = serviceMessages
+    instance Databrary.Has.Has DBPool Service where
+      Databrary.Has.view = serviceDB
+    instance Databrary.Has.Has Storage Service where
+      Databrary.Has.view = serviceStorage
+    instance Databrary.Has.Has AV Service where
+      Databrary.Has.view = serviceAV
+    instance Databrary.Has.Has Web Service where
+      Databrary.Has.view = serviceWeb
+    instance Databrary.Has.Has HTTPClient Service where
+      Databrary.Has.view = serviceHTTPClient
+    instance Databrary.Has.Has Static Service where
+      Databrary.Has.view = serviceStatic
+    instance Databrary.Has.Has Ingest Service where
+      Databrary.Has.view = serviceIngest
+    instance Databrary.Has.Has Solr Service where
+      Databrary.Has.view = serviceSolr
+    instance Databrary.Has.Has Notifications Service where
+      Databrary.Has.view = serviceNotification

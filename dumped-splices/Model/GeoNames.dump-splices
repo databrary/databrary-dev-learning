@@ -1,0 +1,5 @@
+Databrary/Model/GeoNames.hs:29:1-33: Splicing declarations
+    makeHasRec ''GeoName ['geoNameId]
+  ======>
+    instance Databrary.Has.Has (Id GeoName) GeoName where
+      Databrary.Has.view = geoNameId

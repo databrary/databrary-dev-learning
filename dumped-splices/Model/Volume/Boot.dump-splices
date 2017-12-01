@@ -1,0 +1,91 @@
+Databrary/Model/Volume/Boot.hs:20:29-94: Splicing expression
+    selectQuery (selectVolume 'PreIdentified) "WHERE volume.id = ${i}"
+  ======>
+    fmap
+      (\ (vid_a5HO6, vname_a5HO7, vbody_a5HO8, valias_a5HO9, vdoi_a5HOa,
+          vc_a5HOb, vowners_a5HOc, vpermission_a5HOd)
+         -> Databrary.Model.Volume.SQL.makeVolume
+              (Databrary.Model.Volume.SQL.setCreation
+                 (VolumeRow
+                    vid_a5HO6 vname_a5HO7 vbody_a5HO8 valias_a5HO9 vdoi_a5HOa)
+                 vc_a5HOb)
+              vowners_a5HOc
+              vpermission_a5HOd)
+      ((\ _p_a5HPd _p_a5HPe _p_a5HPf
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a5HPb
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a5HPb
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                             _p_a5HPd,
+                           Data.String.fromString
+                             " THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a5HPb
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                             _p_a5HPe,
+                           Data.String.fromString
+                             ") END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission WHERE volume.id = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a5HPb
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                             _p_a5HPf]))
+               (\ _tenv_a5HPb
+                  [_cid_a5HPg,
+                   _cname_a5HPh,
+                   _cbody_a5HPi,
+                   _calias_a5HPj,
+                   _cdoi_a5HPk,
+                   _cvolume_creation_a5HPl,
+                   _cowners_a5HPm,
+                   _cpermission_a5HPo]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a5HPg, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a5HPh, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cbody_a5HPi, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _calias_a5HPj, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cdoi_a5HPk, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                        _cvolume_creation_a5HPl, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                        _cowners_a5HPm, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a5HPb
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cpermission_a5HPo)))
+         (identitySuperuser Databrary.Model.Identity.Types.PreIdentified)
+         (view Databrary.Model.Identity.Types.PreIdentified :: Id Party)
+         i)

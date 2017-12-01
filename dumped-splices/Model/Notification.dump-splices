@@ -1,0 +1,1135 @@
+Databrary/Model/Notification.hs:37:1-6: Splicing declarations
+    useTDB ======>
+Databrary/Model/Notification.hs:42:30-567: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "INSERT INTO notification (target, notice, delivered, agent, party, volume, container, segment, asset, comment, tag, permission, release) VALUES (${partyId $ partyRow $ accountParty notificationTarget}, ${notificationNotice}, ${notificationDelivered}, ${partyId u}, ${partyId <$> notificationParty}, ${volumeId <$> notificationVolume}, ${notificationContainerId}, ${notificationSegment}, ${notificationAssetId}, ${notificationCommentId}, ${tagId <$> notificationTag}, ${notificationPermission}, ${notificationRelease}) RETURNING id, time"
+  ======>
+    (\ _p_a7SAM
+       _p_a7SAN
+       _p_a7SAP
+       _p_a7SAQ
+       _p_a7SAR
+       _p_a7SAS
+       _p_a7SAT
+       _p_a7SAU
+       _p_a7SAV
+       _p_a7SAW
+       _p_a7SAX
+       _p_a7SAY
+       _p_a7SAZ
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7SAL
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "INSERT INTO notification (target, notice, delivered, agent, party, volume, container, segment, asset, comment, tag, permission, release) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAM,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7SAN,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                          _p_a7SAP,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAQ,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAR,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAS,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAT,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_a7SAU,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAV,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAW,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SAX,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                          _p_a7SAY,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SAL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_a7SAZ,
+                        Data.String.fromString ") RETURNING id, time"]))
+            (\ _tenv_a7SAL [_cid_a7SB1, _ctime_a7SB2]
+               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a7SAL
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                     _cid_a7SB1, 
+                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a7SAL
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                     _ctime_a7SB2)))
+      (partyId $ partyRow $ accountParty notificationTarget)
+      notificationNotice
+      notificationDelivered
+      (partyId u)
+      (partyId <$> notificationParty)
+      (volumeId <$> notificationVolume)
+      notificationContainerId
+      notificationSegment
+      notificationAssetId
+      notificationCommentId
+      (tagId <$> notificationTag)
+      notificationPermission
+      notificationRelease
+Databrary/Model/Notification.hs:52:20-559: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "INSERT INTO notification (target, notice, delivered, agent, party, volume, container, segment, asset, comment, tag, permission, release) SELECT target, notice, ${notificationDelivered}, ${u}, ${partyId <$> notificationParty}, ${volumeId <$> notificationVolume}, ${notificationContainerId}, ${notificationSegment}, ${notificationAssetId}, ${notificationCommentId}, ${tagId <$> notificationTag}, ${notificationPermission}, ${notificationRelease} FROM notify_view WHERE notice = ${notificationNotice} AND delivery > 'none' AND target <> ${u}"
+  ======>
+    (\ _p_a7SFS
+       _p_a7SFT
+       _p_a7SFU
+       _p_a7SFV
+       _p_a7SFW
+       _p_a7SFX
+       _p_a7SFY
+       _p_a7SFZ
+       _p_a7SG0
+       _p_a7SG1
+       _p_a7SG2
+       _p_a7SG3
+       _p_a7SG4
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7SFR
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "INSERT INTO notification (target, notice, delivered, agent, party, volume, container, segment, asset, comment, tag, permission, release) SELECT target, notice, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                          _p_a7SFS,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SFT,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SFU,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SFV,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SFW,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_a7SFX,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SFY,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SFZ,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SG0,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                          _p_a7SG1,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_a7SG2,
+                        Data.String.fromString " FROM notify_view WHERE notice = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7SG3,
+                        Data.String.fromString " AND delivery > 'none' AND target <> ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SFR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SG4]))
+            (\ _tenv_a7SFR [] -> ()))
+      notificationDelivered
+      u
+      (partyId <$> notificationParty)
+      (volumeId <$> notificationVolume)
+      notificationContainerId
+      notificationSegment
+      notificationAssetId
+      notificationCommentId
+      (tagId <$> notificationTag)
+      notificationPermission
+      notificationRelease
+      notificationNotice
+      u
+Databrary/Model/Notification.hs:56:20-124: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "UPDATE notification SET delivered = ${d} WHERE id = ANY (${map notificationId nl}) AND delivered < ${d}"
+  ======>
+    (\ _p_a7SJ2 _p_a7SJ3 _p_a7SJ4
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7SJ1
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "UPDATE notification SET delivered = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SJ1
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                          _p_a7SJ2,
+                        Data.String.fromString " WHERE id = ANY (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SJ1
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer[]")
+                          _p_a7SJ3,
+                        Data.String.fromString ") AND delivered < ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7SJ1
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                          _p_a7SJ4]))
+            (\ _tenv_a7SJ1 [] -> ()))
+      d (map notificationId nl) d
+Databrary/Model/Notification.hs:61:25-130: Splicing expression
+    selectQuery
+      selectTargetNotification
+      "$WHERE target = ${view u :: Id Party} ORDER BY notification.id DESC"
+  ======>
+    fmap
+      (\ (vid_a7SK0, vnotice_a7SK1, vtime_a7SK2, vdelivered_a7SK3,
+          vpermission_a7SK4, vcontainer_a7SK5, vsegment_a7SK6, vasset_a7SK7,
+          vrelease_a7SK8, vcomment_a7SK9, vid_a7SKa, vname_a7SKb,
+          vprename_a7SKc, vorcid_a7SKd, vaffiliation_a7SKe, vurl_a7SKf,
+          vid_a7SKg, vname_a7SKh, vprename_a7SKi, vorcid_a7SKj,
+          vaffiliation_a7SKk, vurl_a7SKl, vid_a7SKm, vname_a7SKn,
+          vbody_a7SKo, valias_a7SKp, vdoi_a7SKq, vid_a7SKr, vname_a7SKs)
+         -> ($)
+              (Databrary.Model.Notification.SQL.makeNotification
+                 vid_a7SK0
+                 vnotice_a7SK1
+                 vtime_a7SK2
+                 vdelivered_a7SK3
+                 vpermission_a7SK4
+                 vcontainer_a7SK5
+                 vsegment_a7SK6
+                 vasset_a7SK7
+                 vrelease_a7SK8
+                 vcomment_a7SK9)
+              (PartyRow
+                 vid_a7SKa
+                 vname_a7SKb
+                 vprename_a7SKc
+                 vorcid_a7SKd
+                 vaffiliation_a7SKe
+                 vurl_a7SKf)
+              (do { cm_a7SKw <- vid_a7SKg;
+                    cm_a7SKx <- vname_a7SKh;
+                    Just
+                      (PartyRow
+                         cm_a7SKw
+                         cm_a7SKx
+                         vprename_a7SKi
+                         vorcid_a7SKj
+                         vaffiliation_a7SKk
+                         vurl_a7SKl) })
+              (do { cm_a7SKA <- vid_a7SKm;
+                    cm_a7SKB <- vname_a7SKn;
+                    Just
+                      (VolumeRow
+                         cm_a7SKA cm_a7SKB vbody_a7SKo valias_a7SKp vdoi_a7SKq) })
+              (do { cm_a7SKF <- vid_a7SKr;
+                    cm_a7SKG <- vname_a7SKs;
+                    Just (Tag cm_a7SKF cm_a7SKG) }))
+      ((\ _p_a7SLy
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a7SLx
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT notification.id,notification.notice,notification.time,notification.delivered,notification.permission,notification.container,notification.segment,notification.asset,notification.release,notification.comment,agent.id,agent.name,agent.prename,agent.orcid,agent.affiliation,agent.url,nparty.id,nparty.name,nparty.prename,nparty.orcid,nparty.affiliation,nparty.url,volume.id,volume.name,volume.body,volume.alias,volume.doi,tag.id,tag.name FROM notification JOIN party AS agent ON notification.agent = agent.id LEFT JOIN party AS nparty ON notification.party = nparty.id LEFT JOIN volume ON notification.volume = volume.id LEFT JOIN tag ON notification.tag = tag.id WHERE target = $1 ORDER BY notification.id DESC")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7SLy]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a7SLx
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")])
+               (\ _tenv_a7SLx
+                  [_cid_a7SLz,
+                   _cnotice_a7SLA,
+                   _ctime_a7SLB,
+                   _cdelivered_a7SLC,
+                   _cpermission_a7SLD,
+                   _ccontainer_a7SLE,
+                   _csegment_a7SLG,
+                   _casset_a7SLH,
+                   _crelease_a7SLI,
+                   _ccomment_a7SLJ,
+                   _cid_a7SLK,
+                   _cname_a7SLL,
+                   _cprename_a7SLM,
+                   _corcid_a7SLN,
+                   _caffiliation_a7SLO,
+                   _curl_a7SLP,
+                   _cid_a7SLQ,
+                   _cname_a7SLR,
+                   _cprename_a7SLS,
+                   _corcid_a7SLT,
+                   _caffiliation_a7SLU,
+                   _curl_a7SLV,
+                   _cid_a7SLW,
+                   _cname_a7SLX,
+                   _cbody_a7SLY,
+                   _calias_a7SLZ,
+                   _cdoi_a7SM0,
+                   _cid_a7SM1,
+                   _cname_a7SM2]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SLz, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cnotice_a7SLA, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                        _ctime_a7SLB, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                        _cdelivered_a7SLC, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cpermission_a7SLD, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _ccontainer_a7SLE, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_a7SLG, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _casset_a7SLH, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a7SLI, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _ccomment_a7SLJ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SLK, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SLL, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cprename_a7SLM, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
+                        _corcid_a7SLN, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _caffiliation_a7SLO, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _curl_a7SLP, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SLQ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SLR, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cprename_a7SLS, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
+                        _corcid_a7SLT, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _caffiliation_a7SLU, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _curl_a7SLV, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SLW, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SLX, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cbody_a7SLY, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _calias_a7SLZ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cdoi_a7SM0, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SM1, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SLx
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cname_a7SM2)))
+         (view u :: Id Party))
+Databrary/Model/Notification.hs:66:38-129: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "$SELECT count(id) FROM notification WHERE target = ${u :: Id Party} AND delivered = 'none'"
+  ======>
+    (\ _p_a7SSs
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7SSp
+               -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                    (Data.String.fromString
+                       "SELECT count(id) FROM notification WHERE target = $1 AND delivered = 'none'")
+                    []
+                    [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                       _tenv_a7SSp
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                       _p_a7SSs]
+                    [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                       _tenv_a7SSp
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "bigint")])
+            (\ _tenv_a7SSp [_ccount_a7SSt]
+               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                     _tenv_a7SSp
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                     _ccount_a7SSt)))
+      (u :: Id Party)
+Databrary/Model/Notification.hs:70:13-176: Splicing expression
+    selectQuery
+      selectNotification
+      "JOIN notify_view USING (target, notice) WHERE delivery >= ${d} AND delivered = 'none' ORDER BY notification.target, notification.id"
+  ======>
+    fmap
+      (\ (vid_a7SUM, vnotice_a7SUN, vtime_a7SUO, vdelivered_a7SUP,
+          vpermission_a7SUQ, vcontainer_a7SUR, vsegment_a7SUS, vasset_a7SUT,
+          vrelease_a7SUU, vcomment_a7SUV, vid_a7SUW, vname_a7SUX,
+          vprename_a7SUY, vorcid_a7SUZ, vaffiliation_a7SV0, vurl_a7SV1,
+          vid_a7SV2, vname_a7SV3, vprename_a7SV4, vorcid_a7SV5,
+          vaffiliation_a7SV6, vurl_a7SV7, vid_a7SV8, vname_a7SVa,
+          vbody_a7SVb, valias_a7SVc, vdoi_a7SVd, vid_a7SVe, vname_a7SVf,
+          vid_a7SVg, vname_a7SVi, vprename_a7SVj, vorcid_a7SVk,
+          vaffiliation_a7SVl, vurl_a7SVm, vemail_a7SVo)
+         -> ($)
+              (($)
+                 (Databrary.Model.Notification.SQL.makeNotification
+                    vid_a7SUM
+                    vnotice_a7SUN
+                    vtime_a7SUO
+                    vdelivered_a7SUP
+                    vpermission_a7SUQ
+                    vcontainer_a7SUR
+                    vsegment_a7SUS
+                    vasset_a7SUT
+                    vrelease_a7SUU
+                    vcomment_a7SUV)
+                 (PartyRow
+                    vid_a7SUW
+                    vname_a7SUX
+                    vprename_a7SUY
+                    vorcid_a7SUZ
+                    vaffiliation_a7SV0
+                    vurl_a7SV1)
+                 (do { cm_a7SVD <- vid_a7SV2;
+                       cm_a7SVE <- vname_a7SV3;
+                       Just
+                         (PartyRow
+                            cm_a7SVD
+                            cm_a7SVE
+                            vprename_a7SV4
+                            vorcid_a7SV5
+                            vaffiliation_a7SV6
+                            vurl_a7SV7) })
+                 (do { cm_a7SVI <- vid_a7SV8;
+                       cm_a7SVJ <- vname_a7SVa;
+                       Just
+                         (VolumeRow
+                            cm_a7SVI cm_a7SVJ vbody_a7SVb valias_a7SVc vdoi_a7SVd) })
+                 (do { cm_a7SVM <- vid_a7SVe;
+                       cm_a7SVO <- vname_a7SVf;
+                       Just (Tag cm_a7SVM cm_a7SVO) }))
+              (Databrary.Model.Party.SQL.makeUserAccount
+                 (Databrary.Model.Party.SQL.makeAccount
+                    (PartyRow
+                       vid_a7SVg
+                       vname_a7SVi
+                       vprename_a7SVj
+                       vorcid_a7SVk
+                       vaffiliation_a7SVl
+                       vurl_a7SVm)
+                    (Account vemail_a7SVo))))
+      ((\ _p_a7SYT
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a7SYR
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT notification.id,notification.notice,notification.time,notification.delivered,notification.permission,notification.container,notification.segment,notification.asset,notification.release,notification.comment,agent.id,agent.name,agent.prename,agent.orcid,agent.affiliation,agent.url,nparty.id,nparty.name,nparty.prename,nparty.orcid,nparty.affiliation,nparty.url,volume.id,volume.name,volume.body,volume.alias,volume.doi,tag.id,tag.name,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email FROM notification JOIN party AS agent ON notification.agent = agent.id LEFT JOIN party AS nparty ON notification.party = nparty.id LEFT JOIN volume ON notification.volume = volume.id LEFT JOIN tag ON notification.tag = tag.id JOIN party JOIN account USING (id) ON notification.target = account.id JOIN notify_view USING (target, notice) WHERE delivery >= ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a7SYR
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                             _p_a7SYT,
+                           Data.String.fromString
+                             " AND delivered = 'none' ORDER BY notification.target, notification.id"]))
+               (\ _tenv_a7SYR
+                  [_cid_a7SYU,
+                   _cnotice_a7SYV,
+                   _ctime_a7SYW,
+                   _cdelivered_a7SYX,
+                   _cpermission_a7SYY,
+                   _ccontainer_a7SYZ,
+                   _csegment_a7SZ0,
+                   _casset_a7SZ1,
+                   _crelease_a7SZ2,
+                   _ccomment_a7SZ3,
+                   _cid_a7SZ4,
+                   _cname_a7SZ5,
+                   _cprename_a7SZ6,
+                   _corcid_a7SZ7,
+                   _caffiliation_a7SZ8,
+                   _curl_a7SZ9,
+                   _cid_a7SZa,
+                   _cname_a7SZb,
+                   _cprename_a7SZc,
+                   _corcid_a7SZd,
+                   _caffiliation_a7SZe,
+                   _curl_a7SZf,
+                   _cid_a7SZg,
+                   _cname_a7SZi,
+                   _cbody_a7SZj,
+                   _calias_a7SZk,
+                   _cdoi_a7SZl,
+                   _cid_a7SZm,
+                   _cname_a7SZn,
+                   _cid_a7SZo,
+                   _cname_a7SZp,
+                   _cprename_a7SZr,
+                   _corcid_a7SZs,
+                   _caffiliation_a7SZt,
+                   _curl_a7SZu,
+                   _cemail_a7SZv]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SYU, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cnotice_a7SYV, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                        _ctime_a7SYW, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "notice_delivery")
+                        _cdelivered_a7SYX, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cpermission_a7SYY, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _ccontainer_a7SYZ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_a7SZ0, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _casset_a7SZ1, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a7SZ2, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _ccomment_a7SZ3, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SZ4, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SZ5, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cprename_a7SZ6, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
+                        _corcid_a7SZ7, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _caffiliation_a7SZ8, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _curl_a7SZ9, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SZa, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SZb, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cprename_a7SZc, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
+                        _corcid_a7SZd, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _caffiliation_a7SZe, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _curl_a7SZf, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SZg, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SZi, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cbody_a7SZj, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _calias_a7SZk, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cdoi_a7SZl, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SZm, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cname_a7SZn, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a7SZo, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a7SZp, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cprename_a7SZr, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
+                        _corcid_a7SZs, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _caffiliation_a7SZt, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _curl_a7SZu, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a7SYR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cemail_a7SZv)))
+         d)
+Databrary/Model/Notification.hs:75:21-92: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "DELETE FROM notification WHERE id = ${i} AND target = ${p :: Id Party}"
+  ======>
+    (\ _p_a7T4v _p_a7T4w
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7T4u
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "DELETE FROM notification WHERE id = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7T4u
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7T4v,
+                        Data.String.fromString " AND target = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7T4u
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7T4w]))
+            (\ _tenv_a7T4u [] -> ()))
+      i (p :: Id Party)
+Databrary/Model/Notification.hs:80:20-124: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "DELETE FROM notification WHERE target = ${p :: Id Party} AND agent <> ${partyId $ partyRow nobodyParty}"
+  ======>
+    (\ _p_a7T6j _p_a7T6k
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7T6i
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "DELETE FROM notification WHERE target = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7T6i
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7T6j,
+                        Data.String.fromString " AND agent <> ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7T6i
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7T6k]))
+            (\ _tenv_a7T6i [] -> ()))
+      (p :: Id Party) (partyId $ partyRow nobodyParty)
+Databrary/Model/Notification.hs:84:20-120: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "DELETE FROM notification WHERE delivered > 'none' AND time < CURRENT_TIMESTAMP - interval '30 days'"
+  ======>
+    \ -> Database.PostgreSQL.Typed.Query.QueryParser
+           (\ _tenv_a7T8z
+              -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                   (Data.ByteString.concat
+                      [Data.String.fromString
+                         "DELETE FROM notification WHERE delivered > 'none' AND time < CURRENT_TIMESTAMP - interval '30 days'"]))
+           (\ _tenv_a7T8z [] -> ())
+Databrary/Model/Notification.hs:(88,20)-(99,6): Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "DELETE FROM notification\n\
+      \    WHERE notice = ${notificationNotice}\n\
+      \      AND target = COALESCE(${mfilter (no /=) $ Just $ partyId $ partyRow $ accountParty notificationTarget}, target) \n\
+      \      AND agent = COALESCE(${mfilter (no /=) $ Just $ partyId notificationAgent}, agent) \n\
+      \      AND COALESCE(party, -1) = COALESCE(${partyId <$> notificationParty}, party, -1)\n\
+      \      AND COALESCE(volume, -1) = COALESCE(${volumeId <$> notificationVolume}, volume, -1)\n\
+      \      AND COALESCE(container, -1) = COALESCE(${notificationContainerId}, container, -1)\n\
+      \      AND COALESCE(segment, 'empty') <@ ${fromMaybe fullSegment notificationSegment} \n\
+      \      AND COALESCE(asset, -1) = COALESCE(${notificationAssetId}, asset, -1)\n\
+      \      AND COALESCE(comment, -1) = COALESCE(${notificationCommentId}, comment, -1)\n\
+      \      AND COALESCE(tag, -1) = COALESCE(${tagId <$> notificationTag}, tag, -1)\n\
+      \    "
+  ======>
+    (\ _p_a7Tbm
+       _p_a7Tbn
+       _p_a7Tbo
+       _p_a7Tbp
+       _p_a7Tbq
+       _p_a7Tbr
+       _p_a7Tbs
+       _p_a7Tbt
+       _p_a7Tbu
+       _p_a7Tbv
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a7Tbl
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "DELETE FROM notification\n\
+                          \    WHERE notice = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                          _p_a7Tbm,
+                        Data.String.fromString
+                          "\n\
+                          \      AND target = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbn,
+                        Data.String.fromString
+                          ", target) \n\
+                          \      AND agent = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbo,
+                        Data.String.fromString
+                          ", agent) \n\
+                          \      AND COALESCE(party, -1) = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbp,
+                        Data.String.fromString
+                          ", party, -1)\n\
+                          \      AND COALESCE(volume, -1) = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbq,
+                        Data.String.fromString
+                          ", volume, -1)\n\
+                          \      AND COALESCE(container, -1) = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbr,
+                        Data.String.fromString
+                          ", container, -1)\n\
+                          \      AND COALESCE(segment, 'empty') <@ ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_a7Tbs,
+                        Data.String.fromString
+                          " \n\
+                          \      AND COALESCE(asset, -1) = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbt,
+                        Data.String.fromString
+                          ", asset, -1)\n\
+                          \      AND COALESCE(comment, -1) = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbu,
+                        Data.String.fromString
+                          ", comment, -1)\n\
+                          \      AND COALESCE(tag, -1) = COALESCE(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a7Tbl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a7Tbv,
+                        Data.String.fromString
+                          ", tag, -1)\n\
+                          \    "]))
+            (\ _tenv_a7Tbl [] -> ()))
+      notificationNotice
+      ((mfilter (no /=)) $ Just $ partyId $ partyRow
+       $ accountParty notificationTarget)
+      ((mfilter (no /=)) $ Just $ partyId notificationAgent)
+      (partyId <$> notificationParty)
+      (volumeId <$> notificationVolume)
+      notificationContainerId
+      (fromMaybe fullSegment notificationSegment)
+      notificationAssetId
+      notificationCommentId
+      (tagId <$> notificationTag)

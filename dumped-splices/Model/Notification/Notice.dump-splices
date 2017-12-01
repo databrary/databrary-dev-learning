@@ -1,0 +1,186 @@
+Databrary/Model/Notification/Notice.hs:30:1-39: Splicing declarations
+    makeDBEnum "notice_delivery" "Delivery"
+  ======>
+    data Delivery
+      = DeliveryNone |
+        DeliverySite |
+        DeliveryWeekly |
+        DeliveryDaily |
+        DeliveryAsync
+      deriving (Eq,
+                Ord,
+                Enum,
+                GHC.Arr.Ix,
+                Bounded,
+                Data.Typeable.Internal.Typeable)
+    instance Show Delivery where
+      show DeliveryNone = "none"
+      show DeliverySite = "site"
+      show DeliveryWeekly = "weekly"
+      show DeliveryDaily = "daily"
+      show DeliveryAsync = "async"
+    instance Database.PostgreSQL.Typed.Types.PGType "notice_delivery"
+    instance PGParameter "notice_delivery" Delivery where
+      pgEncode _ DeliveryNone = Data.ByteString.pack [110, 111, 110, 101]
+      pgEncode _ DeliverySite = Data.ByteString.pack [115, 105, 116, 101]
+      pgEncode _ DeliveryWeekly
+        = Data.ByteString.pack [119, 101, 101, 107, 108, 121]
+      pgEncode _ DeliveryDaily
+        = Data.ByteString.pack [100, 97, 105, 108, 121]
+      pgEncode _ DeliveryAsync
+        = Data.ByteString.pack [97, 115, 121, 110, 99]
+    instance PGColumn "notice_delivery" Delivery where
+      pgDecode _ x_a42l0
+        = case Data.ByteString.unpack x_a42l0 of {
+            [110, 111, 110, 101] -> DeliveryNone
+            [115, 105, 116, 101] -> DeliverySite
+            [119, 101, 101, 107, 108, 121] -> DeliveryWeekly
+            [100, 97, 105, 108, 121] -> DeliveryDaily
+            [97, 115, 121, 110, 99] -> DeliveryAsync
+            _ -> error ("pgDecode notice_delivery: " ++ (BSC.unpack x_a42l0)) }
+    instance PGRep "notice_delivery" Delivery
+    instance Database.PostgreSQL.Typed.Enum.PGEnum Delivery
+    instance Kinded Delivery where
+      kindOf _ = "notice_delivery"
+    instance DBEnum Delivery
+    instance JSON.ToJSON Delivery where
+      JSON.toJSON = (JSON.toJSON . fromEnum)
+    instance JSON.FromJSON Delivery where
+      JSON.parseJSON = parseJSONEnum
+    instance Deform f_a42l1 Delivery where
+      deform = enumForm
+Databrary/Model/Notification/Notice.hs:41:1-10: Splicing declarations
+    makeNotice
+  ======>
+    data Notice
+      = NoticeAccountChange |
+        NoticeAuthorizeRequest |
+        NoticeAuthorizeGranted |
+        NoticeAuthorizeExpiring |
+        NoticeAuthorizeExpired |
+        NoticeAuthorizeChildRequest |
+        NoticeAuthorizeChildGranted |
+        NoticeAuthorizeChildExpiring |
+        NoticeAuthorizeChildExpired |
+        NoticeVolumeAssist |
+        NoticeVolumeCreated |
+        NoticeVolumeSharing |
+        NoticeVolumeAccessOther |
+        NoticeVolumeAccess |
+        NoticeReleaseSlot |
+        NoticeReleaseAsset |
+        NoticeReleaseExcerpt |
+        NoticeExcerptVolume |
+        NoticeCommentVolume |
+        NoticeCommentReply |
+        NoticeTagVolume |
+        NoticeSharedVolume |
+        NoticeNewsletter
+      deriving (Eq,
+                Ord,
+                Enum,
+                GHC.Arr.Ix,
+                Bounded,
+                Data.Typeable.Internal.Typeable)
+    instance Show Notice where
+      show NoticeAccountChange = "AccountChange"
+      show NoticeAuthorizeRequest = "AuthorizeRequest"
+      show NoticeAuthorizeGranted = "AuthorizeGranted"
+      show NoticeAuthorizeExpiring = "AuthorizeExpiring"
+      show NoticeAuthorizeExpired = "AuthorizeExpired"
+      show NoticeAuthorizeChildRequest = "AuthorizeChildRequest"
+      show NoticeAuthorizeChildGranted = "AuthorizeChildGranted"
+      show NoticeAuthorizeChildExpiring = "AuthorizeChildExpiring"
+      show NoticeAuthorizeChildExpired = "AuthorizeChildExpired"
+      show NoticeVolumeAssist = "VolumeAssist"
+      show NoticeVolumeCreated = "VolumeCreated"
+      show NoticeVolumeSharing = "VolumeSharing"
+      show NoticeVolumeAccessOther = "VolumeAccessOther"
+      show NoticeVolumeAccess = "VolumeAccess"
+      show NoticeReleaseSlot = "ReleaseSlot"
+      show NoticeReleaseAsset = "ReleaseAsset"
+      show NoticeReleaseExcerpt = "ReleaseExcerpt"
+      show NoticeExcerptVolume = "ExcerptVolume"
+      show NoticeCommentVolume = "CommentVolume"
+      show NoticeCommentReply = "CommentReply"
+      show NoticeTagVolume = "TagVolume"
+      show NoticeSharedVolume = "SharedVolume"
+      show NoticeNewsletter = "Newsletter"
+    noticeToId :: Notice -> Int16
+    noticeToId NoticeAccountChange = 1
+    noticeToId NoticeAuthorizeRequest = 2
+    noticeToId NoticeAuthorizeGranted = 3
+    noticeToId NoticeAuthorizeExpiring = 4
+    noticeToId NoticeAuthorizeExpired = 5
+    noticeToId NoticeAuthorizeChildRequest = 6
+    noticeToId NoticeAuthorizeChildGranted = 7
+    noticeToId NoticeAuthorizeChildExpiring = 8
+    noticeToId NoticeAuthorizeChildExpired = 9
+    noticeToId NoticeVolumeAssist = 10
+    noticeToId NoticeVolumeCreated = 11
+    noticeToId NoticeVolumeSharing = 12
+    noticeToId NoticeVolumeAccessOther = 13
+    noticeToId NoticeVolumeAccess = 14
+    noticeToId NoticeReleaseSlot = 15
+    noticeToId NoticeReleaseAsset = 16
+    noticeToId NoticeReleaseExcerpt = 17
+    noticeToId NoticeExcerptVolume = 18
+    noticeToId NoticeCommentVolume = 19
+    noticeToId NoticeCommentReply = 20
+    noticeToId NoticeTagVolume = 21
+    noticeToId NoticeSharedVolume = 22
+    noticeToId NoticeNewsletter = 23
+    noticeFromId :: Int16 -> Maybe Notice
+    noticeFromId 1 = Just NoticeAccountChange
+    noticeFromId 2 = Just NoticeAuthorizeRequest
+    noticeFromId 3 = Just NoticeAuthorizeGranted
+    noticeFromId 4 = Just NoticeAuthorizeExpiring
+    noticeFromId 5 = Just NoticeAuthorizeExpired
+    noticeFromId 6 = Just NoticeAuthorizeChildRequest
+    noticeFromId 7 = Just NoticeAuthorizeChildGranted
+    noticeFromId 8 = Just NoticeAuthorizeChildExpiring
+    noticeFromId 9 = Just NoticeAuthorizeChildExpired
+    noticeFromId 10 = Just NoticeVolumeAssist
+    noticeFromId 11 = Just NoticeVolumeCreated
+    noticeFromId 12 = Just NoticeVolumeSharing
+    noticeFromId 13 = Just NoticeVolumeAccessOther
+    noticeFromId 14 = Just NoticeVolumeAccess
+    noticeFromId 15 = Just NoticeReleaseSlot
+    noticeFromId 16 = Just NoticeReleaseAsset
+    noticeFromId 17 = Just NoticeReleaseExcerpt
+    noticeFromId 18 = Just NoticeExcerptVolume
+    noticeFromId 19 = Just NoticeCommentVolume
+    noticeFromId 20 = Just NoticeCommentReply
+    noticeFromId 21 = Just NoticeTagVolume
+    noticeFromId 22 = Just NoticeSharedVolume
+    noticeFromId 23 = Just NoticeNewsletter
+    noticeFromId _ = Nothing
+    noticeFromName :: String -> Maybe Notice
+    noticeFromName "AccountChange" = Just NoticeAccountChange
+    noticeFromName "AuthorizeRequest" = Just NoticeAuthorizeRequest
+    noticeFromName "AuthorizeGranted" = Just NoticeAuthorizeGranted
+    noticeFromName "AuthorizeExpiring" = Just NoticeAuthorizeExpiring
+    noticeFromName "AuthorizeExpired" = Just NoticeAuthorizeExpired
+    noticeFromName "AuthorizeChildRequest"
+      = Just NoticeAuthorizeChildRequest
+    noticeFromName "AuthorizeChildGranted"
+      = Just NoticeAuthorizeChildGranted
+    noticeFromName "AuthorizeChildExpiring"
+      = Just NoticeAuthorizeChildExpiring
+    noticeFromName "AuthorizeChildExpired"
+      = Just NoticeAuthorizeChildExpired
+    noticeFromName "VolumeAssist" = Just NoticeVolumeAssist
+    noticeFromName "VolumeCreated" = Just NoticeVolumeCreated
+    noticeFromName "VolumeSharing" = Just NoticeVolumeSharing
+    noticeFromName "VolumeAccessOther" = Just NoticeVolumeAccessOther
+    noticeFromName "VolumeAccess" = Just NoticeVolumeAccess
+    noticeFromName "ReleaseSlot" = Just NoticeReleaseSlot
+    noticeFromName "ReleaseAsset" = Just NoticeReleaseAsset
+    noticeFromName "ReleaseExcerpt" = Just NoticeReleaseExcerpt
+    noticeFromName "ExcerptVolume" = Just NoticeExcerptVolume
+    noticeFromName "CommentVolume" = Just NoticeCommentVolume
+    noticeFromName "CommentReply" = Just NoticeCommentReply
+    noticeFromName "TagVolume" = Just NoticeTagVolume
+    noticeFromName "SharedVolume" = Just NoticeSharedVolume
+    noticeFromName "Newsletter" = Just NoticeNewsletter
+    noticeFromName _ = Nothing

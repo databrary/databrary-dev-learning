@@ -1,0 +1,11 @@
+Databrary/Action/Route.hs:64:21-58: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      R.biCase "Left () <-> JSON ; Right () <-> HTML"
+  ======>
+    ((\case {
+        Left ghc-prim-0.5.0.0:GHC.Tuple.() -> JSON
+        Right ghc-prim-0.5.0.0:GHC.Tuple.() -> HTML })
+     R.:<->:
+       (\case {
+          JSON -> Left ghc-prim-0.5.0.0:GHC.Tuple.()
+          HTML -> Right ghc-prim-0.5.0.0:GHC.Tuple.() }))

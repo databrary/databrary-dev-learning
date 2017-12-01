@@ -1,0 +1,118 @@
+Databrary/Controller/Notification.hs:(144,37)-(161,4): Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "#\n\
+      \    CREATE TEMPORARY TABLE notification_authorize_expire (id, target, party, permission, time, notice) ON COMMIT DROP\n\
+      \      AS   WITH authorize_expire AS (SELECT * FROM authorize WHERE expires BETWEEN CURRENT_TIMESTAMP - interval '30 days' AND CURRENT_TIMESTAMP + interval '1 week')\n\
+      \         SELECT notification.id, COALESCE(child, target), COALESCE(parent, party), site, expires, CASE WHEN expires <= CURRENT_TIMESTAMP THEN ${NoticeAuthorizeExpired} WHEN expires > CURRENT_TIMESTAMP THEN ${NoticeAuthorizeExpiring} END\n\
+      \           FROM notification FULL JOIN authorize_expire JOIN account ON child = id ON child = target AND parent = party\n\
+      \          WHERE (notice IS NULL OR notice = ${NoticeAuthorizeExpiring} OR notice = ${NoticeAuthorizeExpired})\n\
+      \      UNION ALL\n\
+      \         SELECT notification.id, COALESCE(parent, target), COALESCE(child, party), site, expires, CASE WHEN expires <= CURRENT_TIMESTAMP THEN ${NoticeAuthorizeChildExpired} WHEN expires > CURRENT_TIMESTAMP THEN ${NoticeAuthorizeChildExpiring} END\n\
+      \           FROM notification FULL JOIN authorize_expire JOIN account ON parent = id ON parent = target AND child = party\n\
+      \          WHERE (notice IS NULL OR notice = ${NoticeAuthorizeChildExpiring} OR notice = ${NoticeAuthorizeChildExpired});\n\
+      \    DELETE FROM notification USING notification_authorize_expire nae\n\
+      \          WHERE notification.id = nae.id AND nae.notice IS NULL;\n\
+      \    UPDATE notification SET notice = nae.notice, time = nae.time, delivered = CASE WHEN notification.notice = nae.notice THEN delivered ELSE 'none' END, permission = nae.permission\n\
+      \      FROM notification_authorize_expire nae WHERE notification.id = nae.id;\n\
+      \    INSERT INTO notification (notice, target, party, permission, time, agent)\n\
+      \         SELECT notice, target, party, permission, time, ${partyId $ partyRow nobodyParty}\n\
+      \           FROM notification_authorize_expire WHERE id IS NULL;\n\
+      \  "
+  ======>
+    Data.ByteString.Lazy.fromChunks
+      [Data.String.fromString
+         "\n\
+         \    CREATE TEMPORARY TABLE notification_authorize_expire (id, target, party, permission, time, notice) ON COMMIT DROP\n\
+         \      AS   WITH authorize_expire AS (SELECT * FROM authorize WHERE expires BETWEEN CURRENT_TIMESTAMP - interval '30 days' AND CURRENT_TIMESTAMP + interval '1 week')\n\
+         \         SELECT notification.id, COALESCE(child, target), COALESCE(parent, party), site, expires, CASE WHEN expires <= CURRENT_TIMESTAMP THEN ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeExpired,
+       Data.String.fromString " WHEN expires > CURRENT_TIMESTAMP THEN ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeExpiring,
+       Data.String.fromString
+         " END\n\
+         \           FROM notification FULL JOIN authorize_expire JOIN account ON child = id ON child = target AND parent = party\n\
+         \          WHERE (notice IS NULL OR notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeExpiring,
+       Data.String.fromString " OR notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeExpired,
+       Data.String.fromString
+         ")\n\
+         \      UNION ALL\n\
+         \         SELECT notification.id, COALESCE(parent, target), COALESCE(child, party), site, expires, CASE WHEN expires <= CURRENT_TIMESTAMP THEN ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeChildExpired,
+       Data.String.fromString " WHEN expires > CURRENT_TIMESTAMP THEN ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeChildExpiring,
+       Data.String.fromString
+         " END\n\
+         \           FROM notification FULL JOIN authorize_expire JOIN account ON parent = id ON parent = target AND child = party\n\
+         \          WHERE (notice IS NULL OR notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeChildExpiring,
+       Data.String.fromString " OR notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeChildExpired,
+       Data.String.fromString
+         ");\n\
+         \    DELETE FROM notification USING notification_authorize_expire nae\n\
+         \          WHERE notification.id = nae.id AND nae.notice IS NULL;\n\
+         \    UPDATE notification SET notice = nae.notice, time = nae.time, delivered = CASE WHEN notification.notice = nae.notice THEN delivered ELSE 'none' END, permission = nae.permission\n\
+         \      FROM notification_authorize_expire nae WHERE notification.id = nae.id;\n\
+         \    INSERT INTO notification (notice, target, party, permission, time, agent)\n\
+         \         SELECT notice, target, party, permission, time, ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         (partyId $ partyRow nobodyParty),
+       Data.String.fromString
+         "\n\
+         \           FROM notification_authorize_expire WHERE id IS NULL;\n\
+         \  "]
+Databrary/Controller/Notification.hs:(169,23)-(174,6): Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "#\n\
+      \      DELETE FROM notification\n\
+      \       WHERE agent = ${partyId $ partyRow nobodyParty}\n\
+      \         AND (((notice = ${NoticeAuthorizeExpiring} OR notice = ${NoticeAuthorizeExpired}) AND target = ${c} AND party = ${p})\n\
+      \           OR ((notice = ${NoticeAuthorizeChildExpiring} OR notice = ${NoticeAuthorizeChildExpired}) AND target = ${p} AND party = ${c}))\n\
+      \    "
+  ======>
+    Data.ByteString.Lazy.fromChunks
+      [Data.String.fromString
+         "\n\
+         \      DELETE FROM notification\n\
+         \       WHERE agent = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         (partyId $ partyRow nobodyParty),
+       Data.String.fromString
+         "\n\
+         \         AND (((notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeExpiring,
+       Data.String.fromString " OR notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeExpired,
+       Data.String.fromString ") AND target = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral c,
+       Data.String.fromString " AND party = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral p,
+       Data.String.fromString
+         ")\n\
+         \           OR ((notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeChildExpiring,
+       Data.String.fromString " OR notice = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral
+         NoticeAuthorizeChildExpired,
+       Data.String.fromString ") AND target = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral p,
+       Data.String.fromString " AND party = ",
+       Database.PostgreSQL.Typed.Dynamic.pgSafeLiteral c,
+       Data.String.fromString
+         "))\n\
+         \    "]

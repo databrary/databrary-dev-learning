@@ -1,0 +1,59 @@
+Databrary/Action/Types.hs:27:1-80: Splicing declarations
+    makeHasRec
+      ''RequestContext
+      ['requestContext, 'contextRequest, 'requestIdentity]
+  ======>
+    instance Has Context RequestContext where
+      view = requestContext
+    instance Has Databrary.Service.DB.DBConn RequestContext where
+      view = (view . requestContext)
+    instance Has Control.Monad.Trans.Resource.InternalState RequestContext where
+      view = (view . requestContext)
+    instance Has time-1.6.0.1:Data.Time.Calendar.Days.Day RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Model.Time.Timestamp RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Types.Secret RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Entropy.Entropy RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Passwd.Passwd RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Log.Logs RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Messages.Messages RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.DB.DBPool RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Store.Types.Storage RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Store.AV.AV RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Web.Types.Web RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.HTTP.Client.HTTPClient RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Static.Service.Static RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Ingest.Service.Ingest RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Solr.Service.Solr RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Notification.Notifications RequestContext where
+      view = (view . requestContext)
+    instance Has Databrary.Service.Types.Service RequestContext where
+      view = (view . requestContext)
+    instance Has Request RequestContext where
+      view = contextRequest
+    instance Has Identity RequestContext where
+      view = requestIdentity
+    instance Has Databrary.Model.Permission.Types.Access RequestContext where
+      view = (view . requestIdentity)
+    instance Has (Databrary.Model.Id.Types.Id Databrary.Model.Party.Types.Party) RequestContext where
+      view = (view . requestIdentity)
+    instance Has Databrary.Model.Party.Types.Account RequestContext where
+      view = (view . requestIdentity)
+    instance Has Databrary.Model.Party.Types.Party RequestContext where
+      view = (view . requestIdentity)
+    instance Has Databrary.Model.Party.Types.SiteAuth RequestContext where
+      view = (view . requestIdentity)

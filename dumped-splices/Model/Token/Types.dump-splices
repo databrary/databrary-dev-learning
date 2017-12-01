@@ -1,0 +1,87 @@
+Databrary/Model/Token/Types.hs:26:1-29: Splicing declarations
+    makeHasRec ''Token ['tokenId]
+  ======>
+    instance Databrary.Has.Has (Id Token) Token where
+      Databrary.Has.view = tokenId
+Databrary/Model/Token/Types.hs:33:1-56: Splicing declarations
+    makeHasRec ''AccountToken ['accountToken, 'tokenAccount]
+  ======>
+    instance Databrary.Has.Has Token AccountToken where
+      Databrary.Has.view = accountToken
+    instance Databrary.Has.Has (Id Token) AccountToken where
+      Databrary.Has.view = (Databrary.Has.view . accountToken)
+    instance Databrary.Has.Has SiteAuth AccountToken where
+      Databrary.Has.view = tokenAccount
+    instance Databrary.Has.Has Databrary.Model.Permission.Types.Access AccountToken where
+      Databrary.Has.view = (Databrary.Has.view . tokenAccount)
+    instance Databrary.Has.Has (Id Party) AccountToken where
+      Databrary.Has.view = (Databrary.Has.view . tokenAccount)
+    instance Databrary.Has.Has PartyRow AccountToken where
+      Databrary.Has.view = (Databrary.Has.view . tokenAccount)
+    instance Databrary.Has.Has Party AccountToken where
+      Databrary.Has.view = (Databrary.Has.view . tokenAccount)
+    instance Databrary.Has.Has Account AccountToken where
+      Databrary.Has.view = (Databrary.Has.view . tokenAccount)
+Databrary/Model/Token/Types.hs:46:1-44: Splicing declarations
+    makeHasRec ''LoginToken ['loginAccountToken]
+  ======>
+    instance Databrary.Has.Has AccountToken LoginToken where
+      Databrary.Has.view = loginAccountToken
+    instance Databrary.Has.Has Token LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has (Id Token) LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has SiteAuth LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has Databrary.Model.Permission.Types.Access LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has (Id Party) LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has PartyRow LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has Party LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+    instance Databrary.Has.Has Account LoginToken where
+      Databrary.Has.view = (Databrary.Has.view . loginAccountToken)
+Databrary/Model/Token/Types.hs:54:1-43: Splicing declarations
+    makeHasRec ''Session ['sessionAccountToken]
+  ======>
+    instance Databrary.Has.Has AccountToken Session where
+      Databrary.Has.view = sessionAccountToken
+    instance Databrary.Has.Has Token Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has (Id Token) Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has SiteAuth Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has Databrary.Model.Permission.Types.Access Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has (Id Party) Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has PartyRow Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has Party Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+    instance Databrary.Has.Has Account Session where
+      Databrary.Has.view = (Databrary.Has.view . sessionAccountToken)
+Databrary/Model/Token/Types.hs:62:1-41: Splicing declarations
+    makeHasRec ''Upload ['uploadAccountToken]
+  ======>
+    instance Databrary.Has.Has AccountToken Upload where
+      Databrary.Has.view = uploadAccountToken
+    instance Databrary.Has.Has Token Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has (Id Token) Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has SiteAuth Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has Databrary.Model.Permission.Types.Access Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has (Id Party) Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has PartyRow Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has Party Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)
+    instance Databrary.Has.Has Account Upload where
+      Databrary.Has.view = (Databrary.Has.view . uploadAccountToken)

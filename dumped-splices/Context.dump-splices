@@ -1,0 +1,87 @@
+Databrary/Context.hs:31:1-92: Splicing declarations
+    makeHasRec
+      ''Context
+      ['contextService, 'contextTimestamp, 'contextResourceState,
+       'contextDB]
+  ======>
+    instance Has Service Context where
+      view = contextService
+    instance Has Databrary.Service.Notification.Notifications Context where
+      view = (view . contextService)
+    instance Has Databrary.Solr.Service.Solr Context where
+      view = (view . contextService)
+    instance Has Databrary.Ingest.Service.Ingest Context where
+      view = (view . contextService)
+    instance Has Databrary.Static.Service.Static Context where
+      view = (view . contextService)
+    instance Has Databrary.HTTP.Client.HTTPClient Context where
+      view = (view . contextService)
+    instance Has Databrary.Web.Types.Web Context where
+      view = (view . contextService)
+    instance Has Databrary.Store.AV.AV Context where
+      view = (view . contextService)
+    instance Has Databrary.Store.Types.Storage Context where
+      view = (view . contextService)
+    instance Has DBPool Context where
+      view = (view . contextService)
+    instance Has Databrary.Service.Messages.Messages Context where
+      view = (view . contextService)
+    instance Has Databrary.Service.Log.Logs Context where
+      view = (view . contextService)
+    instance Has Databrary.Service.Passwd.Passwd Context where
+      view = (view . contextService)
+    instance Has Databrary.Service.Entropy.Entropy Context where
+      view = (view . contextService)
+    instance Has Secret Context where
+      view = (view . contextService)
+    instance Has Timestamp Context where
+      view = contextTimestamp
+    instance Has time-1.6.0.1:Data.Time.Calendar.Days.Day Context where
+      view = (view . contextTimestamp)
+    instance Has InternalState Context where
+      view = contextResourceState
+    instance Has DBConn Context where
+      view = contextDB
+Databrary/Context.hs:44:1-51: Splicing declarations
+    makeHasRec ''BackgroundContext ['backgroundContext]
+  ======>
+    instance Has Context BackgroundContext where
+      view = backgroundContext
+    instance Has Service BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Service.Notification.Notifications BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Solr.Service.Solr BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Ingest.Service.Ingest BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Static.Service.Static BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.HTTP.Client.HTTPClient BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Web.Types.Web BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Store.AV.AV BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Store.Types.Storage BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has DBPool BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Service.Messages.Messages BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Service.Log.Logs BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Service.Passwd.Passwd BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Databrary.Service.Entropy.Entropy BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Secret BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has Timestamp BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has time-1.6.0.1:Data.Time.Calendar.Days.Day BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has InternalState BackgroundContext where
+      view = (view . backgroundContext)
+    instance Has DBConn BackgroundContext where
+      view = (view . backgroundContext)

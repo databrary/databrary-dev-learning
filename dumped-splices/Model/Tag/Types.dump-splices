@@ -1,0 +1,85 @@
+Databrary/Model/Tag/Types.hs:60:1-35: Splicing declarations
+    makeHasRec ''Tag ['tagId, 'tagName]
+  ======>
+    instance Databrary.Has.Has (Id Tag) Tag where
+      Databrary.Has.view = tagId
+    instance Databrary.Has.Has TagName Tag where
+      Databrary.Has.view = tagName
+Databrary/Model/Tag/Types.hs:72:1-48: Splicing declarations
+    makeHasRec ''TagUse ['useTag, 'tagWho, 'tagSlot]
+  ======>
+    instance Databrary.Has.Has Tag TagUse where
+      Databrary.Has.view = useTag
+    instance Databrary.Has.Has (Id Tag) TagUse where
+      Databrary.Has.view = (Databrary.Has.view . useTag)
+    instance Databrary.Has.Has TagName TagUse where
+      Databrary.Has.view = (Databrary.Has.view . useTag)
+    instance Databrary.Has.Has Account TagUse where
+      Databrary.Has.view = tagWho
+    instance Databrary.Has.Has (Id Party) TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagWho)
+    instance Databrary.Has.Has PartyRow TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagWho)
+    instance Databrary.Has.Has Party TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagWho)
+    instance Databrary.Has.Has Slot TagUse where
+      Databrary.Has.view = tagSlot
+    instance Databrary.Has.Has Segment TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has ContainerRow TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has (Id Container) TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has (Maybe Databrary.Model.Release.Types.Release) TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has Databrary.Model.Release.Types.Release TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has Databrary.Model.Volume.Types.Volume TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has Databrary.Model.Permission.Types.Permission TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has (Id Databrary.Model.Volume.Types.Volume) TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has Databrary.Model.Volume.Types.VolumeRow TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+    instance Databrary.Has.Has Container TagUse where
+      Databrary.Has.view = (Databrary.Has.view . tagSlot)
+Databrary/Model/Tag/Types.hs:86:1-38: Splicing declarations
+    makeHasRec ''TagWeight ['tagWeightTag]
+  ======>
+    instance Databrary.Has.Has Tag TagWeight where
+      Databrary.Has.view = tagWeightTag
+    instance Databrary.Has.Has (Id Tag) TagWeight where
+      Databrary.Has.view = (Databrary.Has.view . tagWeightTag)
+    instance Databrary.Has.Has TagName TagWeight where
+      Databrary.Has.view = (Databrary.Has.view . tagWeightTag)
+Databrary/Model/Tag/Types.hs:96:1-68: Splicing declarations
+    makeHasRec
+      ''TagCoverage ['tagCoverageWeight, 'tagCoverageContainer]
+  ======>
+    instance Databrary.Has.Has TagWeight TagCoverage where
+      Databrary.Has.view = tagCoverageWeight
+    instance Databrary.Has.Has Tag TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageWeight)
+    instance Databrary.Has.Has (Id Tag) TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageWeight)
+    instance Databrary.Has.Has TagName TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageWeight)
+    instance Databrary.Has.Has Container TagCoverage where
+      Databrary.Has.view = tagCoverageContainer
+    instance Databrary.Has.Has Databrary.Model.Volume.Types.VolumeRow TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has (Id Databrary.Model.Volume.Types.Volume) TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has Databrary.Model.Permission.Types.Permission TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has Databrary.Model.Volume.Types.Volume TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has Databrary.Model.Release.Types.Release TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has (Maybe Databrary.Model.Release.Types.Release) TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has (Id Container) TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)
+    instance Databrary.Has.Has ContainerRow TagCoverage where
+      Databrary.Has.view = (Databrary.Has.view . tagCoverageContainer)

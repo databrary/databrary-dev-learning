@@ -1,0 +1,45 @@
+Databrary/Model/URL.hs:82:1-33: Splicing declarations
+    deriveLiftMany [''URIAuth, ''URI]
+  ======>
+    instance Language.Haskell.TH.Syntax.Lift URIAuth where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a340C
+            -> case e_a340C of {
+                 URIAuth x0_a340D x1_a340E x2_a340F
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.appE
+                           (Language.Haskell.TH.Lib.appE
+                              (Language.Haskell.TH.Lib.conE
+                                 (Language.Haskell.TH.Syntax.Name
+                                    (Language.Haskell.TH.Syntax.mkOccName "URIAuth")
+                                    (Language.Haskell.TH.Syntax.NameG
+                                       Language.Haskell.TH.Syntax.DataName
+                                       (Language.Haskell.TH.Syntax.mkPkgName
+                                          "network-uri-2.6.1.0-Fj1qKIThD9W270EtbkvRHL")
+                                       (Language.Haskell.TH.Syntax.mkModName "Network.URI"))))
+                              (Language.Haskell.TH.Syntax.lift x0_a340D))
+                           (Language.Haskell.TH.Syntax.lift x1_a340E))
+                        (Language.Haskell.TH.Syntax.lift x2_a340F) }
+    instance Language.Haskell.TH.Syntax.Lift URI where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a340G
+            -> case e_a340G of {
+                 URI x0_a340H x1_a340I x2_a340J x3_a340K x4_a340L
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.appE
+                           (Language.Haskell.TH.Lib.appE
+                              (Language.Haskell.TH.Lib.appE
+                                 (Language.Haskell.TH.Lib.appE
+                                    (Language.Haskell.TH.Lib.conE
+                                       (Language.Haskell.TH.Syntax.Name
+                                          (Language.Haskell.TH.Syntax.mkOccName "URI")
+                                          (Language.Haskell.TH.Syntax.NameG
+                                             Language.Haskell.TH.Syntax.DataName
+                                             (Language.Haskell.TH.Syntax.mkPkgName
+                                                "network-uri-2.6.1.0-Fj1qKIThD9W270EtbkvRHL")
+                                             (Language.Haskell.TH.Syntax.mkModName "Network.URI"))))
+                                    (Language.Haskell.TH.Syntax.lift x0_a340H))
+                                 (Language.Haskell.TH.Syntax.lift x1_a340I))
+                              (Language.Haskell.TH.Syntax.lift x2_a340J))
+                           (Language.Haskell.TH.Syntax.lift x3_a340K))
+                        (Language.Haskell.TH.Syntax.lift x4_a340L) }

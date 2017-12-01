@@ -1,0 +1,29 @@
+Databrary/Model/Category/Boot.hs:16:27-63: Splicing expression
+    selectQuery categoryRow "ORDER BY id"
+  ======>
+    fmap
+      (\ (vid_a4rMv, vname_a4rMw, vdescription_a4rMx)
+         -> Databrary.Model.Category.Types.Category
+              vid_a4rMv vname_a4rMw vdescription_a4rMx)
+      (\ -> Database.PostgreSQL.Typed.Query.QueryParser
+              (\ _tenv_a4rOi
+                 -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                      (Data.ByteString.concat
+                         [Data.String.fromString
+                            "SELECT category.id,category.name,category.description FROM category ORDER BY id"]))
+              (\ _tenv_a4rOi [_cid_a4rOj, _cname_a4rOk, _cdescription_a4rOl]
+                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                       _tenv_a4rOi
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                       _cid_a4rOj, 
+                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                       _tenv_a4rOi
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                       _cname_a4rOk, 
+                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                       _tenv_a4rOi
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                       _cdescription_a4rOl)))

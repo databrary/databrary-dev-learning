@@ -1,0 +1,139 @@
+Databrary/Model/Permission/Types.hs:14:1-36: Splicing declarations
+    makeDBEnum "permission" "Permission"
+  ======>
+    data Permission
+      = PermissionNONE |
+        PermissionPUBLIC |
+        PermissionSHARED |
+        PermissionREAD |
+        PermissionEDIT |
+        PermissionADMIN
+      deriving (Eq,
+                Ord,
+                Enum,
+                GHC.Arr.Ix,
+                Bounded,
+                Data.Typeable.Internal.Typeable)
+    instance Show Permission where
+      show PermissionNONE = "NONE"
+      show PermissionPUBLIC = "PUBLIC"
+      show PermissionSHARED = "SHARED"
+      show PermissionREAD = "READ"
+      show PermissionEDIT = "EDIT"
+      show PermissionADMIN = "ADMIN"
+    instance Database.PostgreSQL.Typed.Types.PGType "permission"
+    instance Database.PostgreSQL.Typed.Types.PGParameter "permission" Permission where
+      Database.PostgreSQL.Typed.Types.pgEncode _ PermissionNONE
+        = Data.ByteString.pack [78, 79, 78, 69]
+      Database.PostgreSQL.Typed.Types.pgEncode _ PermissionPUBLIC
+        = Data.ByteString.pack [80, 85, 66, 76, 73, 67]
+      Database.PostgreSQL.Typed.Types.pgEncode _ PermissionSHARED
+        = Data.ByteString.pack [83, 72, 65, 82, 69, 68]
+      Database.PostgreSQL.Typed.Types.pgEncode _ PermissionREAD
+        = Data.ByteString.pack [82, 69, 65, 68]
+      Database.PostgreSQL.Typed.Types.pgEncode _ PermissionEDIT
+        = Data.ByteString.pack [69, 68, 73, 84]
+      Database.PostgreSQL.Typed.Types.pgEncode _ PermissionADMIN
+        = Data.ByteString.pack [65, 68, 77, 73, 78]
+    instance Database.PostgreSQL.Typed.Types.PGColumn "permission" Permission where
+      Database.PostgreSQL.Typed.Types.pgDecode _ x_a42l2
+        = case Data.ByteString.unpack x_a42l2 of {
+            [78, 79, 78, 69] -> PermissionNONE
+            [80, 85, 66, 76, 73, 67] -> PermissionPUBLIC
+            [83, 72, 65, 82, 69, 68] -> PermissionSHARED
+            [82, 69, 65, 68] -> PermissionREAD
+            [69, 68, 73, 84] -> PermissionEDIT
+            [65, 68, 77, 73, 78] -> PermissionADMIN
+            _ -> error
+                   ("pgDecode permission: "
+                    ++ (Data.ByteString.Char8.unpack x_a42l2)) }
+    instance Database.PostgreSQL.Typed.Dynamic.PGRep "permission" Permission
+    instance Database.PostgreSQL.Typed.Enum.PGEnum Permission
+    instance Databrary.Model.Kind.Kinded Permission where
+      Databrary.Model.Kind.kindOf _ = "permission"
+    instance DBEnum Permission
+    instance aeson-1.2.2.0:Data.Aeson.Types.ToJSON.ToJSON Permission where
+      aeson-1.2.2.0:Data.Aeson.Types.ToJSON.toJSON
+        = (aeson-1.2.2.0:Data.Aeson.Types.ToJSON.toJSON . fromEnum)
+    instance aeson-1.2.2.0:Data.Aeson.Types.FromJSON.FromJSON Permission where
+      aeson-1.2.2.0:Data.Aeson.Types.FromJSON.parseJSON = parseJSONEnum
+    instance Databrary.HTTP.Form.Deform.Deform f_a42l3 Permission where
+      Databrary.HTTP.Form.Deform.deform = enumForm
+Databrary/Model/Permission/Types.hs:41:1-39: Splicing declarations
+    deriveLiftMany [''Permission, ''Access]
+  ======>
+    instance Language.Haskell.TH.Syntax.Lift Permission where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a43VT
+            -> case e_a43VT of {
+                 PermissionNONE
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "PermissionNONE")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Permission.Types")))
+                 PermissionPUBLIC
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "PermissionPUBLIC")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Permission.Types")))
+                 PermissionSHARED
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "PermissionSHARED")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Permission.Types")))
+                 PermissionREAD
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "PermissionREAD")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Permission.Types")))
+                 PermissionEDIT
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "PermissionEDIT")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Permission.Types")))
+                 PermissionADMIN
+                   -> Language.Haskell.TH.Lib.conE
+                        (Language.Haskell.TH.Syntax.Name
+                           (Language.Haskell.TH.Syntax.mkOccName "PermissionADMIN")
+                           (Language.Haskell.TH.Syntax.NameG
+                              Language.Haskell.TH.Syntax.DataName
+                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkModName
+                                 "Databrary.Model.Permission.Types"))) }
+    instance Language.Haskell.TH.Syntax.Lift Access where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a43VU
+            -> case e_a43VU of {
+                 Access x0_a43VV x1_a43VW
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.appE
+                           (Language.Haskell.TH.Lib.conE
+                              (Language.Haskell.TH.Syntax.Name
+                                 (Language.Haskell.TH.Syntax.mkOccName "Access")
+                                 (Language.Haskell.TH.Syntax.NameG
+                                    Language.Haskell.TH.Syntax.DataName
+                                    (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                    (Language.Haskell.TH.Syntax.mkModName
+                                       "Databrary.Model.Permission.Types"))))
+                           (Language.Haskell.TH.Syntax.lift x0_a43VV))
+                        (Language.Haskell.TH.Syntax.lift x1_a43VW) }

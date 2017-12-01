@@ -1,0 +1,35 @@
+Databrary/Model/Format/Boot.hs:17:27-61: Splicing expression
+    selectQuery formatRow "ORDER BY id"
+  ======>
+    fmap
+      (\ (vid_a432g, vmimetype_a432h, vextension_a432i, vname_a432j)
+         -> Databrary.Model.Format.SQL.makeFormat
+              vid_a432g vmimetype_a432h vextension_a432i vname_a432j)
+      (\ -> Database.PostgreSQL.Typed.Query.QueryParser
+              (\ _tenv_a432k
+                 -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                      (Data.ByteString.concat
+                         [Data.String.fromString
+                            "SELECT format.id,format.mimetype,format.extension,format.name FROM format ORDER BY id"]))
+              (\ _tenv_a432k
+                 [_cid_a432l, _cmimetype_a432m, _cextension_a432n, _cname_a432o]
+                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                       _tenv_a432k
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                       _cid_a432l, 
+                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                       _tenv_a432k
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                       _cmimetype_a432m, 
+                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                       _tenv_a432k
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "character varying[]")
+                       _cextension_a432n, 
+                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                       _tenv_a432k
+                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                       _cname_a432o)))

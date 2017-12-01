@@ -1,0 +1,272 @@
+Databrary/Solr/Document.hs:168:3-11: Splicing declarations
+    return [] ======>
+Databrary/Solr/Document.hs:(172,5)-(180,20): Splicing expression
+    JTH.mkToJSON
+      (JTH.defaultOptions
+         {JTH.fieldLabelModifier = \ ('s' : 'o' : 'l' : 'r' : s_a6aT7)
+                                     -> fromCamel s_a6aT7,
+          JTH.constructorTagModifier = \ ('S' : 'o' : 'l' : 'r' : s_a6aT9)
+                                         -> fromCamel s_a6aT9,
+          JTH.omitNothingFields = True,
+          JTH.sumEncoding = JTH.TaggedObject
+                              {JTH.tagFieldName = "content_type",
+                               JTH.contentsFieldName = error "solrToJSON: contentsFieldName"}})
+      ''SolrDocument
+  ======>
+    \ value_a6b5b
+      -> case value_a6b5b of {
+           SolrParty arg1_a6b5R
+                     arg2_a6b5S
+                     arg3_a6b5T
+                     arg4_a6b5U
+                     arg5_a6b5V
+                     arg6_a6b5W
+                     arg7_a6b5Y
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "party")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "party_pre_name"))
+                           <$> arg4_a6b5U),
+                          ((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "party_affiliation"))
+                           <$> arg5_a6b5V),
+                          ((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "party_authorization"))
+                           <$> arg7_a6b5Y)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b5R,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "party_id") arg2_a6b5S,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "party_sort_name") arg3_a6b5T,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "party_is_institution") arg6_a6b5W]))
+           SolrVolume arg1_a6b6R
+                      arg2_a6b6T
+                      arg3_a6b6U
+                      arg4_a6b6V
+                      arg5_a6b6W
+                      arg6_a6b6X
+                      arg7_a6b6Y
+                      arg8_a6b6Z
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "volume")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "name"))
+                           <$> arg3_a6b6U),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "body"))
+                           <$> arg4_a6b6V),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "citation"))
+                           <$> arg7_a6b6Y),
+                          ((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "citation_year"))
+                           <$> arg8_a6b6Z)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b6R,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6b6T,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_owner_ids") arg5_a6b6W,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_owner_names") arg6_a6b6X]))
+           SolrContainer arg1_a6b7l
+                         arg2_a6b7m
+                         arg3_a6b7n
+                         arg4_a6b7p
+                         arg5_a6b7q
+                         arg6_a6b7r
+                         arg7_a6b7s
+             -> JSON.object
+                  (((T.pack "content_type")
+                    JSON..= (JSON.String (T.pack "container")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "name"))
+                           <$> arg4_a6b7p),
+                          ((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "container_date"))
+                           <$> arg6_a6b7r),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "release"))
+                           <$> arg7_a6b7s)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b7l,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6b7m,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_id") arg3_a6b7n,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_top") arg5_a6b7q]))
+           SolrAsset arg1_a6b7Q
+                     arg2_a6b7R
+                     arg3_a6b7S
+                     arg4_a6b7T
+                     arg5_a6b7U
+                     arg6_a6b7V
+                     arg7_a6b7W
+                     arg8_a6b7X
+                     arg9_a6b7Y
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "asset")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "segment_duration"))
+                           <$> arg5_a6b7U),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "name"))
+                           <$> arg7_a6b7W),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "release"))
+                           <$> arg9_a6b7Y)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b7Q,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6b7R,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_id") arg3_a6b7S,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "segment") arg4_a6b7T,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "asset_id") arg6_a6b7V,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "format_id") arg8_a6b7X]))
+           SolrExcerpt arg1_a6b8E
+                       arg2_a6b8F
+                       arg3_a6b8G
+                       arg4_a6b8H
+                       arg5_a6b8I
+                       arg6_a6b8J
+                       arg7_a6b8K
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "excerpt")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "segment_duration"))
+                           <$> arg5_a6b8I),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "release"))
+                           <$> arg7_a6b8K)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b8E,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6b8F,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_id") arg3_a6b8G,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "segment") arg4_a6b8H,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "asset_id") arg6_a6b8J]))
+           SolrRecord arg1_a6b9i
+                      arg2_a6b9j
+                      arg3_a6b9k
+                      arg4_a6b9l
+                      arg5_a6b9m
+                      arg6_a6b9o
+                      arg7_a6b9p
+                      arg8_a6b9q
+                      arg9_a6b9r
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "record")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "segment_duration"))
+                           <$> arg5_a6b9m),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "record_age"))
+                           <$> arg9_a6b9r)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b9i,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6b9j,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_id") arg3_a6b9k,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "segment") arg4_a6b9l,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "record_id") arg6_a6b9o,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "record_category_id") arg7_a6b9p,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "record_measures") arg8_a6b9q]))
+           SolrTagId arg1_a6b9Q arg2_a6b9R arg3_a6b9S
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "tag_id")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes [])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6b9Q,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "tag_id") arg2_a6b9R,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "tag_name") arg3_a6b9S]))
+           SolrTag arg1_a6ba3
+                   arg2_a6ba4
+                   arg3_a6ba5
+                   arg4_a6ba6
+                   arg5_a6ba7
+                   arg6_a6ba8
+                   arg7_a6ba9
+                   arg8_a6baa
+                   arg9_a6bab
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "tag")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "segment_duration"))
+                           <$> arg5_a6ba7),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "keyword"))
+                           <$> arg8_a6baa)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6ba3,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6ba4,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_id") arg3_a6ba5,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "segment") arg4_a6ba6,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "tag_id") arg6_a6ba8,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "tag_name") arg7_a6ba9,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "party_id") arg9_a6bab]))
+           SolrComment arg1_a6baB
+                       arg2_a6baC
+                       arg3_a6baD
+                       arg4_a6baE
+                       arg5_a6baG
+                       arg6_a6baH
+                       arg7_a6baI
+                       arg8_a6baJ
+             -> JSON.object
+                  (((T.pack "content_type") JSON..= (JSON.String (T.pack "comment")))
+                   ghc-prim-0.5.0.0:GHC.Types.:
+                     ((Data.Maybe.catMaybes
+                         [((Data.Aeson.TH.keyValuePairWith
+                              JSON.toJSON (T.pack "segment_duration"))
+                           <$> arg5_a6baG),
+                          ((Data.Aeson.TH.keyValuePairWith JSON.toJSON (T.pack "body"))
+                           <$> arg8_a6baJ)])
+                      ++
+                        [Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "id") arg1_a6baB,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "volume_id") arg2_a6baC,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "container_id") arg3_a6baD,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "segment") arg4_a6baE,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "comment_id") arg6_a6baH,
+                         Data.Aeson.TH.keyValuePairWith
+                           JSON.toJSON (T.pack "party_id") arg7_a6baI])) }

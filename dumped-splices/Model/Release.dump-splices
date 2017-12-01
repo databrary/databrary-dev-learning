@@ -1,0 +1,138 @@
+Databrary/Model/Release.hs:17:1-6: Splicing declarations
+    useTDB ======>
+Databrary/Model/Release.hs:22:16-38: Splicing expression
+    deleteRelease 'ident_a5YZC 's_a5YZB
+  ======>
+    (\ _p_a649Z _p_a64a0 _p_a64a1 _p_a64a2
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a649Y
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (DELETE FROM slot_release WHERE container = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a649Y
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a649Z,
+                        Data.String.fromString " AND segment <@ ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a649Y
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_a64a0,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.slot_release SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a649Y
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a64a1,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a649Y
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_a64a2,
+                        Data.String.fromString
+                          ", 'remove'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a649Y [] -> ()))
+      (containerId $ containerRow $ slotContainer s)
+      (slotSegment s)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/Release.hs:26:7-32: Splicing expression
+    updateRelease 'ident_a64ah 's_a64af 'c_a64ag
+  ======>
+    (\ _p_a64aB _p_a64aC _p_a64aD _p_a64aE _p_a64aF
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a64aA
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (UPDATE slot_release SET release=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64aA
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_a64aB,
+                        Data.String.fromString " WHERE container=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64aA
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a64aC,
+                        Data.String.fromString " AND segment=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64aA
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_a64aD,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.slot_release SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64aA
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a64aE,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64aA
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_a64aF,
+                        Data.String.fromString
+                          ", 'change'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a64aA [] -> ()))
+      c
+      (containerId $ containerRow $ slotContainer s)
+      (slotSegment s)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/Release.hs:27:7-32: Splicing expression
+    insertRelease 'ident_a64ah 's_a64af 'c_a64ag
+  ======>
+    (\ _p_a64bP _p_a64bQ _p_a64bR _p_a64bS _p_a64bT
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a64bO
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (INSERT INTO slot_release (container,segment,release) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64bO
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a64bP,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64bO
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_a64bQ,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64bO
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_a64bR,
+                        Data.String.fromString
+                          ") RETURNING *) INSERT INTO audit.slot_release SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64bO
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a64bS,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a64bO
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_a64bT,
+                        Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a64bO [] -> ()))
+      (containerId $ containerRow $ slotContainer s)
+      (slotSegment s)
+      c
+      (auditWho ident)
+      (auditIp ident)

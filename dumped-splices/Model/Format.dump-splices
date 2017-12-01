@@ -1,0 +1,215 @@
+Databrary/Model/Format.hs:68:16-26: Splicing expression
+    loadFormats
+  ======>
+    [Format
+       (Id -800)
+       (BS.pack [118, 105, 100, 101, 111, 47, 109, 112, 52])
+       [BS.pack [109, 112, 52]]
+       (Data.Text.pack "MPEG-4 video"),
+     Format
+       (Id -700)
+       (BS.pack [105, 109, 97, 103, 101, 47, 106, 112, 101, 103])
+       [BS.pack [106, 112, 103], BS.pack [106, 112, 101, 103]]
+       (Data.Text.pack "JPEG image"),
+     Format
+       (Id -600)
+       (BS.pack [97, 117, 100, 105, 111, 47, 109, 112, 101, 103])
+       [BS.pack [109, 112, 51]]
+       (Data.Text.pack "MPEG-1 or MPEG-2 audio layer III"),
+     Format
+       (Id 1)
+       (BS.pack [116, 101, 120, 116, 47, 112, 108, 97, 105, 110])
+       [BS.pack [116, 120, 116]]
+       (Data.Text.pack "Plain text"),
+     Format
+       (Id 2)
+       (BS.pack [116, 101, 120, 116, 47, 99, 115, 118])
+       [BS.pack [99, 115, 118]]
+       (Data.Text.pack "Comma-separated values"),
+     Format
+       (Id 4)
+       (BS.pack [116, 101, 120, 116, 47, 114, 116, 102])
+       [BS.pack [114, 116, 102]]
+       (Data.Text.pack "Rich text format"),
+     Format
+       (Id 5)
+       (BS.pack [105, 109, 97, 103, 101, 47, 112, 110, 103])
+       [BS.pack [112, 110, 103]]
+       (Data.Text.pack "Portable network graphics"),
+     Format
+       (Id 6)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 112, 100,
+           102])
+       [BS.pack [112, 100, 102]]
+       (Data.Text.pack "Portable document"),
+     Format
+       (Id 7)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 109, 115,
+           119, 111, 114, 100])
+       [BS.pack [100, 111, 99]]
+       (Data.Text.pack "Microsoft Word document"),
+     Format
+       (Id 8)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 111, 97, 115, 105, 115, 46, 111, 112, 101, 110, 100, 111,
+           99, 117, 109, 101, 110, 116, 46, 116, 101, 120, 116])
+       [BS.pack [111, 100, 102]]
+       (Data.Text.pack "OpenDocument text"),
+     Format
+       (Id 9)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 111, 112, 101, 110, 120, 109, 108, 102, 111, 114, 109, 97,
+           116, 115, 45, 111, 102, 102, 105, 99, 101, 100, 111, 99, 117, 109,
+           101, 110, 116, 46, 119, 111, 114, 100, 112, 114, 111, 99, 101, 115,
+           115, 105, 110, 103, 109, 108, 46, 100, 111, 99, 117, 109, 101, 110,
+           116])
+       [BS.pack [100, 111, 99, 120]]
+       (Data.Text.pack "Microsoft Word (Office Open XML) document"),
+     Format
+       (Id 10)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 109, 115, 45, 101, 120, 99, 101, 108])
+       [BS.pack [120, 108, 115]]
+       (Data.Text.pack "Microsoft Excel spreadsheet"),
+     Format
+       (Id 11)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 111, 97, 115, 105, 115, 46, 111, 112, 101, 110, 100, 111,
+           99, 117, 109, 101, 110, 116, 46, 115, 112, 114, 101, 97, 100, 115,
+           104, 101, 101, 116])
+       [BS.pack [111, 100, 115]]
+       (Data.Text.pack "OpenDocument spreadsheet"),
+     Format
+       (Id 12)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 111, 112, 101, 110, 120, 109, 108, 102, 111, 114, 109, 97,
+           116, 115, 45, 111, 102, 102, 105, 99, 101, 100, 111, 99, 117, 109,
+           101, 110, 116, 46, 115, 112, 114, 101, 97, 100, 115, 104, 101, 101,
+           116, 109, 108, 46, 115, 104, 101, 101, 116])
+       [BS.pack [120, 108, 115, 120]]
+       (Data.Text.pack "Microsoft Excel (Office Open XML) workbook"),
+     Format
+       (Id 13)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 109, 115, 45, 112, 111, 119, 101, 114, 112, 111, 105, 110,
+           116])
+       [BS.pack [112, 112, 116]]
+       (Data.Text.pack "Microsoft PowerPoint presentation"),
+     Format
+       (Id 14)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 111, 97, 115, 105, 115, 46, 111, 112, 101, 110, 100, 111,
+           99, 117, 109, 101, 110, 116, 46, 112, 114, 101, 115, 101, 110, 116,
+           97, 116, 105, 111, 110])
+       [BS.pack [111, 100, 112]]
+       (Data.Text.pack "OpenDocument presentation"),
+     Format
+       (Id 15)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 111, 112, 101, 110, 120, 109, 108, 102, 111, 114, 109, 97,
+           116, 115, 45, 111, 102, 102, 105, 99, 101, 100, 111, 99, 117, 109,
+           101, 110, 116, 46, 112, 114, 101, 115, 101, 110, 116, 97, 116, 105,
+           111, 110, 109, 108, 46, 112, 114, 101, 115, 101, 110, 116, 97, 116,
+           105, 111, 110])
+       [BS.pack [112, 112, 116, 120]]
+       (Data.Text.pack
+          "Microsoft PowerPoint (Office Open XML) presentation"),
+     Format
+       (Id 16)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 100, 97, 116, 97, 118, 121, 117])
+       [BS.pack [111, 112, 102]]
+       (Data.Text.pack "Datavyu"),
+     Format
+       (Id 18)
+       (BS.pack [118, 105, 100, 101, 111, 47, 119, 101, 98, 109])
+       [BS.pack [119, 101, 98, 109]]
+       (Data.Text.pack "WebM video"),
+     Format
+       (Id 19)
+       (BS.pack [118, 105, 100, 101, 111, 47, 109, 112, 101, 103])
+       [BS.pack [109, 112, 103], BS.pack [109, 112, 101, 103]]
+       (Data.Text.pack "MPEG program stream (MPEG-1/MPEG-2 video)"),
+     Format
+       (Id 20)
+       (BS.pack
+          [118, 105, 100, 101, 111, 47, 113, 117, 105, 99, 107, 116, 105,
+           109, 101])
+       [BS.pack [109, 111, 118]]
+       (Data.Text.pack "QuickTime video"),
+     Format
+       (Id 21)
+       (BS.pack [118, 105, 100, 101, 111, 47, 109, 112, 50, 116])
+       [BS.pack [109, 116, 115], BS.pack [109, 50, 116, 115]]
+       (Data.Text.pack "MPEG transport stream"),
+     Format
+       (Id 22)
+       (BS.pack [118, 105, 100, 101, 111, 47, 97, 118, 105])
+       [BS.pack [97, 118, 105]]
+       (Data.Text.pack "Audio Video Interleave"),
+     Format
+       (Id 23)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 120, 45,
+           115, 112, 115, 115, 45, 115, 97, 118])
+       [BS.pack [115, 97, 118]]
+       (Data.Text.pack "SPSS System File"),
+     Format
+       (Id 24)
+       (BS.pack [97, 117, 100, 105, 111, 47, 119, 97, 118])
+       [BS.pack [119, 97, 118]]
+       (Data.Text.pack "Waveform audio"),
+     Format
+       (Id 25)
+       (BS.pack
+          [118, 105, 100, 101, 111, 47, 120, 45, 109, 115, 45, 119, 109,
+           118])
+       [BS.pack [119, 109, 118]]
+       (Data.Text.pack "Windows Media video"),
+     Format
+       (Id 26)
+       (BS.pack [116, 101, 120, 116, 47, 120, 45, 99, 104, 97, 116])
+       [BS.pack [99, 104, 97], BS.pack [99, 104, 97, 116]]
+       (Data.Text.pack "Codes for the Human Analysis of Transcripts"),
+     Format
+       (Id 27)
+       (BS.pack [97, 117, 100, 105, 111, 47, 97, 97, 99])
+       [BS.pack [97, 97, 99]]
+       (Data.Text.pack "Advanced Audio Coding"),
+     Format
+       (Id 28)
+       (BS.pack
+          [97, 117, 100, 105, 111, 47, 120, 45, 109, 115, 45, 119, 109, 97])
+       [BS.pack [119, 109, 97]]
+       (Data.Text.pack "Windows Media audio"),
+     Format
+       (Id 29)
+       (BS.pack
+          [97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 47, 118, 110,
+           100, 46, 108, 101, 110, 97, 46, 105, 110, 116, 101, 114, 112, 114,
+           101, 116, 101, 100, 45, 116, 105, 109, 101, 45, 115, 101, 103, 109,
+           101, 110, 116, 115])
+       [BS.pack [105, 116, 115]]
+       (Data.Text.pack "LENA Interpreted Time Segments"),
+     Format
+       (Id 30)
+       (BS.pack [118, 105, 100, 101, 111, 47, 120, 45, 100, 118])
+       [BS.pack [100, 118], BS.pack [100, 105, 102]]
+       (Data.Text.pack "Digital Interface Format video"),
+     Format
+       (Id 31)
+       (BS.pack [116, 101, 120, 116, 47, 101, 108, 97, 110])
+       [BS.pack [101, 97, 102], BS.pack [112, 102, 115, 120],
+        BS.pack [101, 116, 102]]
+       (Data.Text.pack "ELAN - Linguistic Annotator")]

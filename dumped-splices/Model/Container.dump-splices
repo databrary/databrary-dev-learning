@@ -1,0 +1,610 @@
+Databrary/Model/Container.hs:55:14-79: Splicing expression
+    selectQuery
+      (selectContainer 'ident_a874l) "$WHERE container.id = ${ci}"
+  ======>
+    fmap
+      (\ (vid_a874T, vtop_a874U, vname_a874W, vdate_a874X,
+          vrelease_a874Y, vid_a874Z, vname_a8750, vbody_a8751, valias_a8752,
+          vdoi_a8753, vc_a8754, vowners_a8755, vpermission_a8756)
+         -> ($)
+              (Container
+                 (ContainerRow vid_a874T vtop_a874U vname_a874W vdate_a874X)
+                 vrelease_a874Y)
+              (Databrary.Model.Volume.SQL.makeVolume
+                 (Databrary.Model.Volume.SQL.setCreation
+                    (VolumeRow
+                       vid_a874Z vname_a8750 vbody_a8751 valias_a8752 vdoi_a8753)
+                    vc_a8754)
+                 vowners_a8755
+                 vpermission_a8756))
+      ((\ _p_a875N _p_a875O _p_a875P
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a875M
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT container.id,container.top,container.name,container.date,slot_release.release,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission ON container.volume = volume.id WHERE container.id = $3")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_a875N,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a875O,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a875P]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a875M
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
+               (\ _tenv_a875M
+                  [_cid_a875Q,
+                   _ctop_a875R,
+                   _cname_a875S,
+                   _cdate_a875T,
+                   _crelease_a875U,
+                   _cid_a875V,
+                   _cname_a875W,
+                   _cbody_a875X,
+                   _calias_a875Y,
+                   _cdoi_a875Z,
+                   _cvolume_creation_a8760,
+                   _cowners_a8761,
+                   _cpermission_a8762]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a875Q, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _ctop_a875R, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a875S, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                        _cdate_a875T, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a875U, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a875V, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a875W, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cbody_a875X, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _calias_a875Y, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cdoi_a875Z, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                        _cvolume_creation_a8760, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                        _cowners_a8761, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a875M
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cpermission_a8762)))
+         (identitySuperuser ident) (view ident :: Id Party) ci)
+Databrary/Model/Container.hs:59:29-142: Splicing expression
+    selectQuery
+      selectVolumeContainer
+      "$WHERE container.id = ${ci} AND container.volume = ${volumeId $ volumeRow vol}"
+  ======>
+    fmap
+      (\ (vid_a87fa, vtop_a87fb, vname_a87fd, vdate_a87fe,
+          vrelease_a87ff)
+         -> Container
+              (ContainerRow vid_a87fa vtop_a87fb vname_a87fd vdate_a87fe)
+              vrelease_a87ff)
+      ((\ _p_a87fn _p_a87fo
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a87fm
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT container.id,container.top,container.name,container.date,slot_release.release FROM container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' WHERE container.id = $1 AND container.volume = $2")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87fn,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87fo]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87fm
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")])
+               (\ _tenv_a87fm
+                  [_cid_a87fp,
+                   _ctop_a87fq,
+                   _cname_a87fr,
+                   _cdate_a87fs,
+                   _crelease_a87ft]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87fm
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a87fp, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87fm
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _ctop_a87fq, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a87fm
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a87fr, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a87fm
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                        _cdate_a87fs, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87fm
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a87ft)))
+         ci (volumeId $ volumeRow vol))
+Databrary/Model/Container.hs:63:28-138: Splicing expression
+    selectQuery
+      selectVolumeContainer
+      "$WHERE container.volume = ${volumeId $ volumeRow vol} ORDER BY container.id"
+  ======>
+    fmap
+      (\ (vid_a87gL, vtop_a87gM, vname_a87gN, vdate_a87gO,
+          vrelease_a87gP)
+         -> Container
+              (ContainerRow vid_a87gL vtop_a87gM vname_a87gN vdate_a87gO)
+              vrelease_a87gP)
+      ((\ _p_a87jS
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a87jR
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT container.id,container.top,container.name,container.date,slot_release.release FROM container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' WHERE container.volume = $1 ORDER BY container.id")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a87jR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87jS]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87jR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87jR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87jR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87jR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87jR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")])
+               (\ _tenv_a87jR
+                  [_cid_a87jT,
+                   _ctop_a87jU,
+                   _cname_a87jV,
+                   _cdate_a87jW,
+                   _crelease_a87jX]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87jR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a87jT, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87jR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _ctop_a87jU, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a87jR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a87jV, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a87jR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                        _cdate_a87jW, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87jR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a87jX)))
+         (volumeId $ volumeRow vol))
+Databrary/Model/Container.hs:67:30-148: Splicing expression
+    selectQuery
+      selectVolumeContainer
+      "$WHERE container.volume = ${volumeId $ volumeRow vol} ORDER BY container.id LIMIT 1"
+  ======>
+    fmap
+      (\ (vid_a87lt, vtop_a87lu, vname_a87lv, vdate_a87lw,
+          vrelease_a87lx)
+         -> Container
+              (ContainerRow vid_a87lt vtop_a87lu vname_a87lv vdate_a87lw)
+              vrelease_a87lx)
+      ((\ _p_a87no
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a87nn
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT container.id,container.top,container.name,container.date,slot_release.release FROM container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' WHERE container.volume = $1 ORDER BY container.id LIMIT 1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a87nn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87no]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87nn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87nn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87nn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87nn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a87nn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")])
+               (\ _tenv_a87nn
+                  [_cid_a87np,
+                   _ctop_a87nq,
+                   _cname_a87nr,
+                   _cdate_a87ns,
+                   _crelease_a87nt]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87nn
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a87np, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87nn
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _ctop_a87nq, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a87nn
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a87nr, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a87nn
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                        _cdate_a87ns, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87nn
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a87nt)))
+         (volumeId $ volumeRow vol))
+Databrary/Model/Container.hs:72:21-151: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "SELECT FROM container WHERE volume = ${volumeId $ volumeRow $ containerVolume c} AND id < ${containerId $ containerRow c} LIMIT 1"
+  ======>
+    (\ _p_a87pM _p_a87pN
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a87pL
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "SELECT FROM container WHERE volume = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87pL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87pM,
+                        Data.String.fromString " AND id < ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87pL
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87pN,
+                        Data.String.fromString " LIMIT 1"]))
+            (\ _tenv_a87pL [] -> ()))
+      (volumeId $ volumeRow $ containerVolume c)
+      (containerId $ containerRow c)
+Databrary/Model/Container.hs:77:15-40: Splicing expression
+    insertContainer 'ident_a87qi 'bc_a87qg
+  ======>
+    fmap
+      (\ (vid_a87re)
+         -> Databrary.Model.Container.SQL.setContainerId bc_a87qg vid_a87re)
+      ((\ _p_a87rv _p_a87rw _p_a87rx _p_a87ry _p_a87rz _p_a87rA
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a87ru
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "WITH audit_row AS (INSERT INTO container (volume,top,name,date) VALUES (",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a87ru
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                             _p_a87rv,
+                           Data.String.fromString ",",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a87ru
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                             _p_a87rw,
+                           Data.String.fromString ",",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a87ru
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                             _p_a87rx,
+                           Data.String.fromString ",",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a87ru
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                             _p_a87ry,
+                           Data.String.fromString
+                             ") RETURNING *) INSERT INTO audit.container SELECT CURRENT_TIMESTAMP, ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a87ru
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                             _p_a87rz,
+                           Data.String.fromString ", ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a87ru
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                             _p_a87rA,
+                           Data.String.fromString
+                             ", 'add'::audit.action, * FROM audit_row RETURNING container.id"]))
+               (\ _tenv_a87ru [_cid_a87rB]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a87ru
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a87rB)))
+         (volumeId $ volumeRow $ containerVolume bc)
+         (containerTop $ containerRow bc)
+         (containerName $ containerRow bc)
+         (containerDate $ containerRow bc)
+         (auditWho ident)
+         (auditIp ident))
+Databrary/Model/Container.hs:82:17-41: Splicing expression
+    updateContainer 'ident_a87vL 'c_a87vH
+  ======>
+    (\ _p_a87BI _p_a87BJ _p_a87BK _p_a87BL _p_a87BM _p_a87BN _p_a87BO
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a87BH
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (UPDATE container SET volume=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87BI,
+                        Data.String.fromString ",top=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_a87BJ,
+                        Data.String.fromString ",name=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                          _p_a87BK,
+                        Data.String.fromString ",date=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                          _p_a87BL,
+                        Data.String.fromString " WHERE id=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87BM,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.container SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87BN,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87BH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_a87BO,
+                        Data.String.fromString
+                          ", 'change'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a87BH [] -> ()))
+      (volumeId $ volumeRow $ containerVolume c)
+      (containerTop $ containerRow c)
+      (containerName $ containerRow c)
+      (containerDate $ containerRow c)
+      (containerId $ containerRow c)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/Container.hs:87:27-131: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "SELECT id FROM container WHERE volume = ${volumeId $ volumeRow $ containerVolume c} ORDER BY id LIMIT 1"
+  ======>
+    (\ _p_a87HP
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a87HO
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "SELECT id FROM container WHERE volume = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87HO
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87HP,
+                        Data.String.fromString " ORDER BY id LIMIT 1"]))
+            (\ _tenv_a87HO [_cid_a87HR]
+               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a87HO
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                     _cid_a87HR)))
+      (volumeId $ volumeRow $ containerVolume c)
+Databrary/Model/Container.hs:90:78-102: Splicing expression
+    deleteContainer 'ident_a87Fu 'c_a87Fr
+  ======>
+    (\ _p_a87LN _p_a87LO _p_a87LP
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a87LM
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (DELETE FROM container WHERE id=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87LM
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87LN,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.container SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87LM
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a87LO,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a87LM
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_a87LP,
+                        Data.String.fromString
+                          ", 'remove'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a87LM [] -> ()))
+      (containerId $ containerRow c) (auditWho ident) (auditIp ident)

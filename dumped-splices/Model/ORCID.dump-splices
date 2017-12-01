@@ -1,0 +1,17 @@
+Databrary/Model/ORCID.hs:34:1-18: Splicing declarations
+    deriveLift ''ORCID
+  ======>
+    instance Language.Haskell.TH.Syntax.Lift ORCID where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_aY0c
+            -> case e_aY0c of {
+                 ORCID x0_aY0e
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.conE
+                           (Language.Haskell.TH.Syntax.Name
+                              (Language.Haskell.TH.Syntax.mkOccName "ORCID")
+                              (Language.Haskell.TH.Syntax.NameG
+                                 Language.Haskell.TH.Syntax.DataName
+                                 (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                 (Language.Haskell.TH.Syntax.mkModName "Databrary.Model.ORCID"))))
+                        (Language.Haskell.TH.Syntax.lift x0_aY0e) }

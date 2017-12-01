@@ -1,0 +1,857 @@
+Databrary/Model/Excerpt.hs:31:25-119: Splicing expression
+    selectQuery
+      selectAssetSlotExcerpt
+      "$WHERE excerpt.asset = ${assetId $ assetRow $ slotAsset a}"
+  ======>
+    fmap
+      (\ (vsegment_aatst, vrelease_aatsu)
+         -> Databrary.Model.Excerpt.SQL.makeExcerpt
+              vsegment_aatst vrelease_aatsu)
+      ((\ _p_aatsG
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_aatsF
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT excerpt.segment,excerpt.release FROM excerpt WHERE excerpt.asset = $1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatsF
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatsG]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatsF
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatsF
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")])
+               (\ _tenv_aatsF [_csegment_aatsH, _crelease_aatsI]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatsF
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatsH, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatsF
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatsI)))
+         (assetId $ assetRow $ slotAsset a))
+Databrary/Model/Excerpt.hs:35:25-150: Splicing expression
+    selectQuery
+      selectContainerExcerpt
+      "$WHERE slot_asset.container = ${containerId $ containerRow c} AND excerpt.segment && ${s}"
+  ======>
+    fmap
+      (\ (vsegment_aattN, vsegment_aattO, vrelease_aattP, vid_aattQ,
+          vformat_aattR, vrelease_aattS, vduration_aattT, vname_aattU,
+          vc_aattW, vsize_aattX)
+         -> Databrary.Model.Excerpt.SQL.makeContainerExcerpt
+              (Databrary.Model.Excerpt.SQL.makeAssetContainerExcerpt
+                 vsegment_aattN
+                 (Databrary.Model.Excerpt.SQL.makeExcerpt
+                    vsegment_aattO vrelease_aattP))
+              (Databrary.Model.Asset.SQL.makeAssetRow
+                 vid_aattQ
+                 vformat_aattR
+                 vrelease_aattS
+                 vduration_aattT
+                 vname_aattU
+                 vc_aattW
+                 vsize_aattX))
+      ((\ _p_aatud _p_aatue
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_aatuc
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT slot_asset.segment,excerpt.segment,excerpt.release,asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size FROM slot_asset JOIN excerpt ON slot_asset.asset = excerpt.asset JOIN asset ON slot_asset.asset = asset.id WHERE slot_asset.container = $1 AND excerpt.segment && $2")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatud,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_aatue]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatuc
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")])
+               (\ _tenv_aatuc
+                  [_csegment_aatuf,
+                   _csegment_aatug,
+                   _crelease_aatuh,
+                   _cid_aatui,
+                   _cformat_aatuj,
+                   _crelease_aatuk,
+                   _cduration_aatul,
+                   _cname_aatum,
+                   _csha1_aatun,
+                   _csize_aatuo]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatuf, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatug, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatuh, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_aatui, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cformat_aatuj, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatuk, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
+                        _cduration_aatul, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_aatum, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
+                        _csha1_aatun, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatuc
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _csize_aatuo)))
+         (containerId $ containerRow c) s)
+Databrary/Model/Excerpt.hs:39:25-105: Splicing expression
+    selectQuery
+      selectVolumeExcerpt
+      "$WHERE asset.volume = ${volumeId $ volumeRow v}"
+  ======>
+    fmap
+      (\ (vsegment_aatvy, vsegment_aatvz, vrelease_aatvA, vid_aatvB,
+          vformat_aatvC, vrelease_aatvD, vduration_aatvE, vname_aatvF,
+          vc_aatvG, vsize_aatvH, vid_aatvI, vtop_aatvJ, vname_aatvK,
+          vdate_aatvL, vrelease_aatvM)
+         -> Databrary.Model.Excerpt.SQL.makeVolumeExcerpt
+              (Databrary.Model.Excerpt.SQL.makeAssetContainerExcerpt
+                 vsegment_aatvy
+                 (Databrary.Model.Excerpt.SQL.makeExcerpt
+                    vsegment_aatvz vrelease_aatvA))
+              (Databrary.Model.Asset.SQL.makeAssetRow
+                 vid_aatvB
+                 vformat_aatvC
+                 vrelease_aatvD
+                 vduration_aatvE
+                 vname_aatvF
+                 vc_aatvG
+                 vsize_aatvH)
+              (Container
+                 (ContainerRow vid_aatvI vtop_aatvJ vname_aatvK vdate_aatvL)
+                 vrelease_aatvM))
+      ((\ _p_aatvZ
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_aatvY
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT slot_asset.segment,excerpt.segment,excerpt.release,asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size,container.id,container.top,container.name,container.date,slot_release.release FROM slot_asset JOIN excerpt ON slot_asset.asset = excerpt.asset JOIN asset ON slot_asset.asset = asset.id JOIN container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' ON slot_asset.container = container.id AND asset.volume = container.volume WHERE asset.volume = $1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatvZ]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatvY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")])
+               (\ _tenv_aatvY
+                  [_csegment_aatw0,
+                   _csegment_aatw1,
+                   _crelease_aatw2,
+                   _cid_aatw3,
+                   _cformat_aatw4,
+                   _crelease_aatw5,
+                   _cduration_aatw6,
+                   _cname_aatw7,
+                   _csha1_aatw8,
+                   _csize_aatw9,
+                   _cid_aatwa,
+                   _ctop_aatwb,
+                   _cname_aatwc,
+                   _cdate_aatwd,
+                   _crelease_aatwe]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatw0, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatw1, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatw2, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_aatw3, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cformat_aatw4, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatw5, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
+                        _cduration_aatw6, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_aatw7, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
+                        _csha1_aatw8, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _csize_aatw9, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_aatwa, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _ctop_aatwb, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_aatwc, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                        _cdate_aatwd, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatvY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatwe)))
+         (volumeId $ volumeRow v))
+Databrary/Model/Excerpt.hs:(43,64)-(49,13): Splicing expression
+    selectQuery
+      selectContainerExcerpt
+      "$JOIN format ON asset.format = format.id WHERE slot_asset.container = ${containerId $ containerRow c} AND excerpt.segment && ${s} AND COALESCE(GREATEST(excerpt.release, asset.release), ${containerRelease c}) >= ${readRelease (view c)}::release AND (asset.duration IS NOT NULL AND format.mimetype LIKE 'video/%' OR format.mimetype LIKE 'image/%') AND asset.sha1 IS NOT NULL LIMIT 1"
+  ======>
+    fmap
+      (\ (vsegment_aatwm, vsegment_aatwn, vrelease_aatwo, vid_aatwp,
+          vformat_aatwq, vrelease_aatwr, vduration_aatws, vname_aatwt,
+          vc_aatwu, vsize_aatwv)
+         -> Databrary.Model.Excerpt.SQL.makeContainerExcerpt
+              (Databrary.Model.Excerpt.SQL.makeAssetContainerExcerpt
+                 vsegment_aatwm
+                 (Databrary.Model.Excerpt.SQL.makeExcerpt
+                    vsegment_aatwn vrelease_aatwo))
+              (Databrary.Model.Asset.SQL.makeAssetRow
+                 vid_aatwp
+                 vformat_aatwq
+                 vrelease_aatwr
+                 vduration_aatws
+                 vname_aatwt
+                 vc_aatwu
+                 vsize_aatwv))
+      ((\ _p_aatwx _p_aatwy _p_aatwz _p_aatwA
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_aatww
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT slot_asset.segment,excerpt.segment,excerpt.release,asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size FROM slot_asset JOIN excerpt ON slot_asset.asset = excerpt.asset JOIN asset ON slot_asset.asset = asset.id JOIN format ON asset.format = format.id WHERE slot_asset.container = $1 AND excerpt.segment && $2 AND COALESCE(GREATEST(excerpt.release, asset.release), $3) >= $4::release AND (asset.duration IS NOT NULL AND format.mimetype LIKE 'video/%' OR format.mimetype LIKE 'image/%') AND asset.sha1 IS NOT NULL LIMIT 1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatwx,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_aatwy,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_aatwz,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_aatwA]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatww
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")])
+               (\ _tenv_aatww
+                  [_csegment_aatwB,
+                   _csegment_aatwC,
+                   _crelease_aatwD,
+                   _cid_aatwE,
+                   _cformat_aatwF,
+                   _crelease_aatwG,
+                   _cduration_aatwH,
+                   _cname_aatwI,
+                   _csha1_aatwJ,
+                   _csize_aatwK]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatwB, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aatwC, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatwD, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_aatwE, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cformat_aatwF, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatwG, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
+                        _cduration_aatwH, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_aatwI, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
+                        _csha1_aatwJ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatww
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _csize_aatwK)))
+         (containerId $ containerRow c)
+         s
+         (containerRelease c)
+         (readRelease (view c)))
+Databrary/Model/Excerpt.hs:(53,64)-(59,41): Splicing expression
+    selectQuery
+      selectVolumeExcerpt
+      "$JOIN format ON asset.format = format.id WHERE asset.volume = ${volumeId $ volumeRow v} AND COALESCE(GREATEST(excerpt.release, asset.release), slot_release.release) >= ${readRelease (view v)}::release AND (asset.duration IS NOT NULL AND format.mimetype LIKE 'video/%' OR format.mimetype LIKE 'image/%') AND asset.sha1 IS NOT NULL ORDER BY container.top DESC LIMIT 1"
+  ======>
+    fmap
+      (\ (vsegment_aatxb, vsegment_aatxc, vrelease_aatxd, vid_aatxe,
+          vformat_aatxf, vrelease_aatxg, vduration_aatxh, vname_aatxi,
+          vc_aatxj, vsize_aatxk, vid_aatxl, vtop_aatxm, vname_aatxn,
+          vdate_aatxo, vrelease_aatxp)
+         -> Databrary.Model.Excerpt.SQL.makeVolumeExcerpt
+              (Databrary.Model.Excerpt.SQL.makeAssetContainerExcerpt
+                 vsegment_aatxb
+                 (Databrary.Model.Excerpt.SQL.makeExcerpt
+                    vsegment_aatxc vrelease_aatxd))
+              (Databrary.Model.Asset.SQL.makeAssetRow
+                 vid_aatxe
+                 vformat_aatxf
+                 vrelease_aatxg
+                 vduration_aatxh
+                 vname_aatxi
+                 vc_aatxj
+                 vsize_aatxk)
+              (Container
+                 (ContainerRow vid_aatxl vtop_aatxm vname_aatxn vdate_aatxo)
+                 vrelease_aatxp))
+      ((\ _p_aatxZ _p_aaty1
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_aatxY
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT slot_asset.segment,excerpt.segment,excerpt.release,asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size,container.id,container.top,container.name,container.date,slot_release.release FROM slot_asset JOIN excerpt ON slot_asset.asset = excerpt.asset JOIN asset ON slot_asset.asset = asset.id JOIN container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' ON slot_asset.container = container.id AND asset.volume = container.volume JOIN format ON asset.format = format.id WHERE asset.volume = $1 AND COALESCE(GREATEST(excerpt.release, asset.release), slot_release.release) >= $2::release AND (asset.duration IS NOT NULL AND format.mimetype LIKE 'video/%' OR format.mimetype LIKE 'image/%') AND asset.sha1 IS NOT NULL ORDER BY container.top DESC LIMIT 1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatxZ,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_aaty1]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aatxY
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")])
+               (\ _tenv_aatxY
+                  [_csegment_aaty2,
+                   _csegment_aaty3,
+                   _crelease_aaty4,
+                   _cid_aaty5,
+                   _cformat_aaty6,
+                   _crelease_aaty7,
+                   _cduration_aaty8,
+                   _cname_aaty9,
+                   _csha1_aatya,
+                   _csize_aatyb,
+                   _cid_aatyc,
+                   _ctop_aatyd,
+                   _cname_aatye,
+                   _cdate_aatyf,
+                   _crelease_aatyg]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aaty2, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                        _csegment_aaty3, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aaty4, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_aaty5, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cformat_aaty6, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aaty7, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
+                        _cduration_aaty8, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_aaty9, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
+                        _csha1_aatya, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _csize_aatyb, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_aatyc, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _ctop_aatyd, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_aatye, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "date")
+                        _cdate_aatyf, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_aatxY
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_aatyg)))
+         (volumeId $ volumeRow v) (readRelease (view v)))
+Databrary/Model/Excerpt.hs:65:7-29: Splicing expression
+    updateExcerpt 'ident_aatyM 'e_aatyK
+  ======>
+    (\ _p_aatzI _p_aatzJ _p_aatzK _p_aatzL _p_aatzM
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_aatzH
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (UPDATE excerpt SET release=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatzH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_aatzI,
+                        Data.String.fromString " WHERE asset=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatzH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatzJ,
+                        Data.String.fromString " AND segment=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatzH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_aatzK,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.excerpt SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatzH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatzL,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatzH
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_aatzM,
+                        Data.String.fromString
+                          ", 'change'::audit.action, * FROM audit_row"]))
+            (\ _tenv_aatzH [] -> ()))
+      (excerptRelease e)
+      (assetId $ assetRow $ slotAsset $ segmentAsset $ excerptAsset e)
+      (assetSegment $ excerptAsset e)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/Excerpt.hs:66:7-29: Splicing expression
+    insertExcerpt 'ident_aatyM 'e_aatyK
+  ======>
+    (\ _p_aatAO _p_aatAP _p_aatAQ _p_aatAR _p_aatAS
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_aatAN
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (INSERT INTO excerpt (asset,segment,release) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatAN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatAO,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatAN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_aatAP,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatAN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                          _p_aatAQ,
+                        Data.String.fromString
+                          ") RETURNING *) INSERT INTO audit.excerpt SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatAN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatAR,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatAN
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_aatAS,
+                        Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
+            (\ _tenv_aatAN [] -> ()))
+      (assetId $ assetRow $ slotAsset $ segmentAsset $ excerptAsset e)
+      (assetSegment $ excerptAsset e)
+      (excerptRelease e)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/Excerpt.hs:71:16-38: Splicing expression
+    deleteExcerpt 'ident_aatBn 'e_aatBm
+  ======>
+    (\ _p_aatC0 _p_aatC1 _p_aatC2 _p_aatC3
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_aatBZ
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (DELETE FROM excerpt WHERE asset = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatBZ
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatC0,
+                        Data.String.fromString " AND segment <@ ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatBZ
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
+                          _p_aatC1,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.excerpt SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatBZ
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aatC2,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aatBZ
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
+                          _p_aatC3,
+                        Data.String.fromString
+                          ", 'remove'::audit.action, * FROM audit_row"]))
+            (\ _tenv_aatBZ [] -> ()))
+      (assetId $ assetRow $ slotAsset $ segmentAsset e)
+      (assetSegment e)
+      (auditWho ident)
+      (auditIp ident)

@@ -1,0 +1,12 @@
+Databrary/Model/Authorize/Types.hs:18:1-45: Splicing declarations
+    makeHasRec ''Authorization ['authorizeAccess]
+  ======>
+    instance Databrary.Has.Has Access Authorization where
+      Databrary.Has.view = authorizeAccess
+Databrary/Model/Authorize/Types.hs:25:1-39: Splicing declarations
+    makeHasRec ''Authorize ['authorization]
+  ======>
+    instance Databrary.Has.Has Authorization Authorize where
+      Databrary.Has.view = authorization
+    instance Databrary.Has.Has Access Authorize where
+      Databrary.Has.view = (Databrary.Has.view . authorization)

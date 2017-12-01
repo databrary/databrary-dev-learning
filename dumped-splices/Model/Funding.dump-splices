@@ -1,0 +1,239 @@
+Databrary/Model/Funding.hs:28:14-72: Splicing expression
+    selectQuery selectFunder "$WHERE funder.fundref_id = ${fi}"
+  ======>
+    fmap
+      (\ (vid_a57kb, vname_a57kc) -> Funder vid_a57kb vname_a57kc)
+      ((\ _p_a57ke
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a57kd
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT funder.fundref_id,funder.name FROM funder WHERE funder.fundref_id = $1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a57kd
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                          _p_a57ke]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57kd
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57kd
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text")])
+               (\ _tenv_a57kd [_cfundref_id_a57kf, _cname_a57kg]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57kd
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _cfundref_id_a57kf, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57kd
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a57kg)))
+         fi)
+Databrary/Model/Funding.hs:32:13-82: Splicing expression
+    selectQuery
+      selectFunder "$WHERE funder.name ILIKE '%' || ${q} || '%'"
+  ======>
+    fmap
+      (\ (vid_a57xv, vname_a57xw) -> Funder vid_a57xv vname_a57xw)
+      ((\ _p_a57z5
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a57z4
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT funder.fundref_id,funder.name FROM funder WHERE funder.name ILIKE '%' || $1 || '%'")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a57z4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                          _p_a57z5]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57z4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57z4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text")])
+               (\ _tenv_a57z4 [_cfundref_id_a57z6, _cname_a57z7]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57z4
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _cfundref_id_a57z6, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57z4
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a57z7)))
+         q)
+Databrary/Model/Funding.hs:36:22-100: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "INSERT INTO funder (fundref_id, name) VALUES (${funderId f}, ${funderName f})"
+  ======>
+    (\ _p_a57Bo _p_a57Bq
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a57Bn
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "INSERT INTO funder (fundref_id, name) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57Bn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                          _p_a57Bo,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57Bn
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                          _p_a57Bq,
+                        Data.String.fromString ")"]))
+            (\ _tenv_a57Bn [] -> ()))
+      (funderId f) (funderName f)
+Databrary/Model/Funding.hs:40:13-104: Splicing expression
+    selectQuery
+      selectVolumeFunding
+      "$WHERE volume_funding.volume = ${volumeId $ volumeRow vol}"
+  ======>
+    fmap
+      (\ (vawards_a57EX, vid_a57EY, vname_a57EZ)
+         -> ($)
+              (Databrary.Model.Funding.SQL.makeFunding vawards_a57EX)
+              (Funder vid_a57EY vname_a57EZ))
+      ((\ _p_a57Fw
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a57Fv
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT volume_funding.awards,funder.fundref_id,funder.name FROM volume_funding JOIN funder ON volume_funding.funder = funder.fundref_id WHERE volume_funding.volume = $1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a57Fv
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a57Fw]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57Fv
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57Fv
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a57Fv
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text")])
+               (\ _tenv_a57Fv [_cawards_a57Fx, _cfundref_id_a57Fz, _cname_a57FA]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57Fv
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                        _cawards_a57Fx, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57Fv
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _cfundref_id_a57Fz, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a57Fv
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a57FA)))
+         (volumeId $ volumeRow vol))
+Databrary/Model/Funding.hs:45:12-132: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "UPDATE volume_funding SET awards = ${a} WHERE volume = ${volumeId $ volumeRow v} AND funder = ${funderId fundingFunder}"
+  ======>
+    (\ _p_a57Ha _p_a57Hb _p_a57Hc
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a57H9
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "UPDATE volume_funding SET awards = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57H9
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                          _p_a57Ha,
+                        Data.String.fromString " WHERE volume = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57H9
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a57Hb,
+                        Data.String.fromString " AND funder = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57H9
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                          _p_a57Hc]))
+            (\ _tenv_a57H9 [] -> ()))
+      a (volumeId $ volumeRow v) (funderId fundingFunder)
+Databrary/Model/Funding.hs:46:12-132: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "INSERT INTO volume_funding (volume, funder, awards) VALUES (${volumeId $ volumeRow v}, ${funderId fundingFunder}, ${a})"
+  ======>
+    (\ _p_a57Ia _p_a57Ib _p_a57Ic
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a57I9
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "INSERT INTO volume_funding (volume, funder, awards) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57I9
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a57Ia,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57I9
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                          _p_a57Ib,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57I9
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                          _p_a57Ic,
+                        Data.String.fromString ")"]))
+            (\ _tenv_a57I9 [] -> ()))
+      (volumeId $ volumeRow v) (funderId fundingFunder) a
+Databrary/Model/Funding.hs:51:21-107: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "DELETE FROM volume_funding WHERE volume = ${volumeId $ volumeRow v} AND funder = ${f}"
+  ======>
+    (\ _p_a57Is _p_a57It
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a57Ir
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "DELETE FROM volume_funding WHERE volume = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57Ir
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a57Is,
+                        Data.String.fromString " AND funder = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a57Ir
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                          _p_a57It]))
+            (\ _tenv_a57Ir [] -> ()))
+      (volumeId $ volumeRow v) f

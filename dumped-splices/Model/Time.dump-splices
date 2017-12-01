@@ -1,0 +1,61 @@
+Databrary/Model/Time.hs:23:1-54: Splicing declarations
+    deriveLiftMany [''Fixed, ''DiffTime, ''Day, ''UTCTime]
+  ======>
+    instance Language.Haskell.TH.Syntax.Lift (Fixed a_a12CZ) where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a12DM
+            -> case e_a12DM of {
+                 MkFixed x0_a12DN
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.conE
+                           (Language.Haskell.TH.Syntax.Name
+                              (Language.Haskell.TH.Syntax.mkOccName "MkFixed")
+                              (Language.Haskell.TH.Syntax.NameG
+                                 Language.Haskell.TH.Syntax.DataName
+                                 (Language.Haskell.TH.Syntax.mkPkgName "base")
+                                 (Language.Haskell.TH.Syntax.mkModName "Data.Fixed"))))
+                        (Language.Haskell.TH.Syntax.lift x0_a12DN) }
+    instance Language.Haskell.TH.Syntax.Lift DiffTime where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a12DO
+            -> case e_a12DO of {
+                 time-1.6.0.1:Data.Time.Clock.Scale.MkDiffTime x0_a12DP
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.conE
+                           (Language.Haskell.TH.Syntax.Name
+                              (Language.Haskell.TH.Syntax.mkOccName "MkDiffTime")
+                              (Language.Haskell.TH.Syntax.NameG
+                                 Language.Haskell.TH.Syntax.DataName
+                                 (Language.Haskell.TH.Syntax.mkPkgName "time-1.6.0.1")
+                                 (Language.Haskell.TH.Syntax.mkModName "Data.Time.Clock.Scale"))))
+                        (Language.Haskell.TH.Syntax.lift x0_a12DP) }
+    instance Language.Haskell.TH.Syntax.Lift Day where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a12DQ
+            -> case e_a12DQ of {
+                 ModifiedJulianDay x0_a12DR
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.conE
+                           (Language.Haskell.TH.Syntax.Name
+                              (Language.Haskell.TH.Syntax.mkOccName "ModifiedJulianDay")
+                              (Language.Haskell.TH.Syntax.NameG
+                                 Language.Haskell.TH.Syntax.DataName
+                                 (Language.Haskell.TH.Syntax.mkPkgName "time-1.6.0.1")
+                                 (Language.Haskell.TH.Syntax.mkModName "Data.Time.Calendar.Days"))))
+                        (Language.Haskell.TH.Syntax.lift x0_a12DR) }
+    instance Language.Haskell.TH.Syntax.Lift UTCTime where
+      Language.Haskell.TH.Syntax.lift
+        = \ e_a12DT
+            -> case e_a12DT of {
+                 UTCTime x0_a12DU x1_a12DV
+                   -> Language.Haskell.TH.Lib.appE
+                        (Language.Haskell.TH.Lib.appE
+                           (Language.Haskell.TH.Lib.conE
+                              (Language.Haskell.TH.Syntax.Name
+                                 (Language.Haskell.TH.Syntax.mkOccName "UTCTime")
+                                 (Language.Haskell.TH.Syntax.NameG
+                                    Language.Haskell.TH.Syntax.DataName
+                                    (Language.Haskell.TH.Syntax.mkPkgName "time-1.6.0.1")
+                                    (Language.Haskell.TH.Syntax.mkModName "Data.Time.Clock.UTC"))))
+                           (Language.Haskell.TH.Syntax.lift x0_a12DU))
+                        (Language.Haskell.TH.Syntax.lift x1_a12DV) }

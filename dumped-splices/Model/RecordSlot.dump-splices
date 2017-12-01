@@ -1,0 +1,455 @@
+Databrary/Model/RecordSlot.hs:46:25-114: Splicing expression
+    selectQuery
+      selectRecordSlotRecord
+      "$WHERE slot_record.record = ${recordId $ recordRow r}"
+  ======>
+    fmap
+      (\ (vsegment_a8HUQ, vid_a8HUR, vtop_a8HUS, vname_a8HUT,
+          vdate_a8HUU, vrelease_a8HUV)
+         -> Databrary.Model.RecordSlot.SQL.makeRecordSlotRecord
+              (Databrary.Model.RecordSlot.SQL.makeSlotRecord vsegment_a8HUQ)
+              (Container
+                 (ContainerRow vid_a8HUR vtop_a8HUS vname_a8HUT vdate_a8HUU)
+                 vrelease_a8HUV))
+      ((\ _p_a8HVp
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8HVm
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT slot_record.segment,container.id,container.top,container.name,container.date,slot_release.release FROM slot_record JOIN container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' ON slot_record.container = container.id WHERE slot_record.record = $1")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "integer") _p_a8HVp]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVm (PGTypeProxy :: PGTypeName "release")])
+               (\ _tenv_a8HVm
+                  [_csegment_a8HVs,
+                   _cid_a8HVu,
+                   _ctop_a8HVv,
+                   _cname_a8HVx,
+                   _cdate_a8HVz,
+                   _crelease_a8HVA]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVm (PGTypeProxy :: PGTypeName "segment") _csegment_a8HVs, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVm (PGTypeProxy :: PGTypeName "integer") _cid_a8HVu, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVm (PGTypeProxy :: PGTypeName "boolean") _ctop_a8HVv, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVm (PGTypeProxy :: PGTypeName "text") _cname_a8HVx, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVm (PGTypeProxy :: PGTypeName "date") _cdate_a8HVz, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVm
+                        (PGTypeProxy :: PGTypeName "release")
+                        _crelease_a8HVA)))
+         (recordId $ recordRow r))
+Databrary/Model/RecordSlot.hs:50:25-158: Splicing expression
+    selectQuery
+      selectContainerSlotRecord
+      "$WHERE slot_record.container = ${containerId $ containerRow c} AND slot_record.segment && ${s}"
+  ======>
+    fmap
+      (\ (vsegment_a8HWk, vid_a8HWl, vcategory_a8HWm, vmeasures_a8HWn,
+          vc_a8HWo)
+         -> Databrary.Model.RecordSlot.SQL.makeContainerSlotRecord
+              (Databrary.Model.RecordSlot.SQL.makeSlotRecord vsegment_a8HWk)
+              (($)
+                 (Databrary.Model.Record.SQL.makeRecord
+                    vid_a8HWl vcategory_a8HWm vmeasures_a8HWn)
+                 vc_a8HWo))
+      ((\ _p_a8HZ1 _p_a8HZ2
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8HZ0
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT slot_record.segment,record.id,record.category,record.measures,record_release(record.id) FROM slot_record JOIN record_measures AS record ON slot_record.record = record.id WHERE slot_record.container = $1 AND slot_record.segment && $2")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "integer") _p_a8HZ1,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "segment") _p_a8HZ2]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "text[]"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "release")])
+               (\ _tenv_a8HZ0
+                  [_csegment_a8HZ3,
+                   _cid_a8HZ4,
+                   _ccategory_a8HZ5,
+                   _cmeasures_a8HZ6,
+                   _crecord_release_a8HZ7]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "segment") _csegment_a8HZ3, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "integer") _cid_a8HZ4, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HZ0
+                        (PGTypeProxy :: PGTypeName "smallint")
+                        _ccategory_a8HZ5, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HZ0 (PGTypeProxy :: PGTypeName "text[]") _cmeasures_a8HZ6, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HZ0
+                        (PGTypeProxy :: PGTypeName "release")
+                        _crecord_release_a8HZ7)))
+         (containerId $ containerRow c) s)
+Databrary/Model/RecordSlot.hs:57:33-222: Splicing expression
+    selectQuery
+      selectRecordContainerSlotRecord
+      "WHERE slot_record.record = ${recordId $ recordRow r} AND slot_record.container = ${containerId $ containerRow c} AND slot_record.segment && ${s}"
+  ======>
+    fmap
+      (\ (vsegment_a8I1R)
+         -> Databrary.Model.RecordSlot.SQL.makeSlotRecord vsegment_a8I1R)
+      ((\ _p_a8I2t _p_a8I2u _p_a8I2w
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8I2s
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT slot_record.segment FROM slot_record WHERE slot_record.record = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8I2s (PGTypeProxy :: PGTypeName "integer") _p_a8I2t,
+                           Data.String.fromString " AND slot_record.container = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8I2s (PGTypeProxy :: PGTypeName "integer") _p_a8I2u,
+                           Data.String.fromString " AND slot_record.segment && ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8I2s (PGTypeProxy :: PGTypeName "segment") _p_a8I2w]))
+               (\ _tenv_a8I2s [_csegment_a8I2x]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I2s
+                        (PGTypeProxy :: PGTypeName "segment")
+                        _csegment_a8I2x)))
+         (recordId $ recordRow r) (containerId $ containerRow c) s)
+Databrary/Model/RecordSlot.hs:62:26-209: Splicing expression
+    selectQuery
+      selectVolumeSlotMaybeRecord
+      "WHERE container.volume = ${volumeId $ volumeRow v} ORDER BY container.id, record.category NULLS FIRST, slot_record.segment, slot_record.record"
+  ======>
+    fmap
+      (\ (vid_a8I5l, vtop_a8I5m, vname_a8I5n, vdate_a8I5o,
+          vrelease_a8I5p, vsegment_a8I5q, vid_a8I5r, vcategory_a8I5s,
+          vmeasures_a8I5t, vc_a8I5u)
+         -> Databrary.Model.RecordSlot.SQL.makeVolumeSlotMaybeRecord
+              (Container
+                 (ContainerRow vid_a8I5l vtop_a8I5m vname_a8I5n vdate_a8I5o)
+                 vrelease_a8I5p)
+              (do { cm_a8I5z <- fmap
+                                  (\ x_a8I5A
+                                     -> Databrary.Model.RecordSlot.SQL.makeSlotRecord x_a8I5A)
+                                  vsegment_a8I5q;
+                    cm_a8I5B <- do { Just
+                                       (($)
+                                          (Databrary.Model.Record.SQL.makeRecord
+                                             vid_a8I5r vcategory_a8I5s vmeasures_a8I5t)
+                                          vc_a8I5u) };
+                    Just
+                      (Databrary.Model.RecordSlot.SQL.makeContainerSlotRecord
+                         cm_a8I5z cm_a8I5B) }))
+      ((\ _p_a8I7s
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8I7r
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT container.id,container.top,container.name,container.date,slot_release.release,slot_record.segment,record.id,record.category,record.measures,record_release(record.id) FROM container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' LEFT JOIN slot_record JOIN record_measures AS record ON slot_record.record = record.id ON container.id = slot_record.container AND container.volume = record.volume WHERE container.volume = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8I7r (PGTypeProxy :: PGTypeName "integer") _p_a8I7s,
+                           Data.String.fromString
+                             " ORDER BY container.id, record.category NULLS FIRST, slot_record.segment, slot_record.record"]))
+               (\ _tenv_a8I7r
+                  [_cid_a8I7t,
+                   _ctop_a8I7u,
+                   _cname_a8I7v,
+                   _cdate_a8I7w,
+                   _crelease_a8I7x,
+                   _csegment_a8I7y,
+                   _cid_a8I7z,
+                   _ccategory_a8I7A,
+                   _cmeasures_a8I7B,
+                   _crecord_release_a8I7C]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "integer") _cid_a8I7t, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "boolean") _ctop_a8I7u, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "text") _cname_a8I7v, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "date") _cdate_a8I7w, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "release") _crelease_a8I7x, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "segment") _csegment_a8I7y, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "integer") _cid_a8I7z, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r
+                        (PGTypeProxy :: PGTypeName "smallint")
+                        _ccategory_a8I7A, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8I7r (PGTypeProxy :: PGTypeName "text[]") _cmeasures_a8I7B, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8I7r
+                        (PGTypeProxy :: PGTypeName "release")
+                        _crecord_release_a8I7C)))
+         (volumeId $ volumeRow v))
+Databrary/Model/RecordSlot.hs:67:26-183: Splicing expression
+    selectQuery
+      selectVolumeSlotMaybeRecordId
+      "$WHERE container.volume = ${volumeId $ volumeRow v} ORDER BY container.id, slot_record.segment, slot_record.record"
+  ======>
+    fmap
+      (\ (vid_a8IcW, vtop_a8IcX, vname_a8IcZ, vdate_a8Id0,
+          vrelease_a8Id1, vsegment_a8Id2, vrecord_a8Id3)
+         -> Databrary.Model.RecordSlot.SQL.makeVolumeContainerTuple
+              (Container
+                 (ContainerRow vid_a8IcW vtop_a8IcX vname_a8IcZ vdate_a8Id0)
+                 vrelease_a8Id1)
+              (do { cm_a8Id8 <- vsegment_a8Id2;
+                    cm_a8Id9 <- vrecord_a8Id3;
+                    Just
+                      (Databrary.Model.RecordSlot.SQL.segmentRecordIdTuple
+                         cm_a8Id8 cm_a8Id9) }))
+      ((\ _p_a8Ig6
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8Ig3
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT container.id,container.top,container.name,container.date,slot_release.release,slot_record.segment,slot_record.record FROM container LEFT JOIN slot_release ON container.id = slot_release.container AND slot_release.segment = '(,)' LEFT JOIN slot_record ON container.id = slot_record.container WHERE container.volume = $1 ORDER BY container.id, slot_record.segment, slot_record.record")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "integer") _p_a8Ig6]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "date"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "segment"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "integer")])
+               (\ _tenv_a8Ig3
+                  [_cid_a8Iga,
+                   _ctop_a8Igb,
+                   _cname_a8Igc,
+                   _cdate_a8Igd,
+                   _crelease_a8Ige,
+                   _csegment_a8Igf,
+                   _crecord_a8Igg]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "integer") _cid_a8Iga, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "boolean") _ctop_a8Igb, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "text") _cname_a8Igc, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "date") _cdate_a8Igd, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "release") _crelease_a8Ige, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "segment") _csegment_a8Igf, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Ig3 (PGTypeProxy :: PGTypeName "integer") _crecord_a8Igg)))
+         (volumeId $ volumeRow v))
+Databrary/Model/RecordSlot.hs:71:24-128: Splicing expression
+    selectQuery
+      selectVolumeSlotIdRecord
+      "WHERE record.volume = ${volumeId $ volumeRow v} ORDER BY container"
+  ======>
+    fmap
+      (\ (vcontainer_a8IiO, vsegment_a8IiP, vid_a8IiQ, vcategory_a8IiR,
+          vmeasures_a8IiS, vc_a8IiT)
+         -> Databrary.Model.RecordSlot.SQL.makeVolumeSlotIdRecord
+              (SlotId vcontainer_a8IiO vsegment_a8IiP)
+              (($)
+                 (Databrary.Model.Record.SQL.makeRecord
+                    vid_a8IiQ vcategory_a8IiR vmeasures_a8IiS)
+                 vc_a8IiT))
+      ((\ _p_a8Iqi
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8Iqh
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT slot_record.container,slot_record.segment,record.id,record.category,record.measures,record_release(record.id) FROM slot_record JOIN record_measures AS record ON slot_record.record = record.id WHERE record.volume = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8Iqh (PGTypeProxy :: PGTypeName "integer") _p_a8Iqi,
+                           Data.String.fromString " ORDER BY container"]))
+               (\ _tenv_a8Iqh
+                  [_ccontainer_a8Iqj,
+                   _csegment_a8Iql,
+                   _cid_a8Iqn,
+                   _ccategory_a8Iqo,
+                   _cmeasures_a8Iqp,
+                   _crecord_release_a8Iqq]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Iqh
+                        (PGTypeProxy :: PGTypeName "integer")
+                        _ccontainer_a8Iqj, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Iqh (PGTypeProxy :: PGTypeName "segment") _csegment_a8Iql, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Iqh (PGTypeProxy :: PGTypeName "integer") _cid_a8Iqn, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Iqh
+                        (PGTypeProxy :: PGTypeName "smallint")
+                        _ccategory_a8Iqo, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8Iqh (PGTypeProxy :: PGTypeName "text[]") _cmeasures_a8Iqp, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8Iqh
+                        (PGTypeProxy :: PGTypeName "release")
+                        _crecord_release_a8Iqq)))
+         (volumeId $ volumeRow v))
+Databrary/Model/RecordSlot.hs:79:45-71: Splicing expression
+    deleteSlotRecord 'ident_a8Isv 'rs_a8Ish
+  ======>
+    (\ _p_a8IAt _p_a8IAu _p_a8IAv _p_a8IAw _p_a8IAy
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a8IAs
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (DELETE FROM slot_record WHERE record = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IAs (PGTypeProxy :: PGTypeName "integer") _p_a8IAt,
+                        Data.String.fromString " AND container = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IAs (PGTypeProxy :: PGTypeName "integer") _p_a8IAu,
+                        Data.String.fromString " AND segment <@ ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IAs (PGTypeProxy :: PGTypeName "segment") _p_a8IAv,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.slot_record SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IAs (PGTypeProxy :: PGTypeName "integer") _p_a8IAw,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IAs (PGTypeProxy :: PGTypeName "inet") _p_a8IAy,
+                        Data.String.fromString
+                          ", 'remove'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a8IAs [] -> ()))
+      (recordId $ recordRow $ slotRecord rs)
+      (containerId $ containerRow $ slotContainer $ recordSlot rs)
+      (slotSegment $ recordSlot rs)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/RecordSlot.hs:80:52-78: Splicing expression
+    insertSlotRecord 'ident_a8Isv 'rd_a8Iso
+  ======>
+    (\ _p_a8IHK _p_a8IHL _p_a8IHM _p_a8IHN _p_a8IHO
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a8IHJ
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (INSERT INTO slot_record (record,container,segment) VALUES (",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IHJ (PGTypeProxy :: PGTypeName "integer") _p_a8IHK,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IHJ (PGTypeProxy :: PGTypeName "integer") _p_a8IHL,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IHJ (PGTypeProxy :: PGTypeName "segment") _p_a8IHM,
+                        Data.String.fromString
+                          ") RETURNING *) INSERT INTO audit.slot_record SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IHJ (PGTypeProxy :: PGTypeName "integer") _p_a8IHN,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IHJ (PGTypeProxy :: PGTypeName "inet") _p_a8IHO,
+                        Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a8IHJ [] -> ()))
+      (recordId $ recordRow $ slotRecord rd)
+      (containerId $ containerRow $ slotContainer $ recordSlot rd)
+      (slotSegment $ recordSlot rd)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/RecordSlot.hs:81:52-83: Splicing expression
+    updateSlotRecord 'ident_a8Isv 'rs_a8Ish 'dst_a8Ism
+  ======>
+    (\ _p_a8IM3 _p_a8IM5 _p_a8IM7 _p_a8IM9 _p_a8IMb _p_a8IMc
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a8IM1
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (UPDATE slot_record SET segment=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IM1 (PGTypeProxy :: PGTypeName "segment") _p_a8IM3,
+                        Data.String.fromString " WHERE record=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IM1 (PGTypeProxy :: PGTypeName "integer") _p_a8IM5,
+                        Data.String.fromString " AND container=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IM1 (PGTypeProxy :: PGTypeName "integer") _p_a8IM7,
+                        Data.String.fromString " AND segment=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IM1 (PGTypeProxy :: PGTypeName "segment") _p_a8IM9,
+                        Data.String.fromString
+                          " RETURNING *) INSERT INTO audit.slot_record SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IM1 (PGTypeProxy :: PGTypeName "integer") _p_a8IMb,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IM1 (PGTypeProxy :: PGTypeName "inet") _p_a8IMc,
+                        Data.String.fromString
+                          ", 'change'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a8IM1 [] -> ()))
+      dst
+      (recordId $ recordRow $ slotRecord rs)
+      (containerId $ containerRow $ slotContainer $ recordSlot rs)
+      (slotSegment $ recordSlot rs)
+      (auditWho ident)
+      (auditIp ident)
+Databrary/Model/RecordSlot.hs:89:15-111: Splicing expression
+    auditDelete
+      'ident_a8IP4
+      "slot_record"
+      "record = ${recordId $ recordRow r} AND segment = '(,)'"
+      Nothing
+  ======>
+    (\ _p_a8IPw _p_a8IPx _p_a8IPy
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a8IPv
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "WITH audit_row AS (DELETE FROM slot_record WHERE record = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IPv (PGTypeProxy :: PGTypeName "integer") _p_a8IPw,
+                        Data.String.fromString
+                          " AND segment = '(,)' RETURNING *) INSERT INTO audit.slot_record SELECT CURRENT_TIMESTAMP, ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IPv (PGTypeProxy :: PGTypeName "integer") _p_a8IPx,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8IPv (PGTypeProxy :: PGTypeName "inet") _p_a8IPy,
+                        Data.String.fromString
+                          ", 'remove'::audit.action, * FROM audit_row"]))
+            (\ _tenv_a8IPv [] -> ()))
+      (recordId $ recordRow r) (auditWho ident) (auditIp ident)

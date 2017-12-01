@@ -1,0 +1,465 @@
+Databrary/Model/AssetRevision.hs:22:1-6: Splicing declarations
+    useTDB ======>
+Databrary/Model/AssetRevision.hs:26:22-97: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "SELECT asset_replace(${assetId $ assetRow old}, ${assetId $ assetRow new})"
+  ======>
+    (\ _p_a8Fap _p_a8Faq
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a8Fao
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString "SELECT asset_replace(",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8Fao
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8Fap,
+                        Data.String.fromString ", ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8Fao
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8Faq,
+                        Data.String.fromString ")"]))
+            (\ _tenv_a8Fao [_casset_replace_a8Far]
+               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a8Fao
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "void")
+                     _casset_replace_a8Far)))
+      (assetId $ assetRow old) (assetId $ assetRow new)
+Databrary/Model/AssetRevision.hs:30:21-101: Splicing expression
+    Language.Haskell.TH.Quote.quoteExp
+      pgSQL
+      "SELECT ''::void FROM asset_replace WHERE orig = ${assetId $ assetRow a} LIMIT 1"
+  ======>
+    (\ _p_a8FgY
+       -> Database.PostgreSQL.Typed.Query.QueryParser
+            (\ _tenv_a8FgX
+               -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                    (Data.ByteString.concat
+                       [Data.String.fromString
+                          "SELECT ''::void FROM asset_replace WHERE orig = ",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_a8FgX
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8FgY,
+                        Data.String.fromString " LIMIT 1"]))
+            (\ _tenv_a8FgX [_cvoid_a8FgZ]
+               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                     _tenv_a8FgX
+                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                        Database.PostgreSQL.Typed.Types.PGTypeName "void")
+                     _cvoid_a8FgZ)))
+      (assetId $ assetRow a)
+Databrary/Model/AssetRevision.hs:35:26-136: Splicing expression
+    selectQuery
+      (selectAssetRevision "asset_replace" 'ident_a8FjZ)
+      "$WHERE asset_replace.asset = ${assetId $ assetRow a}"
+  ======>
+    fmap
+      (\ (vid_a8HS2, vformat_a8HS3, vrelease_a8HS4, vduration_a8HS5,
+          vname_a8HS6, vc_a8HS7, vsize_a8HS8, vid_a8HS9, vname_a8HSa,
+          vbody_a8HSb, valias_a8HSc, vdoi_a8HSd, vc_a8HSe, vowners_a8HSf,
+          vpermission_a8HSg)
+         -> ($)
+              Databrary.Model.AssetRevision.SQL.makeAssetRevision
+              (Asset
+                 (Databrary.Model.Asset.SQL.makeAssetRow
+                    vid_a8HS2
+                    vformat_a8HS3
+                    vrelease_a8HS4
+                    vduration_a8HS5
+                    vname_a8HS6
+                    vc_a8HS7
+                    vsize_a8HS8)
+                 (Databrary.Model.Volume.SQL.makeVolume
+                    (Databrary.Model.Volume.SQL.setCreation
+                       (Databrary.Model.Volume.Types.VolumeRow
+                          vid_a8HS9 vname_a8HSa vbody_a8HSb valias_a8HSc vdoi_a8HSd)
+                       vc_a8HSe)
+                    vowners_a8HSf
+                    vpermission_a8HSg)))
+      ((\ _p_a8HSi _p_a8HSj _p_a8HSk
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8HSh
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM asset_replace JOIN asset JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission ON asset.volume = volume.id ON asset_replace.orig = asset.id WHERE asset_replace.asset = $3")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_a8HSi,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8HSj,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8HSk]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HSh
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
+               (\ _tenv_a8HSh
+                  [_cid_a8HSl,
+                   _cformat_a8HSm,
+                   _crelease_a8HSn,
+                   _cduration_a8HSo,
+                   _cname_a8HSp,
+                   _csha1_a8HSq,
+                   _csize_a8HSr,
+                   _cid_a8HSs,
+                   _cname_a8HSt,
+                   _cbody_a8HSu,
+                   _calias_a8HSv,
+                   _cdoi_a8HSw,
+                   _cvolume_creation_a8HSx,
+                   _cowners_a8HSy,
+                   _cpermission_a8HSz]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a8HSl, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cformat_a8HSm, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a8HSn, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
+                        _cduration_a8HSo, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a8HSp, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
+                        _csha1_a8HSq, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _csize_a8HSr, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a8HSs, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a8HSt, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cbody_a8HSu, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _calias_a8HSv, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cdoi_a8HSw, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                        _cvolume_creation_a8HSx, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                        _cowners_a8HSy, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HSh
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cpermission_a8HSz)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
+         (assetId $ assetRow a))
+Databrary/Model/AssetRevision.hs:40:26-128: Splicing expression
+    selectQuery
+      (selectAssetRevision "transcode" 'ident_a8HSB)
+      "$WHERE transcode.asset = ${assetId $ assetRow a}"
+  ======>
+    fmap
+      (\ (vid_a8HUW, vformat_a8HUX, vrelease_a8HUY, vduration_a8HUZ,
+          vname_a8HV0, vc_a8HV1, vsize_a8HV2, vid_a8HV3, vname_a8HV4,
+          vbody_a8HV5, valias_a8HV6, vdoi_a8HV7, vc_a8HV8, vowners_a8HV9,
+          vpermission_a8HVa)
+         -> ($)
+              Databrary.Model.AssetRevision.SQL.makeAssetRevision
+              (Asset
+                 (Databrary.Model.Asset.SQL.makeAssetRow
+                    vid_a8HUW
+                    vformat_a8HUX
+                    vrelease_a8HUY
+                    vduration_a8HUZ
+                    vname_a8HV0
+                    vc_a8HV1
+                    vsize_a8HV2)
+                 (Databrary.Model.Volume.SQL.makeVolume
+                    (Databrary.Model.Volume.SQL.setCreation
+                       (Databrary.Model.Volume.Types.VolumeRow
+                          vid_a8HV3 vname_a8HV4 vbody_a8HV5 valias_a8HV6 vdoi_a8HV7)
+                       vc_a8HV8)
+                    vowners_a8HV9
+                    vpermission_a8HVa)))
+      ((\ _p_a8HVW _p_a8HVX _p_a8HVY
+          -> Database.PostgreSQL.Typed.Query.QueryParser
+               (\ _tenv_a8HVV
+                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
+                       (Data.String.fromString
+                          "SELECT asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM transcode JOIN asset JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission ON asset.volume = volume.id ON transcode.orig = asset.id WHERE transcode.asset = $3")
+                       []
+                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_a8HVW,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8HVX,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8HVY]
+                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8HVV
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
+               (\ _tenv_a8HVV
+                  [_cid_a8HVZ,
+                   _cformat_a8HW0,
+                   _crelease_a8HW1,
+                   _cduration_a8HW2,
+                   _cname_a8HW3,
+                   _csha1_a8HW4,
+                   _csize_a8HW5,
+                   _cid_a8HW6,
+                   _cname_a8HW7,
+                   _cbody_a8HW8,
+                   _calias_a8HW9,
+                   _cdoi_a8HWa,
+                   _cvolume_creation_a8HWb,
+                   _cowners_a8HWc,
+                   _cpermission_a8HWd]
+                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a8HVZ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
+                        _cformat_a8HW0, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
+                        _crelease_a8HW1, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
+                        _cduration_a8HW2, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a8HW3, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
+                        _csha1_a8HW4, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
+                        _csize_a8HW5, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                        _cid_a8HW6, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cname_a8HW7, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
+                        _cbody_a8HW8, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _calias_a8HW9, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
+                        _cdoi_a8HWa, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
+                        _cvolume_creation_a8HWb, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
+                        _cowners_a8HWc, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8HVV
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
+                        _cpermission_a8HWd)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
+         (assetId $ assetRow a))
