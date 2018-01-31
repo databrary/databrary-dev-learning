@@ -24,7 +24,6 @@ let
   pkgs = reflex-platform.ghc.override {
     overrides = self: super: rec {
       hello-world = self.callPackage ./hello-world.nix {};
-      # gargoyle = self.callPackage "${gargoyleSrc}/gargoyle" {};
       # Define zip with special fork including streaming support; dontCheck to save time
       zip = dontCheck (self.callPackage "${zipSrc}" {});
     };
