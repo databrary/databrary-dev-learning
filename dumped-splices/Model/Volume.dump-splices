@@ -1,14 +1,3 @@
-Databrary/Model/Volume.hs:41:16-32: Splicing expression
-    loadVolume (Id 0)
-  ======>
-    Volume
-      (VolumeRow (Id 0) (T.pack "Core") Nothing Nothing Nothing)
-      (time-1.6.0.1:Data.Time.Clock.UTC.UTCTime
-         (time-1.6.0.1:Data.Time.Calendar.Days.ModifiedJulianDay 56303)
-         (time-1.6.0.1:Data.Time.Clock.Scale.MkDiffTime
-            (Data.Fixed.MkFixed 37600000000000000)))
-      []
-      PermissionPUBLIC
 Databrary/Model/Volume.hs:46:14-73: Splicing expression
     selectQuery (selectVolume 'ident_a5Zg6) "$WHERE volume.id = ${vi}"
   ======>
