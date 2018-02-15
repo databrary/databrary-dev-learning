@@ -1,35 +1,3 @@
-Databrary/Model/Party.hs:63:17-50: Splicing expression
-    loadParty (Id (- 1)) PermissionREAD
-  ======>
-    Party
-      (PartyRow
-         (Id -1) (T.pack "Everybody") Nothing Nothing Nothing Nothing)
-      Nothing
-      PermissionREAD
-      Nothing
-Databrary/Model/Party.hs:64:15-47: Splicing expression
-    loadParty (Id 0) PermissionSHARED
-  ======>
-    Party
-      (PartyRow
-         (Id 0) (T.pack "Databrary") Nothing Nothing Nothing Nothing)
-      Nothing
-      PermissionSHARED
-      Nothing
-Databrary/Model/Party.hs:65:16-48: Splicing expression
-    loadParty (Id 2) PermissionPUBLIC
-  ======>
-    Party
-      (PartyRow
-         (Id 2)
-         (T.pack "Staff")
-         Nothing
-         Nothing
-         (Just (T.pack "Databrary"))
-         Nothing)
-      Nothing
-      PermissionPUBLIC
-      Nothing
 Databrary/Model/Party.hs:98:17-37: Splicing expression
     updateParty 'ident_a6PEb 'p_a6PE7
   ======>
