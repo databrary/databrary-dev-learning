@@ -1,46 +1,46 @@
-Databrary/Model/Slot.hs:20:1-6: Splicing declarations
+src/Databrary/Model/Slot.hs:20:1-6: Splicing declarations
     useTDB ======>
-Databrary/Model/Slot.hs:(29,22)-(30,138): Splicing expression
+src/Databrary/Model/Slot.hs:(29,22)-(30,138): Splicing expression
     Language.Haskell.TH.Quote.quoteExp
       pgSQL
       "$INSERT INTO audit.slot (audit_action, audit_user, audit_ip, container, segment) VALUES\n\
       \    (${if success then AuditActionOpen else AuditActionAttempt}, ${auditWho ai}, ${auditIp ai}, ${containerId $ containerRow c}, ${seg})"
   ======>
-    (\ _p_a8wNW _p_a8wNX _p_a8wNY _p_a8wNZ _p_a8wO0
+    (\ _p_abUAY _p_abUAZ _p_abUB0 _p_abUB1 _p_abUB2
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a8wNV
+            (\ _tenv_abUAX
                -> Database.PostgreSQL.Typed.Query.PreparedQuery
                     (Data.String.fromString
                        "INSERT INTO audit.slot (audit_action, audit_user, audit_ip, container, segment) VALUES\n\
                        \    ($1, $2, $3, $4, $5)")
                     []
                     [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a8wNV
+                       _tenv_abUAX
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                       _p_a8wNW,
+                       _p_abUAY,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a8wNV
+                       _tenv_abUAX
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _p_a8wNX,
+                       _p_abUAZ,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a8wNV
+                       _tenv_abUAX
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                       _p_a8wNY,
+                       _p_abUB0,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a8wNV
+                       _tenv_abUAX
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _p_a8wNZ,
+                       _p_abUB1,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a8wNV
+                       _tenv_abUAX
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                       _p_a8wO0]
+                       _p_abUB2]
                     [])
-            (\ _tenv_a8wNV [] -> ()))
+            (\ _tenv_abUAX [] -> ()))
       (if success then AuditActionOpen else AuditActionAttempt)
       (auditWho ai)
       (auditIp ai)

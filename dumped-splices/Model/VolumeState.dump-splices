@@ -1,158 +1,33 @@
-Databrary/Model/VolumeState.hs:21:25-153: Splicing expression
+src/Databrary/Model/VolumeState.hs:25:25-153: Splicing expression
     selectQuery
       selectVolumeState
       "$WHERE volume = ${volumeId $ volumeRow v} AND (public OR ${volumePermission v >= PermissionEDIT})"
   ======>
     fmap
-      (\ (vkey_a5Eoi, vvalue_a5Eoj, vpublic_a5Eok)
-         -> VolumeState vkey_a5Eoi vvalue_a5Eoj vpublic_a5Eok)
-      ((\ _p_a5EyU _p_a5EyV
+      (\ (vkey_a7xhf, vvalue_a7xhg, vpublic_a7xhh)
+         -> VolumeState vkey_a7xhf vvalue_a7xhg vpublic_a7xhh)
+      ((\ _p_a7xjm _p_a7xjn
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a5EyT
+               (\ _tenv_a7xjl
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT volume_state.key,volume_state.value,volume_state.public FROM volume_state WHERE volume = $1 AND (public OR $2)")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a5EyT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a5EyU,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a5EyT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a5EyV]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a5EyT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a5EyT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "jsonb"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a5EyT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
-               (\ _tenv_a5EyT [_ckey_a5EyW, _cvalue_a5EyX, _cpublic_a5EyY]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a5EyT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _ckey_a5EyW, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a5EyT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "jsonb")
-                        _cvalue_a5EyX, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a5EyT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                        _cpublic_a5EyY)))
+                       [pgEncodeParameter
+                          _tenv_a7xjl (PGTypeProxy :: PGTypeName "integer") _p_a7xjm,
+                        pgEncodeParameter
+                          _tenv_a7xjl (PGTypeProxy :: PGTypeName "boolean") _p_a7xjn]
+                       [pgBinaryColumn
+                          _tenv_a7xjl (PGTypeProxy :: PGTypeName "character varying"),
+                        pgBinaryColumn _tenv_a7xjl (PGTypeProxy :: PGTypeName "jsonb"),
+                        pgBinaryColumn _tenv_a7xjl (PGTypeProxy :: PGTypeName "boolean")])
+               (\ _tenv_a7xjl [_ckey_a7xjo, _cvalue_a7xjp, _cpublic_a7xjq]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a7xjl
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _ckey_a7xjo, 
+                      pgDecodeColumnNotNull
+                        _tenv_a7xjl (PGTypeProxy :: PGTypeName "jsonb") _cvalue_a7xjp, 
+                      pgDecodeColumnNotNull
+                        _tenv_a7xjl (PGTypeProxy :: PGTypeName "boolean") _cpublic_a7xjq)))
          (volumeId $ volumeRow v) ((volumePermission v) >= PermissionEDIT))
-Databrary/Model/VolumeState.hs:25:10-172: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "UPDATE volume_state SET value = ${volumeStateValue}, public = ${volumeStatePublic} WHERE volume = ${volumeId $ volumeRow stateVolume} AND key = ${volumeStateKey}"
-  ======>
-    (\ _p_a5FNh _p_a5FNi _p_a5FNj _p_a5FNk
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a5FNg
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (Data.ByteString.concat
-                       [Data.String.fromString "UPDATE volume_state SET value = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5FNg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "jsonb")
-                          _p_a5FNh,
-                        Data.String.fromString ", public = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5FNg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a5FNi,
-                        Data.String.fromString " WHERE volume = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5FNg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a5FNj,
-                        Data.String.fromString " AND key = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5FNg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a5FNk]))
-            (\ _tenv_a5FNg [] -> ()))
-      volumeStateValue
-      volumeStatePublic
-      (volumeId $ volumeRow stateVolume)
-      volumeStateKey
-Databrary/Model/VolumeState.hs:26:10-171: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "INSERT INTO volume_state (volume, key, value, public) VALUES (${volumeId $ volumeRow stateVolume}, ${volumeStateKey}, ${volumeStateValue}, ${volumeStatePublic})"
-  ======>
-    (\ _p_a5HPA _p_a5HPB _p_a5HPC _p_a5HPD
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a5HPz
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (Data.ByteString.concat
-                       [Data.String.fromString
-                          "INSERT INTO volume_state (volume, key, value, public) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5HPz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a5HPA,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5HPz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a5HPB,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5HPz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "jsonb")
-                          _p_a5HPC,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5HPz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a5HPD,
-                        Data.String.fromString ")"]))
-            (\ _tenv_a5HPz [] -> ()))
-      (volumeId $ volumeRow stateVolume)
-      volumeStateKey
-      volumeStateValue
-      volumeStatePublic
-Databrary/Model/VolumeState.hs:30:21-102: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "DELETE FROM volume_state WHERE volume = ${volumeId $ volumeRow v} AND key = ${k}"
-  ======>
-    (\ _p_a5N5n _p_a5N5o
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a5N5m
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (Data.ByteString.concat
-                       [Data.String.fromString "DELETE FROM volume_state WHERE volume = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5N5m
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a5N5n,
-                        Data.String.fromString " AND key = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a5N5m
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a5N5o]))
-            (\ _tenv_a5N5m [] -> ()))
-      (volumeId $ volumeRow v) k

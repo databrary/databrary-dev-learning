@@ -1,45 +1,11 @@
-Databrary/Model/Party/Types.hs:48:1-32: Splicing declarations
-    makeHasRec ''PartyRow ['partyId]
-  ======>
-    instance Has (Id Party) PartyRow where
-      view = partyId
-Databrary/Model/Party/Types.hs:49:1-30: Splicing declarations
-    makeHasRec ''Party ['partyRow]
-  ======>
-    instance Has PartyRow Party where
-      view = partyRow
-    instance Has (Id Party) Party where
-      view = (view . partyRow)
-Databrary/Model/Party/Types.hs:50:1-36: Splicing declarations
-    makeHasRec ''Account ['accountParty]
-  ======>
-    instance Has Party Account where
-      view = accountParty
-    instance Has PartyRow Account where
-      view = (view . accountParty)
-    instance Has (Id Party) Account where
-      view = (view . accountParty)
-Databrary/Model/Party/Types.hs:68:1-49: Splicing declarations
-    makeHasRec ''SiteAuth ['siteAccount, 'siteAccess]
-  ======>
-    instance Has Account SiteAuth where
-      view = siteAccount
-    instance Has Party SiteAuth where
-      view = (view . siteAccount)
-    instance Has PartyRow SiteAuth where
-      view = (view . siteAccount)
-    instance Has (Id Party) SiteAuth where
-      view = (view . siteAccount)
-    instance Has Access SiteAuth where
-      view = siteAccess
-Databrary/Model/Party/Types.hs:70:1-47: Splicing declarations
+src/Databrary/Model/Party/Types.hs:93:1-47: Splicing declarations
     deriveLiftMany [''PartyRow, ''Party, ''Account]
   ======>
     instance Language.Haskell.TH.Syntax.Lift PartyRow where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4HIq
-            -> case e_a4HIq of {
-                 PartyRow x0_a4HIr x1_a4HIs x2_a4HIt x3_a4HIu x4_a4HIv x5_a4HIw
+        = \ e_a5BpE
+            -> case e_a5BpE of {
+                 PartyRow x0_a5BpG x1_a5BpH x2_a5BpJ x3_a5BpK x4_a5BpL x5_a5BpM
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.appE
@@ -51,20 +17,21 @@ Databrary/Model/Party/Types.hs:70:1-47: Splicing declarations
                                              (Language.Haskell.TH.Syntax.mkOccName "PartyRow")
                                              (Language.Haskell.TH.Syntax.NameG
                                                 Language.Haskell.TH.Syntax.DataName
-                                                (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                                (Language.Haskell.TH.Syntax.mkPkgName
+                                                   "databrary-1-CKdn4uB613l7rh0y53TmMA")
                                                 (Language.Haskell.TH.Syntax.mkModName
                                                    "Databrary.Model.Party.Types"))))
-                                       (Language.Haskell.TH.Syntax.lift x0_a4HIr))
-                                    (Language.Haskell.TH.Syntax.lift x1_a4HIs))
-                                 (Language.Haskell.TH.Syntax.lift x2_a4HIt))
-                              (Language.Haskell.TH.Syntax.lift x3_a4HIu))
-                           (Language.Haskell.TH.Syntax.lift x4_a4HIv))
-                        (Language.Haskell.TH.Syntax.lift x5_a4HIw) }
+                                       (Language.Haskell.TH.Syntax.lift x0_a5BpG))
+                                    (Language.Haskell.TH.Syntax.lift x1_a5BpH))
+                                 (Language.Haskell.TH.Syntax.lift x2_a5BpJ))
+                              (Language.Haskell.TH.Syntax.lift x3_a5BpK))
+                           (Language.Haskell.TH.Syntax.lift x4_a5BpL))
+                        (Language.Haskell.TH.Syntax.lift x5_a5BpM) }
     instance Language.Haskell.TH.Syntax.Lift Party where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4HIA
-            -> case e_a4HIA of {
-                 Party x0_a4HIB x1_a4HIC x2_a4HID x3_a4HIE
+        = \ e_a5BpO
+            -> case e_a5BpO of {
+                 Party x0_a5BpQ x1_a5BpR x2_a5BpS x3_a5BpT
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.appE
@@ -74,18 +41,19 @@ Databrary/Model/Party/Types.hs:70:1-47: Splicing declarations
                                        (Language.Haskell.TH.Syntax.mkOccName "Party")
                                        (Language.Haskell.TH.Syntax.NameG
                                           Language.Haskell.TH.Syntax.DataName
-                                          (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                          (Language.Haskell.TH.Syntax.mkPkgName
+                                             "databrary-1-CKdn4uB613l7rh0y53TmMA")
                                           (Language.Haskell.TH.Syntax.mkModName
                                              "Databrary.Model.Party.Types"))))
-                                 (Language.Haskell.TH.Syntax.lift x0_a4HIB))
-                              (Language.Haskell.TH.Syntax.lift x1_a4HIC))
-                           (Language.Haskell.TH.Syntax.lift x2_a4HID))
-                        (Language.Haskell.TH.Syntax.lift x3_a4HIE) }
+                                 (Language.Haskell.TH.Syntax.lift x0_a5BpQ))
+                              (Language.Haskell.TH.Syntax.lift x1_a5BpR))
+                           (Language.Haskell.TH.Syntax.lift x2_a5BpS))
+                        (Language.Haskell.TH.Syntax.lift x3_a5BpT) }
     instance Language.Haskell.TH.Syntax.Lift Account where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4HIF
-            -> case e_a4HIF of {
-                 Account x0_a4HIG x1_a4HIH
+        = \ e_a5BpV
+            -> case e_a5BpV of {
+                 Account x0_a5BpW x1_a5BpX
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.conE
@@ -93,8 +61,9 @@ Databrary/Model/Party/Types.hs:70:1-47: Splicing declarations
                                  (Language.Haskell.TH.Syntax.mkOccName "Account")
                                  (Language.Haskell.TH.Syntax.NameG
                                     Language.Haskell.TH.Syntax.DataName
-                                    (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                    (Language.Haskell.TH.Syntax.mkPkgName
+                                       "databrary-1-CKdn4uB613l7rh0y53TmMA")
                                     (Language.Haskell.TH.Syntax.mkModName
                                        "Databrary.Model.Party.Types"))))
-                           (Language.Haskell.TH.Syntax.lift x0_a4HIG))
-                        (Language.Haskell.TH.Syntax.lift x1_a4HIH) }
+                           (Language.Haskell.TH.Syntax.lift x0_a5BpW))
+                        (Language.Haskell.TH.Syntax.lift x1_a5BpX) }

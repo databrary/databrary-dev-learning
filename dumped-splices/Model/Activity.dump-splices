@@ -1,1029 +1,1037 @@
-Databrary/Model/Activity.hs:91:19-115: Splicing expression
+src/Databrary/Model/Activity.hs:92:19-115: Splicing expression
     selectQuery selectActivityParty
     $ "WHERE party.id = ${partyId $ partyRow p} AND " ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9uXF, vuser_a9uXG, vip_a9uXH, vaction_a9uXI, vid_a9uXJ,
-          vname_a9uXK, vprename_a9uXL, vorcid_a9uXM, vaffiliation_a9uXN,
-          vurl_a9uXO)
+      (\ (vtime_acBtW, vuser_acBtX, vip_acBtY, vaction_acBtZ, vid_acBu0,
+          vname_acBu1, vprename_acBu2, vorcid_acBu3, vaffiliation_acBu4,
+          vurl_acBu5)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9uXF vuser_a9uXG vip_a9uXH vaction_a9uXI)
+                 vtime_acBtW vuser_acBtX vip_acBtY vaction_acBtZ)
               (ActivityParty
                  (PartyRow
-                    vid_a9uXJ
-                    vname_a9uXK
-                    vprename_a9uXL
-                    vorcid_a9uXM
-                    vaffiliation_a9uXN
-                    vurl_a9uXO)))
-      ((\ _p_a9uXQ
+                    vid_acBu0
+                    vname_acBu1
+                    vprename_acBu2
+                    vorcid_acBu3
+                    vaffiliation_acBu4
+                    vurl_acBu5)))
+      ((\ _p_acBuj
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9uXP
+               (\ _tenv_acBui
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT party.audit_time,party.audit_user,party.audit_ip,party.audit_action,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url FROM audit.party WHERE party.id = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9uXP
+                             _tenv_acBui
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9uXQ,
+                             _p_acBuj,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9uXP
-                  [_caudit_time_a9uXR,
-                   _caudit_user_a9uXS,
-                   _caudit_ip_a9uXT,
-                   _caudit_action_a9uXU,
-                   _cid_a9uXV,
-                   _cname_a9uXW,
-                   _cprename_a9uXX,
-                   _corcid_a9uXY,
-                   _caffiliation_a9uXZ,
-                   _curl_a9uY0]
+               (\ _tenv_acBui
+                  [_caudit_time_acBuk,
+                   _caudit_user_acBul,
+                   _caudit_ip_acBum,
+                   _caudit_action_acBun,
+                   _cid_acBuo,
+                   _cname_acBup,
+                   _cprename_acBuq,
+                   _corcid_acBur,
+                   _caffiliation_acBus,
+                   _curl_acBut]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9uXR, 
+                        _caudit_time_acBuk, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9uXS, 
+                        _caudit_user_acBul, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9uXT, 
+                        _caudit_ip_acBum, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9uXU, 
+                        _caudit_action_acBun, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9uXV, 
+                        _cid_acBuo, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9uXW, 
+                        _cname_acBup, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a9uXX, 
+                        _cprename_acBuq, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a9uXY, 
+                        _corcid_acBur, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a9uXZ, 
+                        _caffiliation_acBus, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9uXP
+                        _tenv_acBui
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a9uY0)))
+                        _curl_acBut)))
          (partyId $ partyRow p))
-Databrary/Model/Activity.hs:93:19-118: Splicing expression
+src/Databrary/Model/Activity.hs:94:19-118: Splicing expression
     selectQuery selectActivityAccount
     $ "WHERE account.id = ${partyId $ partyRow p} ORDER BY audit_time"
   ======>
     fmap
-      (\ (vtime_a9uZS, vuser_a9uZT, vip_a9uZU, vaction_a9uZV, vid_a9uZW,
-          vemail_a9uZX, vpassword_a9uZY)
+      (\ (vtime_acO4G, vuser_acO4H, vip_acO4I, vaction_acO4J, vid_acO4K,
+          vemail_acO4L, vpassword_acO4M)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9uZS vuser_a9uZT vip_a9uZU vaction_a9uZV)
-              (ActivityAccount vid_a9uZW vemail_a9uZX vpassword_a9uZY))
-      ((\ _p_a9v10
+                 vtime_acO4G vuser_acO4H vip_acO4I vaction_acO4J)
+              (ActivityAccount vid_acO4K vemail_acO4L vpassword_acO4M))
+      ((\ _p_acO6l
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9v0Z
+               (\ _tenv_acO6k
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT account.audit_time,account.audit_user,account.audit_ip,account.audit_action,account.id,account.email,account.password FROM audit.account WHERE account.id = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9v0Z
+                             _tenv_acO6k
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9v10,
+                             _p_acO6l,
                            Data.String.fromString " ORDER BY audit_time"]))
-               (\ _tenv_a9v0Z
-                  [_caudit_time_a9v11,
-                   _caudit_user_a9v12,
-                   _caudit_ip_a9v13,
-                   _caudit_action_a9v14,
-                   _cid_a9v15,
-                   _cemail_a9v16,
-                   _cpassword_a9v17]
+               (\ _tenv_acO6k
+                  [_caudit_time_acO6m,
+                   _caudit_user_acO6n,
+                   _caudit_ip_acO6o,
+                   _caudit_action_acO6p,
+                   _cid_acO6q,
+                   _cemail_acO6r,
+                   _cpassword_acO6s]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9v11, 
+                        _caudit_time_acO6m, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9v12, 
+                        _caudit_user_acO6n, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9v13, 
+                        _caudit_ip_acO6o, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9v14, 
+                        _caudit_action_acO6p, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9v15, 
+                        _cid_acO6q, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a9v16, 
+                        _cemail_acO6r, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v0Z
+                        _tenv_acO6k
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cpassword_a9v17)))
+                        _cpassword_acO6s)))
          (partyId $ partyRow p))
-Databrary/Model/Activity.hs:95:19-92: Splicing expression
-    selectQuery (selectActivityAuthorize 'p_a94AL 'ident_a94AN)
+src/Databrary/Model/Activity.hs:96:19-92: Splicing expression
+    selectQuery (selectActivityAuthorize 'p_acoTn 'ident_acoTo)
     $ "WHERE " ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9v4n, vuser_a9v4o, vip_a9v4p, vaction_a9v4q,
-          vsite_a9v4r, vmember_a9v4s, vexpires_a9v4t, vid_a9v4u, vname_a9v4v,
-          vprename_a9v4w, vorcid_a9v4x, vaffiliation_a9v4y, vurl_a9v4z,
-          vemail_a9v4A)
+      (\ (vtime_acOfQ, vuser_acOfR, vip_acOfS, vaction_acOfT,
+          vsite_acOfU, vmember_acOfV, vexpires_acOfW, vid_acOfY, vname_acOfZ,
+          vprename_acOg1, vorcid_acOg3, vaffiliation_acOg5, vurl_acOg6,
+          vemail_acOg7)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9v4n vuser_a9v4o vip_a9v4p vaction_a9v4q)
+                 vtime_acOfQ vuser_acOfR vip_acOfS vaction_acOfT)
               (ActivityAuthorize
                  (($)
-                    (Databrary.Model.Authorize.SQL.makeAuthorize
-                       (Databrary.Model.Permission.Types.Access vsite_a9v4r vmember_a9v4s)
-                       vexpires_a9v4t)
+                    (makeAuthorize
+                       (Databrary.Model.Permission.Types.Access vsite_acOfU vmember_acOfV)
+                       vexpires_acOfW)
                     (Databrary.Model.Party.SQL.permissionParty
                        (Databrary.Model.Party.SQL.makeParty
                           (PartyRow
-                             vid_a9v4u
-                             vname_a9v4v
-                             vprename_a9v4w
-                             vorcid_a9v4x
-                             vaffiliation_a9v4y
-                             vurl_a9v4z)
-                          (do { cm_a9v4B <- vemail_a9v4A;
-                                Just (Account cm_a9v4B) }))
+                             vid_acOfY
+                             vname_acOfZ
+                             vprename_acOg1
+                             vorcid_acOg3
+                             vaffiliation_acOg5
+                             vurl_acOg6)
+                          (do { cm_acOgY <- vemail_acOg7;
+                                Just (Account cm_acOgY) }))
                        Nothing
-                       ident_a94AN)
-                    p_a94AL)))
-      ((\ _p_a9v4N
+                       ident_acoTo)
+                    p_acoTn)))
+      ((\ _p_acOnv
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9v4M
+               (\ _tenv_acOnu
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT authorize.audit_time,authorize.audit_user,authorize.audit_ip,authorize.audit_action,authorize.site,authorize.member,authorize.expires,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email FROM audit.authorize JOIN party LEFT JOIN account USING (id) ON authorize.child = party.id AND authorize.parent = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9v4M
+                             _tenv_acOnu
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9v4N,
+                             _p_acOnv,
                            Data.String.fromString
                              " WHERE audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9v4M
-                  [_caudit_time_a9v4O,
-                   _caudit_user_a9v4P,
-                   _caudit_ip_a9v4Q,
-                   _caudit_action_a9v4R,
-                   _csite_a9v4S,
-                   _cmember_a9v4T,
-                   _cexpires_a9v4U,
-                   _cid_a9v4V,
-                   _cname_a9v4W,
-                   _cprename_a9v4X,
-                   _corcid_a9v4Y,
-                   _caffiliation_a9v4Z,
-                   _curl_a9v50,
-                   _cemail_a9v51]
+               (\ _tenv_acOnu
+                  [_caudit_time_acOnw,
+                   _caudit_user_acOnx,
+                   _caudit_ip_acOny,
+                   _caudit_action_acOnz,
+                   _csite_acOnA,
+                   _cmember_acOnB,
+                   _cexpires_acOnC,
+                   _cid_acOnD,
+                   _cname_acOnE,
+                   _cprename_acOnF,
+                   _corcid_acOnG,
+                   _caffiliation_acOnH,
+                   _curl_acOnI,
+                   _cemail_acOnJ]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9v4O, 
+                        _caudit_time_acOnw, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9v4P, 
+                        _caudit_user_acOnx, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9v4Q, 
+                        _caudit_ip_acOny, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9v4R, 
+                        _caudit_action_acOnz, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a9v4S, 
+                        _csite_acOnA, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a9v4T, 
+                        _cmember_acOnB, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cexpires_a9v4U, 
+                        _cexpires_acOnC, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9v4V, 
+                        _cid_acOnD, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9v4W, 
+                        _cname_acOnE, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a9v4X, 
+                        _cprename_acOnF, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a9v4Y, 
+                        _corcid_acOnG, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a9v4Z, 
+                        _caffiliation_acOnH, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a9v50, 
+                        _curl_acOnI, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v4M
+                        _tenv_acOnu
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a9v51)))
+                        _cemail_acOnJ)))
          (partyId $ partyRow p))
-Databrary/Model/Activity.hs:102:19-122: Splicing expression
+src/Databrary/Model/Activity.hs:103:19-122: Splicing expression
     selectQuery selectActivityVolume
     $ "!WHERE volume.id = ${volumeId $ volumeRow vol} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9v5K, vuser_a9v5L, vip_a9v5M, vaction_a9v5N, vid_a9v5O,
-          vname_a9v5P, vbody_a9v5Q, valias_a9v5R, vdoi_a9v5S)
+      (\ (vtime_acOse, vuser_acOsf, vip_acOsg, vaction_acOsh, vid_acOsi,
+          vname_acOsj, vbody_acOsk, valias_acOsl, vdoi_acOsm)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9v5K vuser_a9v5L vip_a9v5M vaction_a9v5N)
+                 vtime_acOse vuser_acOsf vip_acOsg vaction_acOsh)
               (ActivityVolume
                  (VolumeRow
-                    vid_a9v5O vname_a9v5P vbody_a9v5Q valias_a9v5R vdoi_a9v5S)))
-      ((\ _p_a9v69
+                    vid_acOsi vname_acOsj vbody_acOsk valias_acOsl vdoi_acOsm)))
+      ((\ _p_acOsZ
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9v68
+               (\ _tenv_acOsY
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT volume.audit_time,volume.audit_user,volume.audit_ip,volume.audit_action,volume.id,volume.name,volume.body,volume.alias,volume.doi FROM audit.volume WHERE volume.id = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9v68
+                             _tenv_acOsY
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9v69,
+                             _p_acOsZ,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9v68
-                  [_caudit_time_a9v6a,
-                   _caudit_user_a9v6b,
-                   _caudit_ip_a9v6c,
-                   _caudit_action_a9v6d,
-                   _cid_a9v6e,
-                   _cname_a9v6f,
-                   _cbody_a9v6g,
-                   _calias_a9v6h,
-                   _cdoi_a9v6i]
+               (\ _tenv_acOsY
+                  [_caudit_time_acOt0,
+                   _caudit_user_acOt1,
+                   _caudit_ip_acOt2,
+                   _caudit_action_acOt3,
+                   _cid_acOt4,
+                   _cname_acOt5,
+                   _cbody_acOt6,
+                   _calias_acOt7,
+                   _cdoi_acOt8]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9v6a, 
+                        _caudit_time_acOt0, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9v6b, 
+                        _caudit_user_acOt1, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9v6c, 
+                        _caudit_ip_acOt2, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9v6d, 
+                        _caudit_action_acOt3, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9v6e, 
+                        _cid_acOt4, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9v6f, 
+                        _cname_acOt5, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a9v6g, 
+                        _cbody_acOt6, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a9v6h, 
+                        _calias_acOt7, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v68
+                        _tenv_acOsY
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a9v6i)))
+                        _cdoi_acOt8)))
          (volumeId $ volumeRow vol))
-Databrary/Model/Activity.hs:104:19-91: Splicing expression
-    selectQuery (selectActivityAccess 'vol_a9v5q 'ident_a9v5r)
+src/Databrary/Model/Activity.hs:105:19-91: Splicing expression
+    selectQuery (selectActivityAccess 'vol_acOrl 'ident_acOrm)
     $ "WHERE " ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9v6R, vuser_a9v6S, vip_a9v6T, vaction_a9v6U,
-          vindividual_a9v6V, vchildren_a9v6W, vsort_a9v6X, vid_a9v6Y,
-          vname_a9v6Z, vprename_a9v70, vorcid_a9v71, vaffiliation_a9v72,
-          vurl_a9v73, vemail_a9v74, vsite_a9v75, vmember_a9v76)
+      (\ (vtime_acOwD, vuser_acOwE, vip_acOwF, vaction_acOwG,
+          vindividual_acOwH, vchildren_acOwI, vsort_acOwJ, vfull_acOwK,
+          vid_acOwL, vname_acOwM, vprename_acOwN, vorcid_acOwO,
+          vaffiliation_acOwP, vurl_acOwQ, vemail_acOwR, vsite_acOwS,
+          vmember_acOwT)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9v6R vuser_a9v6S vip_a9v6T vaction_a9v6U)
+                 vtime_acOwD vuser_acOwE vip_acOwF vaction_acOwG)
               (ActivityAccess
                  (($)
-                    (VolumeAccess vindividual_a9v6V vchildren_a9v6W vsort_a9v6X)
+                    (VolumeAccess
+                       vindividual_acOwH vchildren_acOwI vsort_acOwJ vfull_acOwK)
                     (Databrary.Model.Party.SQL.permissionParty
                        (Databrary.Model.Party.SQL.makeParty
                           (PartyRow
-                             vid_a9v6Y
-                             vname_a9v6Z
-                             vprename_a9v70
-                             vorcid_a9v71
-                             vaffiliation_a9v72
-                             vurl_a9v73)
-                          (do { cm_a9v77 <- vemail_a9v74;
-                                Just (Account cm_a9v77) }))
-                       (do { cm_a9v78 <- vsite_a9v75;
-                             cm_a9v79 <- vmember_a9v76;
-                             Just (Databrary.Model.Permission.Types.Access cm_a9v78 cm_a9v79) })
-                       ident_a9v5r)
-                    vol_a9v5q)))
-      ((\ _p_a9v7E _p_a9v7F
+                             vid_acOwL
+                             vname_acOwM
+                             vprename_acOwN
+                             vorcid_acOwO
+                             vaffiliation_acOwP
+                             vurl_acOwQ)
+                          (do { cm_acOwW <- vemail_acOwR;
+                                Just (Account cm_acOwW) }))
+                       (do { cm_acOwX <- vsite_acOwS;
+                             cm_acOwY <- vmember_acOwT;
+                             Just (Databrary.Model.Permission.Types.Access cm_acOwX cm_acOwY) })
+                       ident_acOrm)
+                    vol_acOrl)))
+      ((\ _p_acODC _p_acODD
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9v7D
+               (\ _tenv_acODB
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
-                             "SELECT volume_access.audit_time,volume_access.audit_user,volume_access.audit_ip,volume_access.audit_action,volume_access.individual,volume_access.children,volume_access.sort,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member FROM audit.volume_access JOIN party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = ",
+                             "SELECT volume_access.audit_time,volume_access.audit_user,volume_access.audit_ip,volume_access.audit_action,volume_access.individual,volume_access.children,volume_access.sort,volume_access.share_full,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member FROM audit.volume_access JOIN party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9v7D
+                             _tenv_acODB
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9v7E,
+                             _p_acODC,
                            Data.String.fromString
                              " ON volume_access.party = party.id AND volume_access.volume = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9v7D
+                             _tenv_acODB
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9v7F,
+                             _p_acODD,
                            Data.String.fromString
                              " WHERE audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9v7D
-                  [_caudit_time_a9v7G,
-                   _caudit_user_a9v7H,
-                   _caudit_ip_a9v7I,
-                   _caudit_action_a9v7J,
-                   _cindividual_a9v7K,
-                   _cchildren_a9v7L,
-                   _csort_a9v7M,
-                   _cid_a9v7N,
-                   _cname_a9v7O,
-                   _cprename_a9v7P,
-                   _corcid_a9v7Q,
-                   _caffiliation_a9v7R,
-                   _curl_a9v7S,
-                   _cemail_a9v7T,
-                   _csite_a9v7U,
-                   _cmember_a9v7V]
+               (\ _tenv_acODB
+                  [_caudit_time_acODE,
+                   _caudit_user_acODF,
+                   _caudit_ip_acODG,
+                   _caudit_action_acODH,
+                   _cindividual_acODI,
+                   _cchildren_acODJ,
+                   _csort_acODK,
+                   _cshare_full_acODL,
+                   _cid_acODM,
+                   _cname_acODN,
+                   _cprename_acODO,
+                   _corcid_acODP,
+                   _caffiliation_acODQ,
+                   _curl_acODR,
+                   _cemail_acODS,
+                   _csite_acODT,
+                   _cmember_acODU]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9v7G, 
+                        _caudit_time_acODE, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9v7H, 
+                        _caudit_user_acODF, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9v7I, 
+                        _caudit_ip_acODG, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9v7J, 
+                        _caudit_action_acODH, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cindividual_a9v7K, 
+                        _cindividual_acODI, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cchildren_a9v7L, 
+                        _cchildren_acODJ, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _csort_a9v7M, 
+                        _csort_acODK, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_acODB
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_acODL, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9v7N, 
+                        _cid_acODM, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9v7O, 
+                        _cname_acODN, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a9v7P, 
+                        _cprename_acODO, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a9v7Q, 
+                        _corcid_acODP, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a9v7R, 
+                        _caffiliation_acODQ, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a9v7S, 
+                        _curl_acODR, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a9v7T, 
+                        _cemail_acODS, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a9v7U, 
+                        _csite_acODT, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9v7D
+                        _tenv_acODB
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a9v7V)))
+                        _cmember_acODU)))
          (view ident :: Id Party) (volumeId $ volumeRow vol))
-Databrary/Model/Activity.hs:153:19-134: Splicing expression
+src/Databrary/Model/Activity.hs:154:19-134: Splicing expression
     selectQuery selectActivityContainer
     $ "WHERE container.id = ${containerId $ containerRow cont} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9va1, vuser_a9va2, vip_a9va3, vaction_a9va4, vid_a9va5,
-          vtop_a9va6, vname_a9va7, vdate_a9va8)
+      (\ (vtime_acOGw, vuser_acOGx, vip_acOGy, vaction_acOGz, vid_acOGA,
+          vtop_acOGB, vname_acOGC, vdate_acOGD)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9va1 vuser_a9va2 vip_a9va3 vaction_a9va4)
+                 vtime_acOGw vuser_acOGx vip_acOGy vaction_acOGz)
               (ActivityContainer
-                 (ContainerRow vid_a9va5 vtop_a9va6 vname_a9va7 vdate_a9va8)))
-      ((\ _p_a9vb2
+                 (ContainerRow vid_acOGA vtop_acOGB vname_acOGC vdate_acOGD)))
+      ((\ _p_acON4
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9vb1
+               (\ _tenv_acON0
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT container.audit_time,container.audit_user,container.audit_ip,container.audit_action,container.id,container.top,container.name,container.date FROM audit.container WHERE container.id = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vb1
+                             _tenv_acON0
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9vb2,
+                             _p_acON4,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9vb1
-                  [_caudit_time_a9vb3,
-                   _caudit_user_a9vb4,
-                   _caudit_ip_a9vb5,
-                   _caudit_action_a9vb6,
-                   _cid_a9vb7,
-                   _ctop_a9vb8,
-                   _cname_a9vb9,
-                   _cdate_a9vba]
+               (\ _tenv_acON0
+                  [_caudit_time_acON5,
+                   _caudit_user_acON6,
+                   _caudit_ip_acON7,
+                   _caudit_action_acON8,
+                   _cid_acON9,
+                   _ctop_acONa,
+                   _cname_acONb,
+                   _cdate_acONc]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9vb3, 
+                        _caudit_time_acON5, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9vb4, 
+                        _caudit_user_acON6, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9vb5, 
+                        _caudit_ip_acON7, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9vb6, 
+                        _caudit_action_acON8, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9vb7, 
+                        _cid_acON9, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                        _ctop_a9vb8, 
+                        _ctop_acONa, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9vb9, 
+                        _cname_acONb, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vb1
+                        _tenv_acON0
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "date")
-                        _cdate_a9vba)))
+                        _cdate_acONc)))
          (containerId $ containerRow cont))
-Databrary/Model/Activity.hs:155:19-142: Splicing expression
+src/Databrary/Model/Activity.hs:156:19-142: Splicing expression
     selectQuery selectActivityRelease
     $ "WHERE slot_release.container = ${containerId $ containerRow cont} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9vbE, vuser_a9vbF, vip_a9vbG, vaction_a9vbH,
-          vcontainer_a9vbI, vsegment_a9vbJ, vrelease_a9vbK)
+      (\ (vtime_acOVx, vuser_acOVy, vip_acOVz, vaction_acOVA,
+          vcontainer_acOVB, vsegment_acOVC, vrelease_acOVD)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9vbE vuser_a9vbF vip_a9vbG vaction_a9vbH)
+                 vtime_acOVx vuser_acOVy vip_acOVz vaction_acOVA)
               (ActivityRelease
-                 (SlotId vcontainer_a9vbI vsegment_a9vbJ) vrelease_a9vbK))
-      ((\ _p_a9vlV
+                 (SlotId vcontainer_acOVB vsegment_acOVC) vrelease_acOVD))
+      ((\ _p_acOWd
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9vlU
+               (\ _tenv_acOWc
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT slot_release.audit_time,slot_release.audit_user,slot_release.audit_ip,slot_release.audit_action,slot_release.container,slot_release.segment,slot_release.release FROM audit.slot_release WHERE slot_release.container = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vlU
+                             _tenv_acOWc
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9vlV,
+                             _p_acOWd,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9vlU
-                  [_caudit_time_a9vlW,
-                   _caudit_user_a9vlY,
-                   _caudit_ip_a9vlZ,
-                   _caudit_action_a9vm0,
-                   _ccontainer_a9vm1,
-                   _csegment_a9vm3,
-                   _crelease_a9vm4]
+               (\ _tenv_acOWc
+                  [_caudit_time_acOWe,
+                   _caudit_user_acOWf,
+                   _caudit_ip_acOWg,
+                   _caudit_action_acOWh,
+                   _ccontainer_acOWi,
+                   _csegment_acOWj,
+                   _crelease_acOWk]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9vlW, 
+                        _caudit_time_acOWe, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9vlY, 
+                        _caudit_user_acOWf, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9vlZ, 
+                        _caudit_ip_acOWg, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9vm0, 
+                        _caudit_action_acOWh, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _ccontainer_a9vm1, 
+                        _ccontainer_acOWi, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                        _csegment_a9vm3, 
+                        _csegment_acOWj, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vlU
+                        _tenv_acOWc
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "release")
-                        _crelease_a9vm4)))
+                        _crelease_acOWk)))
          (containerId $ containerRow cont))
-Databrary/Model/Activity.hs:158:19-142: Splicing expression
+src/Databrary/Model/Activity.hs:159:19-142: Splicing expression
     selectQuery selectActivityAssetSlot
     $ "WHERE slot_asset.container = ${containerId $ containerRow cont} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9vpY, vuser_a9vq0, vip_a9vq1, vaction_a9vq2,
-          vasset_a9vq3, vcontainer_a9vq5, vsegment_a9vq6)
+      (\ (vtime_acP0o, vuser_acP0p, vip_acP0q, vaction_acP0r,
+          vasset_acP0s, vcontainer_acP0t, vsegment_acP0u)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9vpY vuser_a9vq0 vip_a9vq1 vaction_a9vq2)
+                 vtime_acP0o vuser_acP0p vip_acP0q vaction_acP0r)
               (ActivityAssetSlot
-                 vasset_a9vq3 (SlotId vcontainer_a9vq5 vsegment_a9vq6)))
-      ((\ _p_a9vr4
+                 vasset_acP0s (SlotId vcontainer_acP0t vsegment_acP0u)))
+      ((\ _p_acP12
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9vr3
+               (\ _tenv_acP11
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT slot_asset.audit_time,slot_asset.audit_user,slot_asset.audit_ip,slot_asset.audit_action,slot_asset.asset,slot_asset.container,slot_asset.segment FROM audit.slot_asset WHERE slot_asset.container = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vr3
+                             _tenv_acP11
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9vr4,
+                             _p_acP12,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9vr3
-                  [_caudit_time_a9vr5,
-                   _caudit_user_a9vr6,
-                   _caudit_ip_a9vr7,
-                   _caudit_action_a9vr8,
-                   _casset_a9vr9,
-                   _ccontainer_a9vra,
-                   _csegment_a9vrb]
+               (\ _tenv_acP11
+                  [_caudit_time_acP13,
+                   _caudit_user_acP14,
+                   _caudit_ip_acP15,
+                   _caudit_action_acP17,
+                   _casset_acP19,
+                   _ccontainer_acP1a,
+                   _csegment_acP1b]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9vr5, 
+                        _caudit_time_acP13, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9vr6, 
+                        _caudit_user_acP14, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9vr7, 
+                        _caudit_ip_acP15, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9vr8, 
+                        _caudit_action_acP17, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _casset_a9vr9, 
+                        _casset_acP19, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _ccontainer_a9vra, 
+                        _ccontainer_acP1a, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vr3
+                        _tenv_acP11
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                        _csegment_a9vrb)))
+                        _csegment_acP1b)))
          (containerId $ containerRow cont))
-Databrary/Model/Activity.hs:161:19-185: Splicing expression
+src/Databrary/Model/Activity.hs:162:19-185: Splicing expression
     selectQuery selectActivityAsset
     $ "JOIN slot_asset ON asset.id = slot_asset.asset WHERE slot_asset.container = ${containerId $ containerRow cont} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9vw7, vuser_a9vw8, vip_a9vw9, vaction_a9vwa, vid_a9vwb,
-          vformat_a9vwc, vrelease_a9vwd, vduration_a9vwe, vname_a9vwf,
-          vc_a9vwh, vsize_a9vwi)
+      (\ (vtime_acP4X, vuser_acP4Y, vip_acP4Z, vaction_acP50, vid_acP51,
+          vformat_acP52, vrelease_acP53, vduration_acP54, vname_acP55,
+          vc_acP56, vsize_acP57)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9vw7 vuser_a9vw8 vip_a9vw9 vaction_a9vwa)
+                 vtime_acP4X vuser_acP4Y vip_acP4Z vaction_acP50)
               (ActivityAsset
                  (Databrary.Model.Asset.SQL.makeAssetRow
-                    vid_a9vwb
-                    vformat_a9vwc
-                    vrelease_a9vwd
-                    vduration_a9vwe
-                    vname_a9vwf
-                    vc_a9vwh
-                    vsize_a9vwi)))
-      ((\ _p_a9vxW
+                    vid_acP51
+                    vformat_acP52
+                    vrelease_acP53
+                    vduration_acP54
+                    vname_acP55
+                    vc_acP56
+                    vsize_acP57)))
+      ((\ _p_acP7P
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9vxV
+               (\ _tenv_acP7O
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT asset.audit_time,asset.audit_user,asset.audit_ip,asset.audit_action,asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size FROM audit.asset JOIN slot_asset ON asset.id = slot_asset.asset WHERE slot_asset.container = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vxV
+                             _tenv_acP7O
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9vxW,
+                             _p_acP7P,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9vxV
-                  [_caudit_time_a9vxX,
-                   _caudit_user_a9vxY,
-                   _caudit_ip_a9vxZ,
-                   _caudit_action_a9vy0,
-                   _cid_a9vy1,
-                   _cformat_a9vy2,
-                   _crelease_a9vy3,
-                   _cduration_a9vy4,
-                   _cname_a9vy5,
-                   _csha1_a9vy6,
-                   _csize_a9vy7]
+               (\ _tenv_acP7O
+                  [_caudit_time_acP7Q,
+                   _caudit_user_acP7R,
+                   _caudit_ip_acP7S,
+                   _caudit_action_acP7T,
+                   _cid_acP7U,
+                   _cformat_acP7V,
+                   _crelease_acP7W,
+                   _cduration_acP7X,
+                   _cname_acP7Y,
+                   _csha1_acP7Z,
+                   _csize_acP80]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9vxX, 
+                        _caudit_time_acP7Q, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9vxY, 
+                        _caudit_user_acP7R, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9vxZ, 
+                        _caudit_ip_acP7S, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9vy0, 
+                        _caudit_action_acP7T, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9vy1, 
+                        _cid_acP7U, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _cformat_a9vy2, 
+                        _cformat_acP7V, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "release")
-                        _crelease_a9vy3, 
+                        _crelease_acP7W, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "interval")
-                        _cduration_a9vy4, 
+                        _cduration_acP7X, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9vy5, 
+                        _cname_acP7Y, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
-                        _csha1_a9vy6, 
+                        _csha1_acP7Z, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vxV
+                        _tenv_acP7O
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                        _csize_a9vy7)))
+                        _csize_acP80)))
          (containerId $ containerRow cont))
-Databrary/Model/Activity.hs:171:21-123: Splicing expression
+src/Databrary/Model/Activity.hs:172:21-123: Splicing expression
     selectQuery selectActivityAsset
     $ "WHERE asset.id = ${ai} AND audit_time <= ${at} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9vDG, vuser_a9vDH, vip_a9vDI, vaction_a9vDJ, vid_a9vDK,
-          vformat_a9vDL, vrelease_a9vDN, vduration_a9vDO, vname_a9vDP,
-          vc_a9vDQ, vsize_a9vDR)
+      (\ (vtime_acPgT, vuser_acPgU, vip_acPgV, vaction_acPgW, vid_acPgX,
+          vformat_acPgY, vrelease_acPgZ, vduration_acPh0, vname_acPh1,
+          vc_acPh2, vsize_acPh3)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9vDG vuser_a9vDH vip_a9vDI vaction_a9vDJ)
+                 vtime_acPgT vuser_acPgU vip_acPgV vaction_acPgW)
               (ActivityAsset
                  (Databrary.Model.Asset.SQL.makeAssetRow
-                    vid_a9vDK
-                    vformat_a9vDL
-                    vrelease_a9vDN
-                    vduration_a9vDO
-                    vname_a9vDP
-                    vc_a9vDQ
-                    vsize_a9vDR)))
-      ((\ _p_a9vFa _p_a9vFb
+                    vid_acPgX
+                    vformat_acPgY
+                    vrelease_acPgZ
+                    vduration_acPh0
+                    vname_acPh1
+                    vc_acPh2
+                    vsize_acPh3)))
+      ((\ _p_acPls _p_acPlt
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9vF9
+               (\ _tenv_acPlr
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT asset.audit_time,asset.audit_user,asset.audit_ip,asset.audit_action,asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size FROM audit.asset WHERE asset.id = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vF9
+                             _tenv_acPlr
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9vFa,
+                             _p_acPls,
                            Data.String.fromString " AND audit_time <= ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vF9
+                             _tenv_acPlr
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                             _p_a9vFb,
+                             _p_acPlt,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9vF9
-                  [_caudit_time_a9vFc,
-                   _caudit_user_a9vFd,
-                   _caudit_ip_a9vFe,
-                   _caudit_action_a9vFf,
-                   _cid_a9vFg,
-                   _cformat_a9vFh,
-                   _crelease_a9vFi,
-                   _cduration_a9vFj,
-                   _cname_a9vFk,
-                   _csha1_a9vFl,
-                   _csize_a9vFm]
+               (\ _tenv_acPlr
+                  [_caudit_time_acPlu,
+                   _caudit_user_acPlv,
+                   _caudit_ip_acPlw,
+                   _caudit_action_acPlx,
+                   _cid_acPly,
+                   _cformat_acPlz,
+                   _crelease_acPlA,
+                   _cduration_acPlB,
+                   _cname_acPlC,
+                   _csha1_acPlD,
+                   _csize_acPlE]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9vFc, 
+                        _caudit_time_acPlu, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9vFd, 
+                        _caudit_user_acPlv, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9vFe, 
+                        _caudit_ip_acPlw, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9vFf, 
+                        _caudit_action_acPlx, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a9vFg, 
+                        _cid_acPly, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _cformat_a9vFh, 
+                        _cformat_acPlz, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "release")
-                        _crelease_a9vFi, 
+                        _crelease_acPlA, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "interval")
-                        _cduration_a9vFj, 
+                        _cduration_acPlB, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a9vFk, 
+                        _cname_acPlC, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
-                        _csha1_a9vFl, 
+                        _csha1_acPlD, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vF9
+                        _tenv_acPlr
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                        _csize_a9vFm)))
+                        _csize_acPlE)))
          ai at)
-Databrary/Model/Activity.hs:174:19-192: Splicing expression
+src/Databrary/Model/Activity.hs:175:19-192: Splicing expression
     selectQuery selectActivityExcerpt
     $ "JOIN slot_asset ON excerpt.asset = slot_asset.asset WHERE slot_asset.container = ${containerId $ containerRow cont} AND "
       ++ activityQual
   ======>
     fmap
-      (\ (vtime_a9vO8, vuser_a9vO9, vip_a9vOa, vaction_a9vOb,
-          vasset_a9vOc, vsegment_a9vOd, vrelease_a9vOe)
+      (\ (vtime_acPxy, vuser_acPxA, vip_acPxC, vaction_acPxD,
+          vasset_acPxE, vsegment_acPxF, vrelease_acPxG)
          -> Databrary.Model.Activity.SQL.makeActivity
               (Databrary.Model.Audit.SQL.makeAudit
-                 vtime_a9vO8 vuser_a9vO9 vip_a9vOa vaction_a9vOb)
-              (ActivityExcerpt vasset_a9vOc vsegment_a9vOd vrelease_a9vOe))
-      ((\ _p_a9vQu
+                 vtime_acPxy vuser_acPxA vip_acPxC vaction_acPxD)
+              (ActivityExcerpt vasset_acPxE vsegment_acPxF vrelease_acPxG))
+      ((\ _p_acPAa
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a9vQr
+               (\ _tenv_acPA9
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BSC.concat
                           [Data.String.fromString
                              "SELECT excerpt.audit_time,excerpt.audit_user,excerpt.audit_ip,excerpt.audit_action,excerpt.asset,excerpt.segment,excerpt.release FROM audit.excerpt JOIN slot_asset ON excerpt.asset = slot_asset.asset WHERE slot_asset.container = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a9vQr
+                             _tenv_acPA9
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a9vQu,
+                             _p_acPAa,
                            Data.String.fromString
                              " AND audit_action >= 'add' ORDER BY audit_time"]))
-               (\ _tenv_a9vQr
-                  [_caudit_time_a9vQv,
-                   _caudit_user_a9vQw,
-                   _caudit_ip_a9vQx,
-                   _caudit_action_a9vQy,
-                   _casset_a9vQz,
-                   _csegment_a9vQC,
-                   _crelease_a9vQD]
+               (\ _tenv_acPA9
+                  [_caudit_time_acPAb,
+                   _caudit_user_acPAc,
+                   _caudit_ip_acPAd,
+                   _caudit_action_acPAe,
+                   _casset_acPAf,
+                   _csegment_acPAg,
+                   _crelease_acPAh]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a9vQv, 
+                        _caudit_time_acPAb, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _caudit_user_a9vQw, 
+                        _caudit_user_acPAc, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                        _caudit_ip_a9vQx, 
+                        _caudit_ip_acPAd, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                        _caudit_action_a9vQy, 
+                        _caudit_action_acPAe, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _casset_a9vQz, 
+                        _casset_acPAf, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                        _csegment_a9vQC, 
+                        _csegment_acPAg, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a9vQr
+                        _tenv_acPA9
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "release")
-                        _crelease_a9vQD)))
+                        _crelease_acPAh)))
          (containerId $ containerRow cont))

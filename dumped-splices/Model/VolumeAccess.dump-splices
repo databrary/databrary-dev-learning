@@ -1,885 +1,1012 @@
-Databrary/Model/VolumeAccess.hs:39:13-132: Splicing expression
+src/Databrary/Model/VolumeAccess.hs:40:13-132: Splicing expression
     selectQuery
-      (selectVolumeAccess 'vol_a7xJ9 'ident_a7xJb)
+      (selectVolumeAccess 'vol_aa6Mb 'ident_aa6Md)
       "$WHERE volume_access.individual >= ${perm} ORDER BY individual DESC, sort"
   ======>
     fmap
-      (\ (vindividual_a7ErM, vchildren_a7ErN, vsort_a7ErO, vid_a7ErP,
-          vname_a7ErQ, vprename_a7ErR, vorcid_a7ErS, vaffiliation_a7ErT,
-          vurl_a7ErU, vemail_a7ErV, vsite_a7ErW, vmember_a7ErX)
+      (\ (vindividual_aapPc, vchildren_aapPd, vsort_aapPe, vfull_aapPf,
+          vid_aapPg, vname_aapPh, vprename_aapPi, vorcid_aapPj,
+          vaffiliation_aapPk, vurl_aapPl, vemail_aapPm, vsite_aapPn,
+          vmember_aapPo)
          -> ($)
-              (VolumeAccess vindividual_a7ErM vchildren_a7ErN vsort_a7ErO)
+              (VolumeAccess
+                 vindividual_aapPc vchildren_aapPd vsort_aapPe vfull_aapPf)
               (Databrary.Model.Party.SQL.permissionParty
                  (Databrary.Model.Party.SQL.makeParty
                     (PartyRow
-                       vid_a7ErP
-                       vname_a7ErQ
-                       vprename_a7ErR
-                       vorcid_a7ErS
-                       vaffiliation_a7ErT
-                       vurl_a7ErU)
-                    (do { cm_a7ErY <- vemail_a7ErV;
-                          Just (Account cm_a7ErY) }))
-                 (do { cm_a7ErZ <- vsite_a7ErW;
-                       cm_a7Es0 <- vmember_a7ErX;
-                       Just (Access cm_a7ErZ cm_a7Es0) })
-                 ident_a7xJb)
-              vol_a7xJ9)
-      ((\ _p_a7EsU _p_a7EsV _p_a7EsW
+                       vid_aapPg
+                       vname_aapPh
+                       vprename_aapPi
+                       vorcid_aapPj
+                       vaffiliation_aapPk
+                       vurl_aapPl)
+                    (do { cm_aapPp <- vemail_aapPm;
+                          Just (Account cm_aapPp) }))
+                 (do { cm_aapPq <- vsite_aapPn;
+                       cm_aapPr <- vmember_aapPo;
+                       Just (Access cm_aapPq cm_aapPr) })
+                 ident_aa6Md)
+              vol_aa6Mb)
+      ((\ _p_aapRE _p_aapRF _p_aapRG
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7EsT
+               (\ _tenv_aapRD
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
-                          "SELECT volume_access.individual,volume_access.children,volume_access.sort,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member FROM volume_access JOIN party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = $1 ON volume_access.party = party.id AND volume_access.volume = $2 WHERE volume_access.individual >= $3 ORDER BY individual DESC, sort")
+                          "SELECT volume_access.individual,volume_access.children,volume_access.sort,volume_access.share_full,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member FROM volume_access JOIN party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = $1 ON volume_access.party = party.id AND volume_access.volume = $2 WHERE volume_access.individual >= $3 ORDER BY individual DESC, sort")
                        []
                        [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EsU,
+                          _p_aapRE,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EsV,
+                          _p_aapRF,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7EsW]
+                          _p_aapRG]
                        [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EsT
+                          _tenv_aapRD
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
-               (\ _tenv_a7EsT
-                  [_cindividual_a7EsX,
-                   _cchildren_a7EsY,
-                   _csort_a7EsZ,
-                   _cid_a7Et0,
-                   _cname_a7Et1,
-                   _cprename_a7Et2,
-                   _corcid_a7Et3,
-                   _caffiliation_a7Et4,
-                   _curl_a7Et5,
-                   _cemail_a7Et6,
-                   _csite_a7Et7,
-                   _cmember_a7Et8]
+               (\ _tenv_aapRD
+                  [_cindividual_aapRH,
+                   _cchildren_aapRI,
+                   _csort_aapRJ,
+                   _cshare_full_aapRK,
+                   _cid_aapRL,
+                   _cname_aapRM,
+                   _cprename_aapRN,
+                   _corcid_aapRO,
+                   _caffiliation_aapRP,
+                   _curl_aapRQ,
+                   _cemail_aapRR,
+                   _csite_aapRS,
+                   _cmember_aapRT]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cindividual_a7EsX, 
+                        _cindividual_aapRH, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cchildren_a7EsY, 
+                        _cchildren_aapRI, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _csort_a7EsZ, 
+                        _csort_aapRJ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aapRD
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_aapRK, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7Et0, 
+                        _cid_aapRL, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7Et1, 
+                        _cname_aapRM, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a7Et2, 
+                        _cprename_aapRN, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a7Et3, 
+                        _corcid_aapRO, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a7Et4, 
+                        _caffiliation_aapRP, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a7Et5, 
+                        _curl_aapRQ, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a7Et6, 
+                        _cemail_aapRR, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a7Et7, 
+                        _csite_aapRS, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EsT
+                        _tenv_aapRD
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a7Et8)))
+                        _cmember_aapRT)))
          (view ident :: Id Party) (volumeId $ volumeRow vol) perm)
-Databrary/Model/VolumeAccess.hs:44:14-86: Splicing expression
+src/Databrary/Model/VolumeAccess.hs:45:14-86: Splicing expression
     selectQuery
-      (selectVolumeAccessParty 'vol_a7Et9 'ident_a7Etb)
+      (selectVolumeAccessParty 'vol_aapWb 'ident_aapWd)
       "WHERE party.id = ${p}"
   ======>
     fmap
-      (\ (vid_a7Euc, vname_a7Eud, vprename_a7Eue, vorcid_a7Euf,
-          vaffiliation_a7Eug, vurl_a7Euh, vemail_a7Eui, vsite_a7Euj,
-          vmember_a7Euk, vindividual_a7Eul, vchildren_a7Eum, vsort_a7Eun)
+      (\ (vid_aar4Y, vname_aar4Z, vprename_aar50, vorcid_aar51,
+          vaffiliation_aar52, vurl_aar53, vemail_aar54, vsite_aar55,
+          vmember_aar56, vindividual_aar57, vchildren_aar58, vsort_aar59,
+          vfull_aar5a)
          -> Databrary.Model.VolumeAccess.SQL.makeVolumeAccessParty
               (Databrary.Model.Party.SQL.permissionParty
                  (Databrary.Model.Party.SQL.makeParty
                     (PartyRow
-                       vid_a7Euc
-                       vname_a7Eud
-                       vprename_a7Eue
-                       vorcid_a7Euf
-                       vaffiliation_a7Eug
-                       vurl_a7Euh)
-                    (do { cm_a7Euo <- vemail_a7Eui;
-                          Just (Account cm_a7Euo) }))
-                 (do { cm_a7Eup <- vsite_a7Euj;
-                       cm_a7Euq <- vmember_a7Euk;
-                       Just (Access cm_a7Eup cm_a7Euq) })
-                 ident_a7Etb)
-              (do { cm_a7Eur <- vindividual_a7Eul;
-                    cm_a7Eus <- vchildren_a7Eum;
-                    Just (VolumeAccess cm_a7Eur cm_a7Eus vsort_a7Eun) })
-              vol_a7Et9)
-      ((\ _p_a7EuS _p_a7EuT _p_a7EuU
+                       vid_aar4Y
+                       vname_aar4Z
+                       vprename_aar50
+                       vorcid_aar51
+                       vaffiliation_aar52
+                       vurl_aar53)
+                    (do { cm_aar5b <- vemail_aar54;
+                          Just (Account cm_aar5b) }))
+                 (do { cm_aar5c <- vsite_aar55;
+                       cm_aar5d <- vmember_aar56;
+                       Just (Access cm_aar5c cm_aar5d) })
+                 ident_aapWd)
+              (do { cm_aar5e <- vindividual_aar57;
+                    cm_aar5f <- vchildren_aar58;
+                    Just (VolumeAccess cm_aar5e cm_aar5f vsort_aar59 vfull_aar5a) })
+              vol_aapWb)
+      ((\ _p_aar5Y _p_aar5Z _p_aar60
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7EuR
+               (\ _tenv_aar5X
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (Data.ByteString.concat
                           [Data.String.fromString
-                             "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member,volume_access.individual,volume_access.children,volume_access.sort FROM party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = ",
+                             "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member,volume_access.individual,volume_access.children,volume_access.sort,volume_access.share_full FROM party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a7EuR
+                             _tenv_aar5X
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a7EuS,
+                             _p_aar5Y,
                            Data.String.fromString
                              " LEFT JOIN volume_access ON party.id = volume_access.party AND volume_access.volume = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a7EuR
+                             _tenv_aar5X
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a7EuT,
+                             _p_aar5Z,
                            Data.String.fromString " WHERE party.id = ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a7EuR
+                             _tenv_aar5X
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a7EuU]))
-               (\ _tenv_a7EuR
-                  [_cid_a7EuV,
-                   _cname_a7EuW,
-                   _cprename_a7EuX,
-                   _corcid_a7EuY,
-                   _caffiliation_a7EuZ,
-                   _curl_a7Ev0,
-                   _cemail_a7Ev1,
-                   _csite_a7Ev2,
-                   _cmember_a7Ev3,
-                   _cindividual_a7Ev4,
-                   _cchildren_a7Ev5,
-                   _csort_a7Ev6]
+                             _p_aar60]))
+               (\ _tenv_aar5X
+                  [_cid_aar61,
+                   _cname_aar62,
+                   _cprename_aar63,
+                   _corcid_aar64,
+                   _caffiliation_aar65,
+                   _curl_aar66,
+                   _cemail_aar67,
+                   _csite_aar68,
+                   _cmember_aar69,
+                   _cindividual_aar6a,
+                   _cchildren_aar6b,
+                   _csort_aar6c,
+                   _cshare_full_aar6d]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7EuV, 
+                        _cid_aar61, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7EuW, 
+                        _cname_aar62, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a7EuX, 
+                        _cprename_aar63, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a7EuY, 
+                        _corcid_aar64, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a7EuZ, 
+                        _caffiliation_aar65, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a7Ev0, 
+                        _curl_aar66, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a7Ev1, 
+                        _cemail_aar67, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a7Ev2, 
+                        _csite_aar68, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a7Ev3, 
+                        _cmember_aar69, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cindividual_a7Ev4, 
+                        _cindividual_aar6a, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cchildren_a7Ev5, 
+                        _cchildren_aar6b, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EuR
+                        _tenv_aar5X
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _csort_a7Ev6)))
+                        _csort_aar6c, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aar5X
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_aar6d)))
          (view ident :: Id Party) (volumeId $ volumeRow vol) p)
-Databrary/Model/VolumeAccess.hs:49:13-144: Splicing expression
+src/Databrary/Model/VolumeAccess.hs:50:13-144: Splicing expression
     selectQuery
-      (selectPartyVolumeAccess 'p_a7Ev7 'ident_a7Ev9)
+      (selectPartyVolumeAccess 'p_aar6g 'ident_aar6k)
       "$WHERE volume_access.individual >= ${perm} ORDER BY individual DESC, children DESC"
   ======>
     fmap
-      (\ (vindividual_a7Evl, vchildren_a7Evm, vsort_a7Evn, vid_a7Evo,
-          vname_a7Evp, vbody_a7Evq, valias_a7Evr, vdoi_a7Evs, vc_a7Evt,
-          vowners_a7Evu, vpermission_a7Evv)
+      (\ (vindividual_aaAOl, vchildren_aaAOm, vsort_aaAOn, vfull_aaAOo,
+          vid_aaAOp, vname_aaAOq, vbody_aaAOr, valias_aaAOs, vdoi_aaAOt,
+          vc_aaAOu, vowners_aaAOv, vpermission_aaAOw, vfull_aaAOx)
          -> ($)
               (VolumeAccess
-                 vindividual_a7Evl vchildren_a7Evm vsort_a7Evn p_a7Ev7)
+                 vindividual_aaAOl vchildren_aaAOm vsort_aaAOn vfull_aaAOo p_aar6g)
               (Databrary.Model.Volume.SQL.makeVolume
-                 (Databrary.Model.Volume.SQL.setCreation
+                 (setCreation
                     (VolumeRow
-                       vid_a7Evo vname_a7Evp vbody_a7Evq valias_a7Evr vdoi_a7Evs)
-                    vc_a7Evt)
-                 vowners_a7Evu
-                 vpermission_a7Evv))
-      ((\ _p_a7Ewx _p_a7Ewy _p_a7Ewz _p_a7EwA
+                       vid_aaAOp vname_aaAOq vbody_aaAOr valias_aaAOs vdoi_aaAOt)
+                    vc_aaAOu)
+                 vowners_aaAOv
+                 (Databrary.Model.Volume.SQL.makePermInfo
+                    vpermission_aaAOw vfull_aaAOx)))
+      ((\ _p_aaAP5 _p_aaAP6 _p_aaAP7 _p_aaAP8 _p_aaAP9 _p_aaAPa
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7Eww
+               (\ _tenv_aaAP4
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
-                          "SELECT volume_access.individual,volume_access.children,volume_access.sort,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM volume_access JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission ON volume_access.volume = volume.id AND volume_access.party = $3 WHERE volume_access.individual >= $4 ORDER BY individual DESC, children DESC")
+                          "SELECT volume_access.individual,volume_access.children,volume_access.sort,volume_access.share_full,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission,volume_permission.share_full FROM volume_access JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL   (VALUES      ( CASE WHEN $1              THEN enum_last(NULL::permission)              ELSE volume_access_check(volume.id, $2) END      , CASE WHEN $3              THEN null              ELSE (select share_full                    from volume_access_view                    where volume = volume.id and party = $4                    limit 1) END )   ) AS volume_permission (permission, share_full) ON volume_permission.permission >= 'PUBLIC'::permission ON volume_access.volume = volume.id AND volume_access.party = $5 WHERE volume_access.individual >= $6 ORDER BY individual DESC, children DESC")
                        []
                        [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a7Ewx,
+                          _p_aaAP5,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Ewy,
+                          _p_aaAP6,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eww
+                          _tenv_aaAP4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_aaAP7,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Ewz,
+                          _p_aaAP8,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eww
+                          _tenv_aaAP4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aaAP9,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7EwA]
+                          _p_aaAPa]
                        [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eww
+                          _tenv_aaAP4
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
-               (\ _tenv_a7Eww
-                  [_cindividual_a7EwB,
-                   _cchildren_a7EwC,
-                   _csort_a7EwD,
-                   _cid_a7EwE,
-                   _cname_a7EwF,
-                   _cbody_a7EwG,
-                   _calias_a7EwI,
-                   _cdoi_a7EwJ,
-                   _cvolume_creation_a7EwK,
-                   _cowners_a7EwL,
-                   _cpermission_a7EwM]
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aaAP4
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
+               (\ _tenv_aaAP4
+                  [_cindividual_aaAPb,
+                   _cchildren_aaAPc,
+                   _csort_aaAPd,
+                   _cshare_full_aaAPe,
+                   _cid_aaAPf,
+                   _cname_aaAPg,
+                   _cbody_aaAPh,
+                   _calias_aaAPi,
+                   _cdoi_aaAPj,
+                   _cvolume_creation_aaAPk,
+                   _cowners_aaAPl,
+                   _cpermission_aaAPm,
+                   _cshare_full_aaAPn]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cindividual_a7EwB, 
+                        _cindividual_aaAPb, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cchildren_a7EwC, 
+                        _cchildren_aaAPc, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _csort_a7EwD, 
+                        _csort_aaAPd, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aaAP4
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_aaAPe, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7EwE, 
+                        _cid_aaAPf, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7EwF, 
+                        _cname_aaAPg, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a7EwG, 
+                        _cbody_aaAPh, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a7EwI, 
+                        _calias_aaAPi, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a7EwJ, 
+                        _cdoi_aaAPj, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a7EwK, 
+                        _cvolume_creation_aaAPk, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
-                        _cowners_a7EwL, 
+                        _cowners_aaAPl, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eww
+                        _tenv_aaAP4
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cpermission_a7EwM)))
+                        _cpermission_aaAPm, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aaAP4
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_aaAPn)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
          (identitySuperuser ident)
          (view ident :: Id Party)
          (partyId $ partyRow p)
          perm)
-Databrary/Model/VolumeAccess.hs:54:13-202: Splicing expression
+src/Databrary/Model/VolumeAccess.hs:55:13-202: Splicing expression
     selectDistinctQuery
       (Just ["volume.id"])
-      (selectVolume 'ident_a7EwZ)
+      (selectVolume 'ident_aaAPE)
       "$JOIN volume_access_view ON volume.id = volume_access_view.volume WHERE party = ${partyId $ partyRow p} AND access >= ${perm}"
   ======>
     fmap
-      (\ (vid_a7ExD, vname_a7ExE, vbody_a7ExF, valias_a7ExG, vdoi_a7ExH,
-          vc_a7ExI, vowners_a7ExJ, vpermission_a7ExK)
+      (\ (vid_aaAQt, vname_aaAQu, vbody_aaAQv, valias_aaAQw, vdoi_aaAQx,
+          vc_aaAQy, vowners_aaAQz, vpermission_aaAQA, vfull_aaAQB)
          -> Databrary.Model.Volume.SQL.makeVolume
-              (Databrary.Model.Volume.SQL.setCreation
+              (setCreation
                  (VolumeRow
-                    vid_a7ExD vname_a7ExE vbody_a7ExF valias_a7ExG vdoi_a7ExH)
-                 vc_a7ExI)
-              vowners_a7ExJ
-              vpermission_a7ExK)
-      ((\ _p_a7Eyb _p_a7Eyc _p_a7Eyd _p_a7Eye
+                    vid_aaAQt vname_aaAQu vbody_aaAQv valias_aaAQw vdoi_aaAQx)
+                 vc_aaAQy)
+              vowners_aaAQz
+              (Databrary.Model.Volume.SQL.makePermInfo
+                 vpermission_aaAQA vfull_aaAQB))
+      ((\ _p_aaARm _p_aaARn _p_aaARo _p_aaARp _p_aaARq _p_aaARr
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7Eya
+               (\ _tenv_aaARl
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
-                          "SELECT DISTINCT ON (volume.id) volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission JOIN volume_access_view ON volume.id = volume_access_view.volume WHERE party = $3 AND access >= $4")
+                          "SELECT DISTINCT ON (volume.id) volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission,volume_permission.share_full FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL   (VALUES      ( CASE WHEN $1              THEN enum_last(NULL::permission)              ELSE volume_access_check(volume.id, $2) END      , CASE WHEN $3              THEN null              ELSE (select share_full                    from volume_access_view                    where volume = volume.id and party = $4                    limit 1) END )   ) AS volume_permission (permission, share_full) ON volume_permission.permission >= 'PUBLIC'::permission JOIN volume_access_view ON volume.id = volume_access_view.volume WHERE party = $5 AND access >= $6")
                        []
                        [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a7Eyb,
+                          _p_aaARm,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Eyc,
+                          _p_aaARn,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eya
+                          _tenv_aaARl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_aaARo,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Eyd,
+                          _p_aaARp,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Eya
+                          _tenv_aaARl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aaARq,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7Eye]
+                          _p_aaARr]
                        [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Eya
+                          _tenv_aaARl
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
-               (\ _tenv_a7Eya
-                  [_cid_a7Eyf,
-                   _cname_a7Eyg,
-                   _cbody_a7Eyh,
-                   _calias_a7Eyi,
-                   _cdoi_a7Eyj,
-                   _cvolume_creation_a7Eyk,
-                   _cowners_a7Eyl,
-                   _cpermission_a7Eym]
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aaARl
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
+               (\ _tenv_aaARl
+                  [_cid_aaARs,
+                   _cname_aaARt,
+                   _cbody_aaARu,
+                   _calias_aaARv,
+                   _cdoi_aaARw,
+                   _cvolume_creation_aaARx,
+                   _cowners_aaARy,
+                   _cpermission_aaARz,
+                   _cshare_full_aaARA]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7Eyf, 
+                        _cid_aaARs, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7Eyg, 
+                        _cname_aaARt, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a7Eyh, 
+                        _cbody_aaARu, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a7Eyi, 
+                        _calias_aaARv, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a7Eyj, 
+                        _cdoi_aaARw, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a7Eyk, 
+                        _cvolume_creation_aaARx, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
-                        _cowners_a7Eyl, 
+                        _cowners_aaARy, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7Eya
+                        _tenv_aaARl
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cpermission_a7Eym)))
+                        _cpermission_aaARz, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aaARl
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_aaARA)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
          (identitySuperuser ident)
          (view ident :: Id Party)
          (partyId $ partyRow p)
          perm)
-Databrary/Model/VolumeAccess.hs:60:23-51: Splicing expression
-    deleteVolumeAccess 'ident_a7EyI 'va_a7EyH
+src/Databrary/Model/VolumeAccess.hs:75:23-51: Splicing expression
+    deleteVolumeAccess 'ident_aaASA 'va_aaASz
   ======>
-    (\ _p_a7EzJ _p_a7EzK _p_a7EzL _p_a7EzM
+    (\ _p_aaAUD _p_aaAUE _p_aaAUF _p_aaAUG
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EzI
+            (\ _tenv_aaAUC
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (DELETE FROM volume_access WHERE volume=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzI
+                          _tenv_aaAUC
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EzJ,
+                          _p_aaAUD,
                         Data.String.fromString " AND party=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzI
+                          _tenv_aaAUC
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EzK,
+                          _p_aaAUE,
                         Data.String.fromString
                           " RETURNING *) INSERT INTO audit.volume_access SELECT CURRENT_TIMESTAMP, ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzI
+                          _tenv_aaAUC
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EzL,
+                          _p_aaAUF,
                         Data.String.fromString ", ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzI
+                          _tenv_aaAUC
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a7EzM,
+                          _p_aaAUG,
                         Data.String.fromString
                           ", 'remove'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a7EzI [] -> ()))
+            (\ _tenv_aaAUC [] -> ()))
       (volumeId $ volumeRow $ volumeAccessVolume va)
       (partyId $ partyRow $ volumeAccessParty va)
       (auditWho ident)
       (auditIp ident)
-Databrary/Model/VolumeAccess.hs:62:9-37: Splicing expression
-    updateVolumeAccess 'ident_a7EyI 'va_a7EyH
+src/Databrary/Model/VolumeAccess.hs:77:9-37: Splicing expression
+    updateVolumeAccess 'ident_aaASA 'va_aaASz
   ======>
-    (\ _p_a7EB4 _p_a7EB5 _p_a7EB6 _p_a7EB7 _p_a7EB8 _p_a7EB9 _p_a7EBa
+    (\ _p_aaAZu
+       _p_aaAZv
+       _p_aaAZw
+       _p_aaAZx
+       _p_aaAZy
+       _p_aaAZz
+       _p_aaAZA
+       _p_aaAZB
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EB3
+            (\ _tenv_aaAZt
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (UPDATE volume_access SET individual=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7EB4,
+                          _p_aaAZu,
                         Data.String.fromString ",children=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7EB5,
+                          _p_aaAZv,
                         Data.String.fromString ",sort=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                          _p_a7EB6,
+                          _p_aaAZw,
+                        Data.String.fromString ",share_full=",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aaAZt
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_aaAZx,
                         Data.String.fromString " WHERE volume=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EB7,
+                          _p_aaAZy,
                         Data.String.fromString " AND party=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EB8,
+                          _p_aaAZz,
                         Data.String.fromString
                           " RETURNING *) INSERT INTO audit.volume_access SELECT CURRENT_TIMESTAMP, ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EB9,
+                          _p_aaAZA,
                         Data.String.fromString ", ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EB3
+                          _tenv_aaAZt
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a7EBa,
+                          _p_aaAZB,
                         Data.String.fromString
                           ", 'change'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a7EB3 [] -> ()))
+            (\ _tenv_aaAZt [] -> ()))
       (volumeAccessIndividual va)
       (volumeAccessChildren va)
       (volumeAccessSort va)
+      (volumeAccessShareFull va)
       (volumeId $ volumeRow $ volumeAccessVolume va)
       (partyId $ partyRow $ volumeAccessParty va)
       (auditWho ident)
       (auditIp ident)
-Databrary/Model/VolumeAccess.hs:63:9-37: Splicing expression
-    insertVolumeAccess 'ident_a7EyI 'va_a7EyH
+src/Databrary/Model/VolumeAccess.hs:78:9-37: Splicing expression
+    insertVolumeAccess 'ident_aaASA 'va_aaASz
   ======>
-    (\ _p_a7EC6 _p_a7EC7 _p_a7EC8 _p_a7EC9 _p_a7ECa _p_a7ECb _p_a7ECc
+    (\ _p_aaB56
+       _p_aaB57
+       _p_aaB58
+       _p_aaB5a
+       _p_aaB5b
+       _p_aaB5c
+       _p_aaB5d
+       _p_aaB5e
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EC5
+            (\ _tenv_aaB55
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
-                          "WITH audit_row AS (INSERT INTO volume_access (volume,party,individual,children,sort) VALUES (",
+                          "WITH audit_row AS (INSERT INTO volume_access (volume,party,individual,children,sort,share_full) VALUES (",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EC6,
+                          _p_aaB56,
                         Data.String.fromString ",",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EC7,
+                          _p_aaB57,
                         Data.String.fromString ",",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7EC8,
+                          _p_aaB58,
                         Data.String.fromString ",",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                          _p_a7EC9,
+                          _p_aaB5a,
                         Data.String.fromString ",",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                          _p_a7ECa,
+                          _p_aaB5b,
+                        Data.String.fromString ",",
+                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                          _tenv_aaB55
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_aaB5c,
                         Data.String.fromString
                           ") RETURNING *) INSERT INTO audit.volume_access SELECT CURRENT_TIMESTAMP, ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7ECb,
+                          _p_aaB5d,
                         Data.String.fromString ", ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EC5
+                          _tenv_aaB55
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a7ECc,
+                          _p_aaB5e,
                         Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a7EC5 [] -> ()))
+            (\ _tenv_aaB55 [] -> ()))
       (volumeId $ volumeRow $ volumeAccessVolume va)
       (partyId $ partyRow $ volumeAccessParty va)
       (volumeAccessIndividual va)
       (volumeAccessChildren va)
       (volumeAccessSort va)
+      (volumeAccessShareFull va)
       (auditWho ident)
       (auditIp ident)
-Databrary/Model/VolumeAccess.hs:87:13-205: Splicing expression
+src/Databrary/Model/VolumeAccess.hs:103:13-205: Splicing expression
     selectQuery
-      (selectVolumeActivity 'ident_a7EDY)
+      (selectVolumeActivity 'ident_aaBb9)
       "$WHERE audit.audit_action = 'add' AND audit.party = 0 AND audit.children > 'NONE' ORDER BY audit.audit_time DESC LIMIT ${fromIntegral limit :: Int64}"
   ======>
     fmap
-      (\ (vtime_a7EEK, vid_a7EEL, vname_a7EEM, vbody_a7EEN, valias_a7EEO,
-          vdoi_a7EEP, vc_a7EEQ, vowners_a7EER, vpermission_a7EES)
+      (\ (vtime_aaBdU, vid_aaBdV, vname_aaBdW, vbody_aaBdX, valias_aaBdY,
+          vdoi_aaBdZ, vc_aaBe1, vowners_aaBe2, vpermission_aaBe3,
+          vfull_aaBe4)
          -> ghc-prim-0.5.0.0:GHC.Tuple.(,)
-              vtime_a7EEK
+              vtime_aaBdU
               (Databrary.Model.Volume.SQL.makeVolume
-                 (Databrary.Model.Volume.SQL.setCreation
+                 (setCreation
                     (VolumeRow
-                       vid_a7EEL vname_a7EEM vbody_a7EEN valias_a7EEO vdoi_a7EEP)
-                    vc_a7EEQ)
-                 vowners_a7EER
-                 vpermission_a7EES))
-      ((\ _p_a7EG7 _p_a7EG8 _p_a7EG9
+                       vid_aaBdV vname_aaBdW vbody_aaBdX valias_aaBdY vdoi_aaBdZ)
+                    vc_aaBe1)
+                 vowners_aaBe2
+                 (Databrary.Model.Volume.SQL.makePermInfo
+                    vpermission_aaBe3 vfull_aaBe4)))
+      ((\ _p_aaBhW _p_aaBhZ _p_aaBi1 _p_aaBi4 _p_aaBi6
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7EG6
+               (\ _tenv_aaBhR
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
-                          "SELECT audit.audit_time,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM audit.volume_access AS audit JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission ON audit.volume = volume.id WHERE audit.audit_action = 'add' AND audit.party = 0 AND audit.children > 'NONE' ORDER BY audit.audit_time DESC LIMIT $3")
+                          "SELECT audit.audit_time,volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission,volume_permission.share_full FROM audit.volume_access AS audit JOIN volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL   (VALUES      ( CASE WHEN $1              THEN enum_last(NULL::permission)              ELSE volume_access_check(volume.id, $2) END      , CASE WHEN $3              THEN null              ELSE (select share_full                    from volume_access_view                    where volume = volume.id and party = $4                    limit 1) END )   ) AS volume_permission (permission, share_full) ON volume_permission.permission >= 'PUBLIC'::permission ON audit.volume = volume.id WHERE audit.audit_action = 'add' AND audit.party = 0 AND audit.children > 'NONE' ORDER BY audit.audit_time DESC LIMIT $5")
                        []
                        [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a7EG7,
+                          _p_aaBhW,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EG8,
+                          _p_aaBhZ,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EG6
+                          _tenv_aaBhR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_aaBi1,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aaBhR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_aaBi4,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                          _p_a7EG9]
+                          _p_aaBi6]
                        [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EG6
+                          _tenv_aaBhR
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
-               (\ _tenv_a7EG6
-                  [_caudit_time_a7EGa,
-                   _cid_a7EGb,
-                   _cname_a7EGc,
-                   _cbody_a7EGd,
-                   _calias_a7EGe,
-                   _cdoi_a7EGf,
-                   _cvolume_creation_a7EGg,
-                   _cowners_a7EGh,
-                   _cpermission_a7EGi]
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_aaBhR
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
+               (\ _tenv_aaBhR
+                  [_caudit_time_aaBi9,
+                   _cid_aaBia,
+                   _cname_aaBib,
+                   _cbody_aaBic,
+                   _calias_aaBif,
+                   _cdoi_aaBig,
+                   _cvolume_creation_aaBih,
+                   _cowners_aaBij,
+                   _cpermission_aaBik,
+                   _cshare_full_aaBil]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _caudit_time_a7EGa, 
+                        _caudit_time_aaBi9, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7EGb, 
+                        _cid_aaBia, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7EGc, 
+                        _cname_aaBib, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a7EGd, 
+                        _cbody_aaBic, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a7EGe, 
+                        _calias_aaBif, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a7EGf, 
+                        _cdoi_aaBig, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a7EGg, 
+                        _cvolume_creation_aaBih, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
-                        _cowners_a7EGh, 
+                        _cowners_aaBij, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a7EG6
+                        _tenv_aaBhR
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cpermission_a7EGi)))
+                        _cpermission_aaBik, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_aaBhR
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_aaBil)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
          (identitySuperuser ident)
          (view ident :: Id Party)
          (fromIntegral limit :: Int64))

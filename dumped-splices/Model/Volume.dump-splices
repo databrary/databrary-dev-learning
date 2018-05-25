@@ -1,387 +1,435 @@
-Databrary/Model/Volume.hs:46:14-73: Splicing expression
-    selectQuery (selectVolume 'ident_a5Zg6) "$WHERE volume.id = ${vi}"
+src/Databrary/Model/Volume.hs:57:14-73: Splicing expression
+    selectQuery (selectVolume 'ident_a7Zsc) "$WHERE volume.id = ${vi}"
   ======>
     fmap
-      (\ (vid_a649O, vname_a649P, vbody_a649Q, valias_a649R, vdoi_a649S,
-          vc_a649T, vowners_a649U, vpermission_a649V)
+      (\ (vid_a8eHD, vname_a8eHE, vbody_a8eHF, valias_a8eHG, vdoi_a8eHH,
+          vc_a8eHI, vowners_a8eHJ, vpermission_a8eHK, vfull_a8eHL)
          -> Databrary.Model.Volume.SQL.makeVolume
-              (Databrary.Model.Volume.SQL.setCreation
+              (setCreation
                  (VolumeRow
-                    vid_a649O vname_a649P vbody_a649Q valias_a649R vdoi_a649S)
-                 vc_a649T)
-              vowners_a649U
-              vpermission_a649V)
-      ((\ _p_a64a4 _p_a64a5 _p_a64a6
+                    vid_a8eHD vname_a8eHE vbody_a8eHF valias_a8eHG vdoi_a8eHH)
+                 vc_a8eHI)
+              vowners_a8eHJ
+              (Databrary.Model.Volume.SQL.makePermInfo
+                 vpermission_a8eHK vfull_a8eHL))
+      ((\ _p_a8eHN _p_a8eHO _p_a8eHP _p_a8eHQ _p_a8eHR
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a64a3
+               (\ _tenv_a8eHM
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
-                          "SELECT volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN $1 THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, $2) END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission WHERE volume.id = $3")
+                          "SELECT volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission,volume_permission.share_full FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL   (VALUES      ( CASE WHEN $1              THEN enum_last(NULL::permission)              ELSE volume_access_check(volume.id, $2) END      , CASE WHEN $3              THEN null              ELSE (select share_full                    from volume_access_view                    where volume = volume.id and party = $4                    limit 1) END )   ) AS volume_permission (permission, share_full) ON volume_permission.permission >= 'PUBLIC'::permission WHERE volume.id = $5")
                        []
                        [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a64a4,
+                          _p_a8eHN,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a64a5,
+                          _p_a8eHO,
                         Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a64a3
+                          _tenv_a8eHM
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                          _p_a8eHP,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a64a6]
+                          _p_a8eHQ,
+                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
+                          _tenv_a8eHM
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                          _p_a8eHR]
                        [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text[]"),
                         Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a64a3
+                          _tenv_a8eHM
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
-               (\ _tenv_a64a3
-                  [_cid_a64a7,
-                   _cname_a64a8,
-                   _cbody_a64a9,
-                   _calias_a64aa,
-                   _cdoi_a64ab,
-                   _cvolume_creation_a64ac,
-                   _cowners_a64ad,
-                   _cpermission_a64ae]
+                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
+                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
+                          _tenv_a8eHM
+                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
+               (\ _tenv_a8eHM
+                  [_cid_a8eHS,
+                   _cname_a8eHT,
+                   _cbody_a8eHU,
+                   _calias_a8eHV,
+                   _cdoi_a8eHW,
+                   _cvolume_creation_a8eHX,
+                   _cowners_a8eHY,
+                   _cpermission_a8eHZ,
+                   _cshare_full_a8eI0]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a64a7, 
+                        _cid_a8eHS, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a64a8, 
+                        _cname_a8eHT, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a64a9, 
+                        _cbody_a8eHU, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a64aa, 
+                        _calias_a8eHV, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a64ab, 
+                        _cdoi_a8eHW, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a64ac, 
+                        _cvolume_creation_a8eHX, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
-                        _cowners_a64ad, 
+                        _cowners_a8eHY, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64a3
+                        _tenv_a8eHM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cpermission_a64ae)))
-         (identitySuperuser ident) (view ident :: Id Party) vi)
-Databrary/Model/Volume.hs:51:17-38: Splicing expression
-    updateVolume 'ident_a64aY 'v_a64aX
+                        _cpermission_a8eHZ, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8eHM
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_a8eI0)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
+         (identitySuperuser ident)
+         (view ident :: Id Party)
+         vi)
+src/Databrary/Model/Volume.hs:62:17-38: Splicing expression
+    updateVolume 'ident_a8eI2 'v_a8eI1
   ======>
-    (\ _p_a64bg _p_a64bh _p_a64bi _p_a64bj _p_a64bk _p_a64bl
+    (\ _p_a8ABb _p_a8ABc _p_a8ABd _p_a8ABe _p_a8ABf _p_a8ABg
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a64bf
+            (\ _tenv_a8ABa
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (BS.concat
                        [Data.String.fromString
                           "WITH audit_row AS (UPDATE volume SET name=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a64bf
+                          _tenv_a8ABa
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a64bg,
+                          _p_a8ABb,
                         Data.String.fromString ",alias=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a64bf
+                          _tenv_a8ABa
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a64bh,
+                          _p_a8ABc,
                         Data.String.fromString ",body=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a64bf
+                          _tenv_a8ABa
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a64bi,
+                          _p_a8ABd,
                         Data.String.fromString " WHERE id=",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a64bf
+                          _tenv_a8ABa
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a64bj,
+                          _p_a8ABe,
                         Data.String.fromString
                           " RETURNING *) INSERT INTO audit.volume SELECT CURRENT_TIMESTAMP, ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a64bf
+                          _tenv_a8ABa
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a64bk,
+                          _p_a8ABf,
                         Data.String.fromString ", ",
                         Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a64bf
+                          _tenv_a8ABa
                           (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                              Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a64bl,
+                          _p_a8ABg,
                         Data.String.fromString
                           ", 'change'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a64bf [] -> ()))
+            (\ _tenv_a8ABa [] -> ()))
       (volumeName $ volumeRow v)
       (volumeAlias $ volumeRow v)
       (volumeBody $ volumeRow v)
       (volumeId $ volumeRow v)
       (auditWho ident)
       (auditIp ident)
-Databrary/Model/Volume.hs:56:51-73: Splicing expression
-    insertVolume 'ident_a64bV 'bv_a64bU
+src/Databrary/Model/Volume.hs:67:68-90: Splicing expression
+    insertVolume 'ident_a8ABz 'bv_a8ABy
   ======>
     fmap
-      (\ (vid_a64cd, vname_a64ce, vbody_a64cf, valias_a64cg, vdoi_a64ch,
-          vc_a64ci)
-         -> Databrary.Model.Volume.SQL.setCreation
+      (\ (vid_a8ACT, vname_a8ACU, vbody_a8ACV, valias_a8ACW, vdoi_a8ACX,
+          vc_a8ACY)
+         -> setCreation
               (VolumeRow
-                 vid_a64cd vname_a64ce vbody_a64cf valias_a64cg vdoi_a64ch)
-              vc_a64ci)
-      ((\ _p_a64cu _p_a64cw _p_a64cy _p_a64cz _p_a64cA
+                 vid_a8ACT vname_a8ACU vbody_a8ACV valias_a8ACW vdoi_a8ACX)
+              vc_a8ACY)
+      ((\ _p_a8ADN _p_a8ADO _p_a8ADP _p_a8ADQ _p_a8ADR
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a64ct
+               (\ _tenv_a8ADM
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BS.concat
                           [Data.String.fromString
                              "WITH audit_row AS (INSERT INTO volume (name,alias,body) VALUES (",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64ct
+                             _tenv_a8ADM
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a64cu,
+                             _p_a8ADN,
                            Data.String.fromString ",",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64ct
+                             _tenv_a8ADM
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                             _p_a64cw,
+                             _p_a8ADO,
                            Data.String.fromString ",",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64ct
+                             _tenv_a8ADM
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a64cy,
+                             _p_a8ADP,
                            Data.String.fromString
                              ") RETURNING *) INSERT INTO audit.volume SELECT CURRENT_TIMESTAMP, ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64ct
+                             _tenv_a8ADM
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a64cz,
+                             _p_a8ADQ,
                            Data.String.fromString ", ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64ct
+                             _tenv_a8ADM
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                             _p_a64cA,
+                             _p_a8ADR,
                            Data.String.fromString
                              ", 'add'::audit.action, * FROM audit_row RETURNING volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id)"]))
-               (\ _tenv_a64ct
-                  [_cid_a64cB,
-                   _cname_a64cC,
-                   _cbody_a64cD,
-                   _calias_a64cE,
-                   _cdoi_a64cF,
-                   _cvolume_creation_a64cG]
+               (\ _tenv_a8ADM
+                  [_cid_a8ADS,
+                   _cname_a8ADT,
+                   _cbody_a8ADU,
+                   _calias_a8ADV,
+                   _cdoi_a8ADW,
+                   _cvolume_creation_a8ADX]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64ct
+                        _tenv_a8ADM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a64cB, 
+                        _cid_a8ADS, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64ct
+                        _tenv_a8ADM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a64cC, 
+                        _cname_a8ADT, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64ct
+                        _tenv_a8ADM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a64cD, 
+                        _cbody_a8ADU, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64ct
+                        _tenv_a8ADM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a64cE, 
+                        _calias_a8ADV, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64ct
+                        _tenv_a8ADM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a64cF, 
+                        _cdoi_a8ADW, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64ct
+                        _tenv_a8ADM
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a64cG)))
+                        _cvolume_creation_a8ADX)))
          (volumeName $ volumeRow bv)
          (volumeAlias $ volumeRow bv)
          (volumeBody $ volumeRow bv)
          (auditWho ident)
          (auditIp ident))
-Databrary/Model/Volume.hs:(64,22)-(65,126): Splicing expression
+src/Databrary/Model/Volume.hs:(75,22)-(76,126): Splicing expression
     Language.Haskell.TH.Quote.quoteExp
       pgSQL
       "$INSERT INTO audit.volume (audit_action, audit_user, audit_ip, id) VALUES\n\
       \    (${if success then AuditActionOpen else AuditActionAttempt}, ${auditWho ai}, ${auditIp ai}, ${volumeId $ volumeRow vol})"
   ======>
-    (\ _p_a64fn _p_a64fo _p_a64fp _p_a64fq
+    (\ _p_a8AF0 _p_a8AF1 _p_a8AF2 _p_a8AF3
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a64fm
+            (\ _tenv_a8AEZ
                -> Database.PostgreSQL.Typed.Query.PreparedQuery
                     (Data.String.fromString
                        "INSERT INTO audit.volume (audit_action, audit_user, audit_ip, id) VALUES\n\
                        \    ($1, $2, $3, $4)")
                     []
                     [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a64fm
+                       _tenv_a8AEZ
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                       _p_a64fn,
+                       _p_a8AF0,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a64fm
+                       _tenv_a8AEZ
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _p_a64fo,
+                       _p_a8AF1,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a64fm
+                       _tenv_a8AEZ
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                       _p_a64fp,
+                       _p_a8AF2,
                      Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                       _tenv_a64fm
+                       _tenv_a8AEZ
                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _p_a64fq]
+                       _p_a8AF3]
                     [])
-            (\ _tenv_a64fm [] -> ()))
+            (\ _tenv_a8AEZ [] -> ()))
       (if success then AuditActionOpen else AuditActionAttempt)
       (auditWho ai)
       (auditIp ai)
       (volumeId $ volumeRow vol)
-Databrary/Model/Volume.hs:110:33-68: Splicing expression
-    selectQuery (selectVolume 'ident_a64ik) ""
+src/Databrary/Model/Volume.hs:135:33-68: Splicing expression
+    selectQuery (selectVolume 'ident_a8AFG) ""
   ======>
     fmap
-      (\ (vid_a64jF, vname_a64jG, vbody_a64jH, valias_a64jI, vdoi_a64jJ,
-          vc_a64jK, vowners_a64jL, vpermission_a64jM)
+      (\ (vid_a8AG0, vname_a8AG1, vbody_a8AG2, valias_a8AG3, vdoi_a8AG4,
+          vc_a8AG5, vowners_a8AG6, vpermission_a8AG7, vfull_a8AG8)
          -> Databrary.Model.Volume.SQL.makeVolume
-              (Databrary.Model.Volume.SQL.setCreation
+              (setCreation
                  (VolumeRow
-                    vid_a64jF vname_a64jG vbody_a64jH valias_a64jI vdoi_a64jJ)
-                 vc_a64jK)
-              vowners_a64jL
-              vpermission_a64jM)
-      ((\ _p_a64pH _p_a64pI
+                    vid_a8AG0 vname_a8AG1 vbody_a8AG2 valias_a8AG3 vdoi_a8AG4)
+                 vc_a8AG5)
+              vowners_a8AG6
+              (Databrary.Model.Volume.SQL.makePermInfo
+                 vpermission_a8AG7 vfull_a8AG8))
+      ((\ _p_a8AGA _p_a8AGB _p_a8AGC _p_a8AGD
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a64pG
+               (\ _tenv_a8AGz
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (BS.concat
                           [Data.String.fromString
-                             "SELECT volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL (VALUES (CASE WHEN ",
+                             "SELECT volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission,volume_permission.share_full FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL   (VALUES      ( CASE WHEN ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64pG
+                             _tenv_a8AGz
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                             _p_a64pH,
+                             _p_a8AGA,
                            Data.String.fromString
-                             " THEN enum_last(NULL::permission) ELSE volume_access_check(volume.id, ",
+                             "              THEN enum_last(NULL::permission)              ELSE volume_access_check(volume.id, ",
                            Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a64pG
+                             _tenv_a8AGz
                              (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                                 Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a64pI,
+                             _p_a8AGB,
+                           Data.String.fromString ") END      , CASE WHEN ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8AGz
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                             _p_a8AGC,
                            Data.String.fromString
-                             ") END)) AS volume_permission (permission) ON volume_permission.permission >= 'PUBLIC'::permission "]))
-               (\ _tenv_a64pG
-                  [_cid_a64pJ,
-                   _cname_a64pK,
-                   _cbody_a64pL,
-                   _calias_a64pM,
-                   _cdoi_a64pO,
-                   _cvolume_creation_a64pP,
-                   _cowners_a64pQ,
-                   _cpermission_a64pR]
+                             "              THEN null              ELSE (select share_full                    from volume_access_view                    where volume = volume.id and party = ",
+                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
+                             _tenv_a8AGz
+                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
+                             _p_a8AGD,
+                           Data.String.fromString
+                             "                    limit 1) END )   ) AS volume_permission (permission, share_full) ON volume_permission.permission >= 'PUBLIC'::permission "]))
+               (\ _tenv_a8AGz
+                  [_cid_a8AGE,
+                   _cname_a8AGF,
+                   _cbody_a8AGG,
+                   _calias_a8AGH,
+                   _cdoi_a8AGI,
+                   _cvolume_creation_a8AGJ,
+                   _cowners_a8AGK,
+                   _cpermission_a8AGL,
+                   _cshare_full_a8AGM]
                   -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a64pJ, 
+                        _cid_a8AGE, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a64pK, 
+                        _cname_a8AGF, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a64pL, 
+                        _cbody_a8AGG, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a64pM, 
+                        _calias_a8AGH, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a64pO, 
+                        _cdoi_a8AGI, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a64pP, 
+                        _cvolume_creation_a8AGJ, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
-                        _cowners_a64pQ, 
+                        _cowners_a8AGK, 
                       Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a64pG
+                        _tenv_a8AGz
                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                            Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cpermission_a64pR)))
-         (identitySuperuser ident) (view ident :: Id Party))
+                        _cpermission_a8AGL, 
+                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
+                        _tenv_a8AGz
+                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
+                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
+                        _cshare_full_a8AGM)))
+         (identitySuperuser ident)
+         (view ident :: Id Party)
+         (identitySuperuser ident)
+         (view ident :: Id Party))

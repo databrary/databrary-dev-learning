@@ -1,84 +1,18 @@
-Databrary/Model/Metric/Types.hs:23:1-36: Splicing declarations
-    makeDBEnum "data_type" "MeasureType"
-  ======>
-    data MeasureType
-      = MeasureTypeText |
-        MeasureTypeNumeric |
-        MeasureTypeDate |
-        MeasureTypeVoid
-      deriving (Eq,
-                Ord,
-                Enum,
-                GHC.Arr.Ix,
-                Bounded,
-                Data.Typeable.Internal.Typeable)
-    instance Show MeasureType where
-      show MeasureTypeText = "text"
-      show MeasureTypeNumeric = "numeric"
-      show MeasureTypeDate = "date"
-      show MeasureTypeVoid = "void"
-    instance Database.PostgreSQL.Typed.Types.PGType "data_type"
-    instance Database.PostgreSQL.Typed.Types.PGParameter "data_type" MeasureType where
-      Database.PostgreSQL.Typed.Types.pgEncode _ MeasureTypeText
-        = BS.pack [116, 101, 120, 116]
-      Database.PostgreSQL.Typed.Types.pgEncode _ MeasureTypeNumeric
-        = BS.pack [110, 117, 109, 101, 114, 105, 99]
-      Database.PostgreSQL.Typed.Types.pgEncode _ MeasureTypeDate
-        = BS.pack [100, 97, 116, 101]
-      Database.PostgreSQL.Typed.Types.pgEncode _ MeasureTypeVoid
-        = BS.pack [118, 111, 105, 100]
-    instance Database.PostgreSQL.Typed.Types.PGColumn "data_type" MeasureType where
-      Database.PostgreSQL.Typed.Types.pgDecode _ x_a4zCt
-        = case BS.unpack x_a4zCt of {
-            [116, 101, 120, 116] -> MeasureTypeText
-            [110, 117, 109, 101, 114, 105, 99] -> MeasureTypeNumeric
-            [100, 97, 116, 101] -> MeasureTypeDate
-            [118, 111, 105, 100] -> MeasureTypeVoid
-            _ -> error
-                   ("pgDecode data_type: "
-                    ++ (Data.ByteString.Char8.unpack x_a4zCt)) }
-    instance Database.PostgreSQL.Typed.Dynamic.PGRep "data_type" MeasureType
-    instance Database.PostgreSQL.Typed.Enum.PGEnum MeasureType
-    instance Kinded MeasureType where
-      kindOf _ = "data_type"
-    instance DBEnum MeasureType
-    instance aeson-1.2.2.0:Data.Aeson.Types.ToJSON.ToJSON MeasureType where
-      aeson-1.2.2.0:Data.Aeson.Types.ToJSON.toJSON
-        = (aeson-1.2.2.0:Data.Aeson.Types.ToJSON.toJSON . fromEnum)
-    instance aeson-1.2.2.0:Data.Aeson.Types.FromJSON.FromJSON MeasureType where
-      aeson-1.2.2.0:Data.Aeson.Types.FromJSON.parseJSON = parseJSONEnum
-    instance Databrary.HTTP.Form.Deform.Deform f_a4zCu MeasureType where
-      Databrary.HTTP.Form.Deform.deform = enumForm
-Databrary/Model/Metric/Types.hs:51:1-77: Splicing declarations
-    makeHasRec
-      ''Metric ['metricId, 'metricCategory, 'metricRelease, 'metricType]
-  ======>
-    instance Databrary.Has.Has (Id Metric) Metric where
-      Databrary.Has.view = metricId
-    instance Databrary.Has.Has Category Metric where
-      Databrary.Has.view = metricCategory
-    instance Databrary.Has.Has (Id Category) Metric where
-      Databrary.Has.view = (Databrary.Has.view . metricCategory)
-    instance Databrary.Has.Has (Maybe Release) Metric where
-      Databrary.Has.view = metricRelease
-    instance Databrary.Has.Has Release Metric where
-      Databrary.Has.view = (Databrary.Has.view . metricRelease)
-    instance Databrary.Has.Has MeasureType Metric where
-      Databrary.Has.view = metricType
-Databrary/Model/Metric/Types.hs:52:1-40: Splicing declarations
+src/Databrary/Model/Metric/Types.hs:116:1-40: Splicing declarations
     deriveLiftMany [''MeasureType, ''Metric]
   ======>
     instance Language.Haskell.TH.Syntax.Lift MeasureType where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4HBW
-            -> case e_a4HBW of {
+        = \ e_a5tDX
+            -> case e_a5tDX of {
                  MeasureTypeText
                    -> Language.Haskell.TH.Lib.conE
                         (Language.Haskell.TH.Syntax.Name
                            (Language.Haskell.TH.Syntax.mkOccName "MeasureTypeText")
                            (Language.Haskell.TH.Syntax.NameG
                               Language.Haskell.TH.Syntax.DataName
-                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkPkgName
+                                 "databrary-1-CKdn4uB613l7rh0y53TmMA")
                               (Language.Haskell.TH.Syntax.mkModName
                                  "Databrary.Model.Metric.Types")))
                  MeasureTypeNumeric
@@ -87,7 +21,8 @@ Databrary/Model/Metric/Types.hs:52:1-40: Splicing declarations
                            (Language.Haskell.TH.Syntax.mkOccName "MeasureTypeNumeric")
                            (Language.Haskell.TH.Syntax.NameG
                               Language.Haskell.TH.Syntax.DataName
-                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkPkgName
+                                 "databrary-1-CKdn4uB613l7rh0y53TmMA")
                               (Language.Haskell.TH.Syntax.mkModName
                                  "Databrary.Model.Metric.Types")))
                  MeasureTypeDate
@@ -96,7 +31,8 @@ Databrary/Model/Metric/Types.hs:52:1-40: Splicing declarations
                            (Language.Haskell.TH.Syntax.mkOccName "MeasureTypeDate")
                            (Language.Haskell.TH.Syntax.NameG
                               Language.Haskell.TH.Syntax.DataName
-                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkPkgName
+                                 "databrary-1-CKdn4uB613l7rh0y53TmMA")
                               (Language.Haskell.TH.Syntax.mkModName
                                  "Databrary.Model.Metric.Types")))
                  MeasureTypeVoid
@@ -105,22 +41,23 @@ Databrary/Model/Metric/Types.hs:52:1-40: Splicing declarations
                            (Language.Haskell.TH.Syntax.mkOccName "MeasureTypeVoid")
                            (Language.Haskell.TH.Syntax.NameG
                               Language.Haskell.TH.Syntax.DataName
-                              (Language.Haskell.TH.Syntax.mkPkgName "main")
+                              (Language.Haskell.TH.Syntax.mkPkgName
+                                 "databrary-1-CKdn4uB613l7rh0y53TmMA")
                               (Language.Haskell.TH.Syntax.mkModName
                                  "Databrary.Model.Metric.Types"))) }
     instance Language.Haskell.TH.Syntax.Lift Metric where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4HBX
-            -> case e_a4HBX of {
-                 Metric x0_a4HBY
-                        x1_a4HBZ
-                        x2_a4HC0
-                        x3_a4HC1
-                        x4_a4HC2
-                        x5_a4HC3
-                        x6_a4HC4
-                        x7_a4HC5
-                        x8_a4HC6
+        = \ e_a5tDZ
+            -> case e_a5tDZ of {
+                 Metric x0_a5tE0
+                        x1_a5tE1
+                        x2_a5tE2
+                        x3_a5tE3
+                        x4_a5tE4
+                        x5_a5tE5
+                        x6_a5tE6
+                        x7_a5tE7
+                        x8_a5tE8
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.appE
@@ -137,15 +74,15 @@ Databrary/Model/Metric/Types.hs:52:1-40: Splicing declarations
                                                       (Language.Haskell.TH.Syntax.NameG
                                                          Language.Haskell.TH.Syntax.DataName
                                                          (Language.Haskell.TH.Syntax.mkPkgName
-                                                            "main")
+                                                            "databrary-1-CKdn4uB613l7rh0y53TmMA")
                                                          (Language.Haskell.TH.Syntax.mkModName
                                                             "Databrary.Model.Metric.Types"))))
-                                                (Language.Haskell.TH.Syntax.lift x0_a4HBY))
-                                             (Language.Haskell.TH.Syntax.lift x1_a4HBZ))
-                                          (Language.Haskell.TH.Syntax.lift x2_a4HC0))
-                                       (Language.Haskell.TH.Syntax.lift x3_a4HC1))
-                                    (Language.Haskell.TH.Syntax.lift x4_a4HC2))
-                                 (Language.Haskell.TH.Syntax.lift x5_a4HC3))
-                              (Language.Haskell.TH.Syntax.lift x6_a4HC4))
-                           (Language.Haskell.TH.Syntax.lift x7_a4HC5))
-                        (Language.Haskell.TH.Syntax.lift x8_a4HC6) }
+                                                (Language.Haskell.TH.Syntax.lift x0_a5tE0))
+                                             (Language.Haskell.TH.Syntax.lift x1_a5tE1))
+                                          (Language.Haskell.TH.Syntax.lift x2_a5tE2))
+                                       (Language.Haskell.TH.Syntax.lift x3_a5tE3))
+                                    (Language.Haskell.TH.Syntax.lift x4_a5tE4))
+                                 (Language.Haskell.TH.Syntax.lift x5_a5tE5))
+                              (Language.Haskell.TH.Syntax.lift x6_a5tE6))
+                           (Language.Haskell.TH.Syntax.lift x7_a5tE7))
+                        (Language.Haskell.TH.Syntax.lift x8_a5tE8) }

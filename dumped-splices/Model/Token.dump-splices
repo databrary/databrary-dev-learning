@@ -1,711 +1,147 @@
-Databrary/Model/Token.hs:50:30-124: Splicing expression
+src/Databrary/Model/Token.hs:59:30-124: Splicing expression
     selectQuery
       selectLoginToken
       "$!WHERE login_token.token = ${t} AND expires > CURRENT_TIMESTAMP"
   ======>
     fmap
-      (\ (vtoken_a7EqE, vexpires_a7EqF, vid_a7EqG, vname_a7EqH,
-          vprename_a7EqI, vorcid_a7EqJ, vaffiliation_a7EqK, vurl_a7EqL,
-          vemail_a7EqM, vpassword_a7EqN, vsite_a7EqO, vmember_a7EqP,
-          vpassword_a7EqQ)
+      (\ (vtoken_aar3F, vexpires_aar3G, vid_aar3H, vname_aar3I,
+          vprename_aar3J, vorcid_aar3K, vaffiliation_aar3L, vurl_aar3M,
+          vemail_aar3N, vpassword_aar3O, vsite_aar3P, vmember_aar3Q,
+          vpassword_aar3R)
          -> LoginToken
               (AccountToken
-                 (Token vtoken_a7EqE vexpires_a7EqF)
-                 (Databrary.Model.Party.SQL.makeSiteAuth
-                    (Databrary.Model.Party.SQL.makeUserAccount
-                       (Databrary.Model.Party.SQL.makeAccount
+                 (Token vtoken_aar3F vexpires_aar3G)
+                 (makeSiteAuth
+                    (makeUserAccount
+                       (makeAccount
                           (PartyRow
-                             vid_a7EqG
-                             vname_a7EqH
-                             vprename_a7EqI
-                             vorcid_a7EqJ
-                             vaffiliation_a7EqK
-                             vurl_a7EqL)
-                          (Account vemail_a7EqM)))
-                    vpassword_a7EqN
-                    (do { cm_a7EqR <- vsite_a7EqO;
-                          cm_a7EqS <- vmember_a7EqP;
-                          Just
-                            (Databrary.Model.Permission.Types.Access cm_a7EqR cm_a7EqS) })))
-              vpassword_a7EqQ)
-      ((\ _p_a7EqU
+                             vid_aar3H
+                             vname_aar3I
+                             vprename_aar3J
+                             vorcid_aar3K
+                             vaffiliation_aar3L
+                             vurl_aar3M)
+                          (Account vemail_aar3N)))
+                    vpassword_aar3O
+                    (do { cm_aar3S <- vsite_aar3P;
+                          cm_aar3T <- vmember_aar3Q;
+                          Just (Access cm_aar3S cm_aar3T) })))
+              vpassword_aar3R)
+      ((\ _p_aar3V
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7EqT
+               (\ _tenv_aar3U
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT login_token.token,login_token.expires,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,account.password,authorize_view.site,authorize_view.member,login_token.password FROM login_token JOIN party JOIN account USING (id) LEFT JOIN authorize_view ON account.id = authorize_view.child AND authorize_view.parent = 0 ON login_token.account = account.id WHERE login_token.token = $1 AND expires > CURRENT_TIMESTAMP")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EqU]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7EqT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
-               (\ _tenv_a7EqT
-                  [_ctoken_a7EqV,
-                   _cexpires_a7EqW,
-                   _cid_a7EqX,
-                   _cname_a7EqY,
-                   _cprename_a7EqZ,
-                   _corcid_a7Er0,
-                   _caffiliation_a7Er1,
-                   _curl_a7Er2,
-                   _cemail_a7Er3,
-                   _cpassword_a7Er4,
-                   _csite_a7Er5,
-                   _cmember_a7Er6,
-                   _cpassword_a7Er7]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _ctoken_a7EqV, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cexpires_a7EqW, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7EqX, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7EqY, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a7EqZ, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a7Er0, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a7Er1, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a7Er2, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a7Er3, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cpassword_a7Er4, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a7Er5, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a7Er6, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7EqT
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                        _cpassword_a7Er7)))
+                       [pgEncodeParameter
+                          _tenv_aar3U (PGTypeProxy :: PGTypeName "bpchar") _p_aar3V]
+                       [pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "bpchar"),
+                        pgBinaryColumn
+                          _tenv_aar3U (PGTypeProxy :: PGTypeName "timestamp with time zone"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "bpchar"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn
+                          _tenv_aar3U (PGTypeProxy :: PGTypeName "character varying"),
+                        pgBinaryColumn
+                          _tenv_aar3U (PGTypeProxy :: PGTypeName "character varying"),
+                        pgBinaryColumn
+                          _tenv_aar3U (PGTypeProxy :: PGTypeName "permission"),
+                        pgBinaryColumn
+                          _tenv_aar3U (PGTypeProxy :: PGTypeName "permission"),
+                        pgBinaryColumn _tenv_aar3U (PGTypeProxy :: PGTypeName "boolean")])
+               (\ _tenv_aar3U
+                  [_ctoken_aar3W,
+                   _cexpires_aar3X,
+                   _cid_aar3Y,
+                   _cname_aar3Z,
+                   _cprename_aar40,
+                   _corcid_aar41,
+                   _caffiliation_aar42,
+                   _curl_aar43,
+                   _cemail_aar44,
+                   _cpassword_aar45,
+                   _csite_aar46,
+                   _cmember_aar47,
+                   _cpassword_aar48]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "bpchar") _ctoken_aar3W, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U
+                        (PGTypeProxy :: PGTypeName "timestamp with time zone")
+                        _cexpires_aar3X, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "integer") _cid_aar3Y, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "text") _cname_aar3Z, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "text") _cprename_aar40, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "bpchar") _corcid_aar41, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U
+                        (PGTypeProxy :: PGTypeName "text")
+                        _caffiliation_aar42, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "text") _curl_aar43, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cemail_aar44, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cpassword_aar45, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U (PGTypeProxy :: PGTypeName "permission") _csite_aar46, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U
+                        (PGTypeProxy :: PGTypeName "permission")
+                        _cmember_aar47, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar3U
+                        (PGTypeProxy :: PGTypeName "boolean")
+                        _cpassword_aar48)))
          t)
-Databrary/Model/Token.hs:55:14-103: Splicing expression
-    selectQuery
-      selectSession
-      "$!WHERE session.token = ${tok} AND expires > CURRENT_TIMESTAMP"
-  ======>
-    fmap
-      (\ (vtoken_a7Esb, vexpires_a7Esc, vid_a7Esd, vname_a7Ese,
-          vprename_a7Esf, vorcid_a7Esg, vaffiliation_a7Esh, vurl_a7Esi,
-          vemail_a7Esj, vpassword_a7Esk, vsite_a7Esl, vmember_a7Esm,
-          vverf_a7Esn, vsuperuser_a7Eso)
-         -> Session
-              (AccountToken
-                 (Token vtoken_a7Esb vexpires_a7Esc)
-                 (Databrary.Model.Party.SQL.makeSiteAuth
-                    (Databrary.Model.Party.SQL.makeUserAccount
-                       (Databrary.Model.Party.SQL.makeAccount
-                          (PartyRow
-                             vid_a7Esd
-                             vname_a7Ese
-                             vprename_a7Esf
-                             vorcid_a7Esg
-                             vaffiliation_a7Esh
-                             vurl_a7Esi)
-                          (Account vemail_a7Esj)))
-                    vpassword_a7Esk
-                    (do { cm_a7EsD <- vsite_a7Esl;
-                          cm_a7EsE <- vmember_a7Esm;
-                          Just
-                            (Databrary.Model.Permission.Types.Access cm_a7EsD cm_a7EsE) })))
-              vverf_a7Esn
-              vsuperuser_a7Eso)
-      ((\ _p_a7Eto
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7Etn
-                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
-                       (Data.String.fromString
-                          "SELECT session.token,session.expires,party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,account.password,authorize_view.site,authorize_view.member,session.verf,session.superuser FROM session JOIN party JOIN account USING (id) LEFT JOIN authorize_view ON account.id = authorize_view.child AND authorize_view.parent = 0 ON session.account = account.id WHERE session.token = $1 AND expires > CURRENT_TIMESTAMP")
-                       []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7Eto]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Etn
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")])
-               (\ _tenv_a7Etn
-                  [_ctoken_a7Etp,
-                   _cexpires_a7Etq,
-                   _cid_a7Etr,
-                   _cname_a7Ets,
-                   _cprename_a7Ett,
-                   _corcid_a7Etu,
-                   _caffiliation_a7Etv,
-                   _curl_a7Etw,
-                   _cemail_a7Etx,
-                   _cpassword_a7Ety,
-                   _csite_a7Etz,
-                   _cmember_a7EtA,
-                   _cverf_a7EtB,
-                   _csuperuser_a7EtC]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _ctoken_a7Etp, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cexpires_a7Etq, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a7Etr, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a7Ets, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a7Ett, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a7Etu, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a7Etv, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a7Etw, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a7Etx, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cpassword_a7Ety, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a7Etz, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a7EtA, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _cverf_a7EtB, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Etn
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                        _csuperuser_a7EtC)))
-         tok)
-Databrary/Model/Token.hs:60:30-163: Splicing expression
+src/Databrary/Model/Token.hs:217:30-163: Splicing expression
     selectQuery
       selectUpload
       "$!WHERE upload.token = ${tok} AND expires > CURRENT_TIMESTAMP AND upload.account = ${view auth :: Id Party}"
   ======>
     fmap
-      (\ (vtoken_a7Eut, vexpires_a7Euu, vfilename_a7Euv, vsize_a7Euw)
-         -> Databrary.Model.Token.SQL.makeUpload
-              (Token vtoken_a7Eut vexpires_a7Euu) vfilename_a7Euv vsize_a7Euw)
-      ((\ _p_a7Evx _p_a7Evy
+      (\ (vtoken_aar5q, vexpires_aar5r, vfilename_aar5s, vsize_aar5t)
+         -> makeUpload
+              (Token vtoken_aar5q vexpires_aar5r) vfilename_aar5s vsize_aar5t)
+      ((\ _p_aar6F _p_aar6G
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a7Evw
+               (\ _tenv_aar6E
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT upload.token,upload.expires,upload.filename,upload.size FROM upload WHERE upload.token = $1 AND expires > CURRENT_TIMESTAMP AND upload.account = $2")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Evw
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7Evx,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a7Evw
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Evy]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Evw
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Evw
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Evw
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a7Evw
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")])
-               (\ _tenv_a7Evw
-                  [_ctoken_a7Evz, _cexpires_a7EvA, _cfilename_a7EvB, _csize_a7EvC]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Evw
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _ctoken_a7Evz, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Evw
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cexpires_a7EvA, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Evw
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cfilename_a7EvB, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a7Evw
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                        _csize_a7EvC)))
+                       [pgEncodeParameter
+                          _tenv_aar6E (PGTypeProxy :: PGTypeName "bpchar") _p_aar6F,
+                        pgEncodeParameter
+                          _tenv_aar6E (PGTypeProxy :: PGTypeName "integer") _p_aar6G]
+                       [pgBinaryColumn _tenv_aar6E (PGTypeProxy :: PGTypeName "bpchar"),
+                        pgBinaryColumn
+                          _tenv_aar6E (PGTypeProxy :: PGTypeName "timestamp with time zone"),
+                        pgBinaryColumn _tenv_aar6E (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_aar6E (PGTypeProxy :: PGTypeName "bigint")])
+               (\ _tenv_aar6E
+                  [_ctoken_aar6H, _cexpires_aar6I, _cfilename_aar6J, _csize_aar6K]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_aar6E (PGTypeProxy :: PGTypeName "bpchar") _ctoken_aar6H, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar6E
+                        (PGTypeProxy :: PGTypeName "timestamp with time zone")
+                        _cexpires_aar6I, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar6E (PGTypeProxy :: PGTypeName "text") _cfilename_aar6J, 
+                      pgDecodeColumnNotNull
+                        _tenv_aar6E (PGTypeProxy :: PGTypeName "bigint") _csize_aar6K)))
          tok (view auth :: Id Party))
-Databrary/Model/Token.hs:70:30-75: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL "SELECT token FROM token WHERE token = ${tok}"
-  ======>
-    (\ _p_a7EwO
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EwN
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString "SELECT token FROM token WHERE token = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EwN
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EwO]))
-            (\ _tenv_a7EwN [_ctoken_a7EwP]
-               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7EwN
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                     _ctoken_a7EwP)))
-      tok
-Databrary/Model/Token.hs:80:41-119: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "DELETE FROM login_token WHERE account = ${view auth :: Id Party} AND password"
-  ======>
-    (\ _p_a7Ey4
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7Ey3
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString "DELETE FROM login_token WHERE account = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7Ey3
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Ey4,
-                        Data.String.fromString " AND password"]))
-            (\ _tenv_a7Ey3 [] -> ()))
-      (view auth :: Id Party)
-Databrary/Model/Token.hs:82:22-151: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "INSERT INTO login_token (token, account, password) VALUES (${tok}, ${view auth :: Id Party}, ${passwd}) RETURNING token, expires"
-  ======>
-    (\ _p_a7Ez7 _p_a7Ez8 _p_a7Ez9
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7Ez6
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "INSERT INTO login_token (token, account, password) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7Ez6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7Ez7,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7Ez6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7Ez8,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7Ez6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a7Ez9,
-                        Data.String.fromString ") RETURNING token, expires"]))
-            (\ _tenv_a7Ez6 [_ctoken_a7Eza, _cexpires_a7Ezb]
-               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7Ez6
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                     _ctoken_a7Eza, 
-                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7Ez6
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                     _cexpires_a7Ezb)))
-      tok (view auth :: Id Party) passwd
-Databrary/Model/Token.hs:100:22-227: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "INSERT INTO session (token, expires, account, superuser, verf) VALUES (${tok}, CURRENT_TIMESTAMP + ${sessionDuration su}::interval, ${view auth :: Id Party}, ${su}, ${verf}) RETURNING token, expires, verf"
-  ======>
-    (\ _p_a7EzR _p_a7EzS _p_a7EzT _p_a7EzU _p_a7EzV
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EzQ
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "INSERT INTO session (token, expires, account, superuser, verf) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzQ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EzR,
-                        Data.String.fromString ", CURRENT_TIMESTAMP + ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzQ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "interval")
-                          _p_a7EzS,
-                        Data.String.fromString "::interval, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzQ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EzT,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzQ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                          _p_a7EzU,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EzQ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EzV,
-                        Data.String.fromString ") RETURNING token, expires, verf"]))
-            (\ _tenv_a7EzQ [_ctoken_a7EzW, _cexpires_a7EzX, _cverf_a7EzY]
-               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7EzQ
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                     _ctoken_a7EzW, 
-                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7EzQ
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                     _cexpires_a7EzX, 
-                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7EzQ
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                     _cverf_a7EzY)))
-      tok (sessionDuration su) (view auth :: Id Party) su verf
-Databrary/Model/Token.hs:114:22-196: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "INSERT INTO upload (token, account, volume, filename, size) VALUES (${tok}, ${view auth :: Id Party}, ${volumeId $ volumeRow vol}, ${name}, ${size}) RETURNING token, expires"
-  ======>
-    (\ _p_a7EBc _p_a7EBd _p_a7EBe _p_a7EBf _p_a7EBg
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EBb
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "INSERT INTO upload (token, account, volume, filename, size) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EBb
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EBc,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EBb
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EBd,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EBb
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a7EBe,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EBb
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a7EBf,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EBb
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                          _p_a7EBg,
-                        Data.String.fromString ") RETURNING token, expires"]))
-            (\ _tenv_a7EBb [_ctoken_a7EBh, _cexpires_a7EBi]
-               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7EBb
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                     _ctoken_a7EBh, 
-                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a7EBb
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                     _cexpires_a7EBi)))
-      tok (view auth :: Id Party) (volumeId $ volumeRow vol) name size
-Databrary/Model/Token.hs:126:21-83: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "DELETE FROM login_token WHERE token = ${view tok :: Id Token}"
-  ======>
-    (\ _p_a7EBR
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EBQ
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString "DELETE FROM login_token WHERE token = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EBQ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EBR]))
-            (\ _tenv_a7EBQ [] -> ()))
-      (view tok :: Id Token)
-Databrary/Model/Token.hs:130:21-79: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL "DELETE FROM session WHERE token = ${view tok :: Id Token}"
-  ======>
-    (\ _p_a7EDi
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7EDh
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString "DELETE FROM session WHERE token = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7EDh
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7EDi]))
-            (\ _tenv_a7EDh [] -> ()))
-      (view tok :: Id Token)
-Databrary/Model/Token.hs:137:26-83: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL "DELETE FROM upload WHERE token = ${view tok :: Id Token}"
-  ======>
-    (\ _p_a7ER1
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a7ER0
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString "DELETE FROM upload WHERE token = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a7ER0
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                          _p_a7ER1]))
-            (\ _tenv_a7ER0 [] -> ()))
-      (view tok :: Id Token)
-Databrary/Model/Token.hs:143:46-170: Splicing expression
-    makeQuery
-      simpleQueryFlags
-      ("DELETE FROM upload WHERE expires < CURRENT_TIMESTAMP RETURNING "
-       ++)
-      (selectOutput selectUpload)
-  ======>
-    fmap
-      (\ (vtoken_a7EVR, vexpires_a7EVS, vfilename_a7EVT, vsize_a7EVU)
-         -> Databrary.Model.Token.SQL.makeUpload
-              (Token vtoken_a7EVR vexpires_a7EVS) vfilename_a7EVT vsize_a7EVU)
-      (\ -> Database.PostgreSQL.Typed.Query.QueryParser
-              (\ _tenv_a7EWZ
-                 -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                      (BS.concat
-                         [Data.String.fromString
-                            "DELETE FROM upload WHERE expires < CURRENT_TIMESTAMP RETURNING upload.token,upload.expires,upload.filename,upload.size"]))
-              (\ _tenv_a7EWZ
-                 [_ctoken_a7EX0, _cexpires_a7EX1, _cfilename_a7EX2, _csize_a7EX3]
-                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a7EWZ
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                       _ctoken_a7EX0, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a7EWZ
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                       _cexpires_a7EX1, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a7EWZ
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cfilename_a7EX2, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a7EWZ
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                       _csize_a7EX3)))

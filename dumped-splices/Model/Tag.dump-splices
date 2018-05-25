@@ -1,608 +1,206 @@
-Databrary/Model/Tag.hs:41:14-68: Splicing expression
+src/Databrary/Model/Tag.hs:43:14-68: Splicing expression
     selectQuery selectTag "$WHERE tag.name = ${n}::varchar"
   ======>
     fmap
-      (\ (vid_a6Dp8, vname_a6Dp9) -> Tag vid_a6Dp8 vname_a6Dp9)
-      ((\ _p_a6Dpb
+      (\ (vid_a8sy9, vname_a8sya) -> Tag vid_a8sy9 vname_a8sya)
+      ((\ _p_a8sA5
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6Dpa
+               (\ _tenv_a8sA4
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT tag.id,tag.name FROM tag WHERE tag.name = $1::varchar")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6Dpa
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6Dpb]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Dpa
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Dpa
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")])
-               (\ _tenv_a6Dpa [_cid_a6Dpc, _cname_a6Dpd]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Dpa
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6Dpc, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Dpa
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cname_a6Dpd)))
+                       [pgEncodeParameter
+                          _tenv_a8sA4
+                          (PGTypeProxy :: PGTypeName "character varying")
+                          _p_a8sA5]
+                       [pgBinaryColumn _tenv_a8sA4 (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn
+                          _tenv_a8sA4 (PGTypeProxy :: PGTypeName "character varying")])
+               (\ _tenv_a8sA4 [_cid_a8sA6, _cname_a8sA7]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a8sA4 (PGTypeProxy :: PGTypeName "integer") _cid_a8sA6, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8sA4
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cname_a8sA7)))
          n)
-Databrary/Model/Tag.hs:44:24-47: Splicing expression
-    selectQuery selectTag ""
-  ======>
-    fmap
-      (\ (vid_a6Dpn, vname_a6Dpo) -> Tag vid_a6Dpn vname_a6Dpo)
-      (\ -> Database.PostgreSQL.Typed.Query.QueryParser
-              (\ _tenv_a6Dq8
-                 -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                      (BSC.concat
-                         [Data.String.fromString "SELECT tag.id,tag.name FROM tag "]))
-              (\ _tenv_a6Dq8 [_cid_a6Dq9, _cname_a6Dqa]
-                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Dq8
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _cid_a6Dq9, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Dq8
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                       _cname_a6Dqa)))
-Databrary/Model/Tag.hs:48:13-120: Splicing expression
+src/Databrary/Model/Tag.hs:70:13-120: Splicing expression
     selectQuery
       selectTag
       "$WHERE tag.name LIKE ${n `BSC.snoc` '%'}::varchar LIMIT ${fromIntegral lim :: Int64}"
   ======>
     fmap
-      (\ (vid_a6Dqh, vname_a6Dqj) -> Tag vid_a6Dqh vname_a6Dqj)
-      ((\ _p_a6Dvm _p_a6Dvn
+      (\ (vid_a8AB8, vname_a8AB9) -> Tag vid_a8AB8 vname_a8AB9)
+      ((\ _p_a8ABi _p_a8ABj
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6Dvl
+               (\ _tenv_a8ABh
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT tag.id,tag.name FROM tag WHERE tag.name LIKE $1::varchar LIMIT $2")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6Dvl
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6Dvm,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6Dvl
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                          _p_a6Dvn]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Dvl
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Dvl
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")])
-               (\ _tenv_a6Dvl [_cid_a6Dvo, _cname_a6Dvp]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Dvl
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6Dvo, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Dvl
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cname_a6Dvp)))
+                       [pgEncodeParameter
+                          _tenv_a8ABh
+                          (PGTypeProxy :: PGTypeName "character varying")
+                          _p_a8ABi,
+                        pgEncodeParameter
+                          _tenv_a8ABh (PGTypeProxy :: PGTypeName "bigint") _p_a8ABj]
+                       [pgBinaryColumn _tenv_a8ABh (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn
+                          _tenv_a8ABh (PGTypeProxy :: PGTypeName "character varying")])
+               (\ _tenv_a8ABh [_cid_a8ABk, _cname_a8ABl]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a8ABh (PGTypeProxy :: PGTypeName "integer") _cid_a8ABk, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8ABh
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cname_a8ABl)))
          (n `BSC.snoc` '%') (fromIntegral lim :: Int64))
-Databrary/Model/Tag.hs:52:36-58: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp pgSQL "!SELECT get_tag(${n})"
-  ======>
-    (\ _p_a6GtN
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6GtM
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BSC.concat
-                       [Data.String.fromString "SELECT get_tag(",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6GtM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6GtN,
-                        Data.String.fromString ")"]))
-            (\ _tenv_a6GtM [_cget_tag_a6GtO]
-               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a6GtM
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                     _cget_tag_a6GtO)))
-      n
-Databrary/Model/Tag.hs:56:13-165: Splicing expression
-    selectQuery
-      selectTagUseRow
-      "JOIN container ON tag_use.container = container.id WHERE container.volume = ${volumeId $ volumeRow v} ORDER BY container.id"
-  ======>
-    fmap
-      (\ (vwho_a6PC1, vcontainer_a6PC2, vsegment_a6PC3, vregclass_a6PC4,
-          vid_a6PC5, vname_a6PC6)
-         -> ($)
-              (($)
-                 (Databrary.Model.Tag.SQL.makeTagUseRow
-                    vwho_a6PC1 vcontainer_a6PC2 vsegment_a6PC3)
-                 vregclass_a6PC4)
-              (Tag vid_a6PC5 vname_a6PC6))
-      ((\ _p_a6PCs
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6PCr
-                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                       (BSC.concat
-                          [Data.String.fromString
-                             "SELECT tag_use.who,tag_use.container,tag_use.segment,tag_use.tableoid = 'keyword_use'::regclass,tag.id,tag.name FROM tag_use JOIN tag ON tag_use.tag = tag.id JOIN container ON tag_use.container = container.id WHERE container.volume = ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PCr
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a6PCs,
-                           Data.String.fromString " ORDER BY container.id"]))
-               (\ _tenv_a6PCr
-                  [_cwho_a6PCt,
-                   _ccontainer_a6PCu,
-                   _csegment_a6PCv,
-                   _ccolumn_a6PCw,
-                   _cid_a6PCx,
-                   _cname_a6PCy]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PCr
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cwho_a6PCt, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PCr
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _ccontainer_a6PCu, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PCr
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                        _csegment_a6PCv, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PCr
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                        _ccolumn_a6PCw, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PCr
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6PCx, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PCr
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cname_a6PCy)))
-         (volumeId $ volumeRow v))
-Databrary/Model/Tag.hs:62:14-33: Splicing expression
-    insertTagUse True 't_a6PCZ
-  ======>
-    (\ _p_a6PDK _p_a6PDL _p_a6PDM _p_a6PDN
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PDJ
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BSC.concat
-                       [Data.String.fromString
-                          "INSERT INTO keyword_use (tag, container, segment, who) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PDJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PDK,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PDJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PDL,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PDJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                          _p_a6PDM,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PDJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PDN,
-                        Data.String.fromString ")"]))
-            (\ _tenv_a6PDJ [] -> ()))
-      (tagId $ useTag t)
-      (containerId $ containerRow $ slotContainer $ tagSlot t)
-      (slotSegment $ tagSlot t)
-      (partyId $ partyRow $ accountParty $ tagWho t)
-Databrary/Model/Tag.hs:63:14-34: Splicing expression
-    insertTagUse False 't_a6PCZ
-  ======>
-    (\ _p_a6PEI _p_a6PEJ _p_a6PEK _p_a6PEL
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PEH
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BSC.concat
-                       [Data.String.fromString
-                          "INSERT INTO tag_use (tag, container, segment, who) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEH
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PEI,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEH
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PEJ,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEH
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                          _p_a6PEK,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEH
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PEL,
-                        Data.String.fromString ")"]))
-            (\ _tenv_a6PEH [] -> ()))
-      (tagId $ useTag t)
-      (containerId $ containerRow $ slotContainer $ tagSlot t)
-      (slotSegment $ tagSlot t)
-      (partyId $ partyRow $ accountParty $ tagWho t)
-Databrary/Model/Tag.hs:69:14-33: Splicing expression
-    deleteTagUse True 't_a6PEU
-  ======>
-    (\ _p_a6PFs _p_a6PFt _p_a6PFu
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PFr
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BSC.concat
-                       [Data.String.fromString
-                          "DELETE FROM ONLY keyword_use WHERE tag = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFr
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PFs,
-                        Data.String.fromString " AND container = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFr
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PFt,
-                        Data.String.fromString " AND segment <@ ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFr
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                          _p_a6PFu]))
-            (\ _tenv_a6PFr [] -> ()))
-      (tagId $ useTag t)
-      (containerId $ containerRow $ slotContainer $ tagSlot t)
-      (slotSegment $ tagSlot t)
-Databrary/Model/Tag.hs:70:14-34: Splicing expression
-    deleteTagUse False 't_a6PEU
-  ======>
-    (\ _p_a6PGC _p_a6PGD _p_a6PGE _p_a6PGF
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PGB
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BSC.concat
-                       [Data.String.fromString "DELETE FROM ONLY tag_use WHERE tag = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PGB
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PGC,
-                        Data.String.fromString " AND container = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PGB
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PGD,
-                        Data.String.fromString " AND segment <@ ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PGB
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                          _p_a6PGE,
-                        Data.String.fromString " AND who = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PGB
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PGF]))
-            (\ _tenv_a6PGB [] -> ()))
-      (tagId $ useTag t)
-      (containerId $ containerRow $ slotContainer $ tagSlot t)
-      (slotSegment $ tagSlot t)
-      (partyId $ partyRow $ accountParty $ tagWho t)
-Databrary/Model/Tag.hs:74:13-104: Splicing expression
+src/Databrary/Model/Tag.hs:305:13-104: Splicing expression
     selectQuery
       (selectTagWeight "")
       "$!ORDER BY weight DESC LIMIT ${fromIntegral lim :: Int64}"
   ======>
     fmap
-      (\ (vweight_a6PIR, vid_a6PIS, vname_a6PIT)
+      (\ (vweight_a8ACZ, vid_a8AD0, vname_a8AD1)
          -> ($)
-              (Databrary.Model.Tag.SQL.makeTagWeight vweight_a6PIR)
-              (Tag vid_a6PIS vname_a6PIT))
-      ((\ _p_a6PJ8
+              (Databrary.Model.Tag.SQL.makeTagWeight vweight_a8ACZ)
+              (Tag vid_a8AD0 vname_a8AD1))
+      ((\ _p_a8AEe
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6PJ7
+               (\ _tenv_a8AEd
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT tag_weight.weight,tag.id,tag.name FROM (SELECT tag,count(*)::integer AS weight FROM tag_use  GROUP BY tag) AS tag_weight JOIN tag ON tag_weight.tag = tag.id ORDER BY weight DESC LIMIT $1")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PJ7
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                          _p_a6PJ8]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PJ7
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PJ7
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PJ7
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")])
-               (\ _tenv_a6PJ7 [_cweight_a6PJ9, _cid_a6PJa, _cname_a6PJb]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PJ7
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cweight_a6PJ9, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PJ7
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6PJa, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PJ7
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cname_a6PJb)))
+                       [pgEncodeParameter
+                          _tenv_a8AEd (PGTypeProxy :: PGTypeName "bigint") _p_a8AEe]
+                       [pgBinaryColumn _tenv_a8AEd (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_a8AEd (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn
+                          _tenv_a8AEd (PGTypeProxy :: PGTypeName "character varying")])
+               (\ _tenv_a8AEd [_cweight_a8AEf, _cid_a8AEg, _cname_a8AEh]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a8AEd (PGTypeProxy :: PGTypeName "integer") _cweight_a8AEf, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AEd (PGTypeProxy :: PGTypeName "integer") _cid_a8AEg, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AEd
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cname_a8AEh)))
          (fromIntegral lim :: Int64))
-Databrary/Model/Tag.hs:82:70-205: Splicing expression
+src/Databrary/Model/Tag.hs:313:70-205: Splicing expression
     selectQuery
       (selectTagCoverage
-         'ident_a6PLz
+         'ident_a8AEu
          "WHERE container = ${containerId $ containerRow c} AND segment && ${s} AND tag = ${tagId t}")
       "$!"
   ======>
     fmap
-      (\ (vweight_a6PN5, vcoverage_a6PN6, vkeywords_a6PN8, vvotes_a6PN9)
+      (\ (vweight_a8AEM, vcoverage_a8AEN, vkeywords_a8AEO, vvotes_a8AEP)
          -> Databrary.Model.Tag.SQL.makeTagCoverage
-              vweight_a6PN5 vcoverage_a6PN6 vkeywords_a6PN8 vvotes_a6PN9)
-      ((\ _p_a6PPF _p_a6PPG _p_a6PPH _p_a6PPI
+              vweight_a8AEM vcoverage_a8AEN vkeywords_a8AEO vvotes_a8AEP)
+      ((\ _p_a8AFe _p_a8AFf _p_a8AFg _p_a8AFh
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6PPE
+               (\ _tenv_a8AFd
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT tag_coverage.weight,tag_coverage.coverage,tag_coverage.keywords,tag_coverage.votes FROM (SELECT tag,count(*)::integer AS weight,segments_union(segment) AS coverage,segments_union(CASE WHEN tableoid = 'keyword_use'::regclass THEN segment ELSE 'empty' END) AS keywords,segments_union(CASE WHEN tableoid = 'tag_use'::regclass AND who = $1 THEN segment ELSE 'empty' END) AS votes FROM tag_use WHERE container = $2 AND segment && $3 AND tag = $4 GROUP BY tag) AS tag_coverage ")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PPF,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PPG,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                          _p_a6PPH,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PPI]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment[]"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment[]"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PPE
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")])
-               (\ _tenv_a6PPE
-                  [_cweight_a6PPJ, _ccoverage_a6PPK, _ckeywords_a6PPL, _cvotes_a6PPM]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PPE
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cweight_a6PPJ, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PPE
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")
-                        _ccoverage_a6PPK, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PPE
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")
-                        _ckeywords_a6PPL, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PPE
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")
-                        _cvotes_a6PPM)))
+                       [pgEncodeParameter
+                          _tenv_a8AFd (PGTypeProxy :: PGTypeName "integer") _p_a8AFe,
+                        pgEncodeParameter
+                          _tenv_a8AFd (PGTypeProxy :: PGTypeName "integer") _p_a8AFf,
+                        pgEncodeParameter
+                          _tenv_a8AFd (PGTypeProxy :: PGTypeName "segment") _p_a8AFg,
+                        pgEncodeParameter
+                          _tenv_a8AFd (PGTypeProxy :: PGTypeName "integer") _p_a8AFh]
+                       [pgBinaryColumn _tenv_a8AFd (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_a8AFd (PGTypeProxy :: PGTypeName "segment[]"),
+                        pgBinaryColumn _tenv_a8AFd (PGTypeProxy :: PGTypeName "segment[]"),
+                        pgBinaryColumn
+                          _tenv_a8AFd (PGTypeProxy :: PGTypeName "segment[]")])
+               (\ _tenv_a8AFd
+                  [_cweight_a8AFj, _ccoverage_a8AFk, _ckeywords_a8AFl, _cvotes_a8AFm]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a8AFd (PGTypeProxy :: PGTypeName "integer") _cweight_a8AFj, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AFd
+                        (PGTypeProxy :: PGTypeName "segment[]")
+                        _ccoverage_a8AFk, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AFd
+                        (PGTypeProxy :: PGTypeName "segment[]")
+                        _ckeywords_a8AFl, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AFd
+                        (PGTypeProxy :: PGTypeName "segment[]")
+                        _cvotes_a8AFm)))
          (partyId $ partyRow ident)
          (containerId $ containerRow c)
          s
          (tagId t))
-Databrary/Model/Tag.hs:87:13-120: Splicing expression
+src/Databrary/Model/Tag.hs:318:13-120: Splicing expression
     selectQuery
-      (selectSlotTagCoverage 'ident_a6PUM 'slot_a6PUE)
+      (selectSlotTagCoverage 'ident_a8AGb 'slot_a8AG9)
       "$!ORDER BY weight DESC LIMIT ${fromIntegral lim :: Int64}"
   ======>
     fmap
-      (\ (vweight_a6PY9, vcoverage_a6PYa, vkeywords_a6PYb, vvotes_a6PYc,
-          vid_a6PYd, vname_a6PYe)
+      (\ (vweight_a8AGn, vcoverage_a8AGo, vkeywords_a8AGp, vvotes_a8AGq,
+          vid_a8AGr, vname_a8AGs)
          -> ($)
               (Databrary.Model.Tag.SQL.makeTagCoverage
-                 vweight_a6PY9 vcoverage_a6PYa vkeywords_a6PYb vvotes_a6PYc)
-              (Tag vid_a6PYd vname_a6PYe)
-              (slotContainer slot_a6PUE))
-      ((\ _p_a6PYh _p_a6PYi _p_a6PYj _p_a6PYk
+                 vweight_a8AGn vcoverage_a8AGo vkeywords_a8AGp vvotes_a8AGq)
+              (Tag vid_a8AGr vname_a8AGs)
+              (slotContainer slot_a8AG9))
+      ((\ _p_a8AGW _p_a8AGX _p_a8AGY _p_a8AGZ
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6PYg
+               (\ _tenv_a8AGV
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT tag_coverage.weight,tag_coverage.coverage,tag_coverage.keywords,tag_coverage.votes,tag.id,tag.name FROM (SELECT tag,count(*)::integer AS weight,segments_union(segment) AS coverage,segments_union(CASE WHEN tableoid = 'keyword_use'::regclass THEN segment ELSE 'empty' END) AS keywords,segments_union(CASE WHEN tableoid = 'tag_use'::regclass AND who = $1 THEN segment ELSE 'empty' END) AS votes FROM tag_use WHERE container = $2 AND segment && $3 GROUP BY tag) AS tag_coverage JOIN tag ON tag_coverage.tag = tag.id ORDER BY weight DESC LIMIT $4")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PYh,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PYi,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                          _p_a6PYj,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                          _p_a6PYk]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment[]"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment[]"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "segment[]"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6PYg
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")])
-               (\ _tenv_a6PYg
-                  [_cweight_a6PYl,
-                   _ccoverage_a6PYm,
-                   _ckeywords_a6PYn,
-                   _cvotes_a6PYo,
-                   _cid_a6PYp,
-                   _cname_a6PYq]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PYg
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cweight_a6PYl, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PYg
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")
-                        _ccoverage_a6PYm, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PYg
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")
-                        _ckeywords_a6PYn, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PYg
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "segment[]")
-                        _cvotes_a6PYo, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PYg
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6PYp, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PYg
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cname_a6PYq)))
+                       [pgEncodeParameter
+                          _tenv_a8AGV (PGTypeProxy :: PGTypeName "integer") _p_a8AGW,
+                        pgEncodeParameter
+                          _tenv_a8AGV (PGTypeProxy :: PGTypeName "integer") _p_a8AGX,
+                        pgEncodeParameter
+                          _tenv_a8AGV (PGTypeProxy :: PGTypeName "segment") _p_a8AGY,
+                        pgEncodeParameter
+                          _tenv_a8AGV (PGTypeProxy :: PGTypeName "bigint") _p_a8AGZ]
+                       [pgBinaryColumn _tenv_a8AGV (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_a8AGV (PGTypeProxy :: PGTypeName "segment[]"),
+                        pgBinaryColumn _tenv_a8AGV (PGTypeProxy :: PGTypeName "segment[]"),
+                        pgBinaryColumn _tenv_a8AGV (PGTypeProxy :: PGTypeName "segment[]"),
+                        pgBinaryColumn _tenv_a8AGV (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn
+                          _tenv_a8AGV (PGTypeProxy :: PGTypeName "character varying")])
+               (\ _tenv_a8AGV
+                  [_cweight_a8AH0,
+                   _ccoverage_a8AH2,
+                   _ckeywords_a8AH3,
+                   _cvotes_a8AH4,
+                   _cid_a8AH5,
+                   _cname_a8AH6]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a8AGV (PGTypeProxy :: PGTypeName "integer") _cweight_a8AH0, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AGV
+                        (PGTypeProxy :: PGTypeName "segment[]")
+                        _ccoverage_a8AH2, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AGV
+                        (PGTypeProxy :: PGTypeName "segment[]")
+                        _ckeywords_a8AH3, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AGV (PGTypeProxy :: PGTypeName "segment[]") _cvotes_a8AH4, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AGV (PGTypeProxy :: PGTypeName "integer") _cid_a8AH5, 
+                      pgDecodeColumnNotNull
+                        _tenv_a8AGV
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cname_a8AH6)))
          (partyId $ partyRow ident)
          (containerId $ containerRow $ slotContainer slot)
          (slotSegment slot)
          (fromIntegral lim :: Int64))
-Databrary/Model/Tag.hs:91:13-155: Splicing expression
-    selectQuery
-      selectTag
-      "JOIN keyword_use ON id = tag WHERE container = ${containerId $ containerRow slotContainer} AND segment = ${slotSegment}"
-  ======>
-    fmap
-      (\ (vid_a6Q1R, vname_a6Q1S) -> Tag vid_a6Q1R vname_a6Q1S)
-      ((\ _p_a6Q2N _p_a6Q2O
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6Q2M
-                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                       (BSC.concat
-                          [Data.String.fromString
-                             "SELECT tag.id,tag.name FROM tag JOIN keyword_use ON id = tag WHERE container = ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6Q2M
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a6Q2N,
-                           Data.String.fromString " AND segment = ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6Q2M
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "segment")
-                             _p_a6Q2O]))
-               (\ _tenv_a6Q2M [_cid_a6Q2P, _cname_a6Q2Q]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Q2M
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6Q2P, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Q2M
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cname_a6Q2Q)))
-         (containerId $ containerRow slotContainer) slotSegment)

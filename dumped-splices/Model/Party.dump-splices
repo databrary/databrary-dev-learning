@@ -1,1374 +1,251 @@
-Databrary/Model/Party.hs:98:17-37: Splicing expression
-    updateParty 'ident_a6PEb 'p_a6PE7
-  ======>
-    (\ _p_a6PEN _p_a6PEO _p_a6PEP _p_a6PEQ _p_a6PER _p_a6PES _p_a6PET
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PEM
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (UPDATE party SET name=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a6PEN,
-                        Data.String.fromString ",prename=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a6PEO,
-                        Data.String.fromString ",affiliation=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a6PEP,
-                        Data.String.fromString ",url=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a6PEQ,
-                        Data.String.fromString " WHERE id=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PER,
-                        Data.String.fromString
-                          " RETURNING *) INSERT INTO audit.party SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PES,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PEM
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a6PET,
-                        Data.String.fromString
-                          ", 'change'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a6PEM [] -> ()))
-      (partySortName $ partyRow p)
-      (partyPreName $ partyRow p)
-      (partyAffiliation $ partyRow p)
-      (partyURL $ partyRow p)
-      (partyId $ partyRow p)
-      (auditWho ident)
-      (auditIp ident)
-Databrary/Model/Party.hs:103:17-39: Splicing expression
-    updateAccount 'ident_a6PF2 'a_a6PF1
-  ======>
-    (\ _p_a6PFw _p_a6PFx _p_a6PFy _p_a6PFz _p_a6PFA
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PFv
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (UPDATE account SET email=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFv
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6PFw,
-                        Data.String.fromString ",password=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFv
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6PFx,
-                        Data.String.fromString " WHERE id=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFv
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PFy,
-                        Data.String.fromString
-                          " RETURNING *) INSERT INTO audit.account SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFv
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PFz,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PFv
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a6PFA,
-                        Data.String.fromString
-                          ", 'change'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a6PFv [] -> ()))
-      (accountEmail (siteAccount a))
-      (accountPasswd a)
-      (partyId $ partyRow (accountParty (siteAccount a)))
-      (auditWho ident)
-      (auditIp ident)
-Databrary/Model/Party.hs:108:69-90: Splicing expression
-    insertParty 'ident_a6PGc 'bp_a6PGa
+src/Databrary/Model/Party.hs:64:1-6: Splicing declarations
+    useTDB ======>
+src/Databrary/Model/Party.hs:561:16-72: Splicing expression
+    selectQuery (selectParty 'ident_a9zHi) "$WHERE party.id = ${i}"
   ======>
     fmap
-      (\ (vid_a6PHj, vname_a6PHl, vprename_a6PHm, vorcid_a6PHn,
-          vaffiliation_a6PHo, vurl_a6PHp)
-         -> PartyRow
-              vid_a6PHj
-              vname_a6PHl
-              vprename_a6PHm
-              vorcid_a6PHn
-              vaffiliation_a6PHo
-              vurl_a6PHp)
-      ((\ _p_a6PHr _p_a6PHs _p_a6PHt _p_a6PHu _p_a6PHw _p_a6PHx
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6PHq
-                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                       (BS.concat
-                          [Data.String.fromString
-                             "WITH audit_row AS (INSERT INTO party (name,prename,affiliation,url) VALUES (",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PHq
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PHr,
-                           Data.String.fromString ",",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PHq
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PHs,
-                           Data.String.fromString ",",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PHq
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PHt,
-                           Data.String.fromString ",",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PHq
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PHu,
-                           Data.String.fromString
-                             ") RETURNING *) INSERT INTO audit.party SELECT CURRENT_TIMESTAMP, ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PHq
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a6PHw,
-                           Data.String.fromString ", ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PHq
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                             _p_a6PHx,
-                           Data.String.fromString
-                             ", 'add'::audit.action, * FROM audit_row RETURNING party.id,party.name,party.prename,party.orcid,party.affiliation,party.url"]))
-               (\ _tenv_a6PHq
-                  [_cid_a6PHy,
-                   _cname_a6PHz,
-                   _cprename_a6PHA,
-                   _corcid_a6PHB,
-                   _caffiliation_a6PHC,
-                   _curl_a6PHD]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PHq
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6PHy, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PHq
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a6PHz, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PHq
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a6PHA, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PHq
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a6PHB, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PHq
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a6PHC, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PHq
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a6PHD)))
-         (partySortName $ partyRow bp)
-         (partyPreName $ partyRow bp)
-         (partyAffiliation $ partyRow bp)
-         (partyURL $ partyRow bp)
-         (auditWho ident)
-         (auditIp ident))
-Databrary/Model/Party.hs:113:74-95: Splicing expression
-    insertParty 'ident_a6PJF 'bp_a6PJE
-  ======>
-    fmap
-      (\ (vid_a6PKd, vname_a6PKe, vprename_a6PKf, vorcid_a6PKh,
-          vaffiliation_a6PKi, vurl_a6PKj)
-         -> PartyRow
-              vid_a6PKd
-              vname_a6PKe
-              vprename_a6PKf
-              vorcid_a6PKh
-              vaffiliation_a6PKi
-              vurl_a6PKj)
-      ((\ _p_a6PKO _p_a6PKP _p_a6PKQ _p_a6PKR _p_a6PKS _p_a6PKT
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6PKN
-                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                       (BS.concat
-                          [Data.String.fromString
-                             "WITH audit_row AS (INSERT INTO party (name,prename,affiliation,url) VALUES (",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PKN
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PKO,
-                           Data.String.fromString ",",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PKN
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PKP,
-                           Data.String.fromString ",",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PKN
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PKQ,
-                           Data.String.fromString ",",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PKN
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6PKR,
-                           Data.String.fromString
-                             ") RETURNING *) INSERT INTO audit.party SELECT CURRENT_TIMESTAMP, ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PKN
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a6PKS,
-                           Data.String.fromString ", ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6PKN
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                             _p_a6PKT,
-                           Data.String.fromString
-                             ", 'add'::audit.action, * FROM audit_row RETURNING party.id,party.name,party.prename,party.orcid,party.affiliation,party.url"]))
-               (\ _tenv_a6PKN
-                  [_cid_a6PKU,
-                   _cname_a6PKV,
-                   _cprename_a6PKX,
-                   _corcid_a6PKY,
-                   _caffiliation_a6PKZ,
-                   _curl_a6PL0]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PKN
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6PKU, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6PKN
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a6PKV, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PKN
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a6PKX, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PKN
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a6PKY, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PKN
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a6PKZ, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6PKN
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a6PL0)))
-         (partySortName $ partyRow bp)
-         (partyPreName $ partyRow bp)
-         (partyAffiliation $ partyRow bp)
-         (partyURL $ partyRow bp)
-         (auditWho ident)
-         (auditIp ident))
-Databrary/Model/Party.hs:116:17-39: Splicing expression
-    insertAccount 'ident_a6PJF 'a_a6POm
-  ======>
-    (\ _p_a6PRA _p_a6PRB _p_a6PRC _p_a6PRD
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PRz
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (INSERT INTO account (id,email) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PRz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PRA,
-                        Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PRz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6PRB,
-                        Data.String.fromString
-                          ") RETURNING *) INSERT INTO audit.account SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PRz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PRC,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PRz
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a6PRD,
-                        Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a6PRz [] -> ()))
-      (partyId $ partyRow (accountParty a))
-      (accountEmail a)
-      (auditWho ident)
-      (auditIp ident)
-Databrary/Model/Party.hs:123:23-45: Splicing expression
-    deleteAccount 'ident_a6PUx 'p_a6PUs
-  ======>
-    (\ _p_a6PXP _p_a6PXQ _p_a6PXR
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PXO
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (DELETE FROM account WHERE id=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PXO
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PXP,
-                        Data.String.fromString
-                          " RETURNING *) INSERT INTO audit.account SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PXO
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PXQ,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PXO
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a6PXR,
-                        Data.String.fromString
-                          ", 'remove'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a6PXO [] -> ()))
-      (partyId $ partyRow p) (auditWho ident) (auditIp ident)
-Databrary/Model/Party.hs:124:18-38: Splicing expression
-    deleteParty 'ident_a6PUx 'p_a6PUs
-  ======>
-    (\ _p_a6PZU _p_a6PZV _p_a6PZW
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6PZT
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (DELETE FROM party WHERE id=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PZT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PZU,
-                        Data.String.fromString
-                          " RETURNING *) INSERT INTO audit.party SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PZT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6PZV,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6PZT
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a6PZW,
-                        Data.String.fromString
-                          ", 'remove'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a6PZT [] -> ()))
-      (partyId $ partyRow p) (auditWho ident) (auditIp ident)
-Databrary/Model/Party.hs:135:16-72: Splicing expression
-    selectQuery (selectParty 'ident_a6Q19) "$WHERE party.id = ${i}"
-  ======>
-    fmap
-      (\ (vid_a6Q2U, vname_a6Q2V, vprename_a6Q2W, vorcid_a6Q2X,
-          vaffiliation_a6Q2Y, vurl_a6Q2Z, vemail_a6Q30)
-         -> Databrary.Model.Party.SQL.permissionParty
-              (Databrary.Model.Party.SQL.makeParty
+      (\ (vid_a9JgZ, vname_a9Jh0, vprename_a9Jh1, vorcid_a9Jh2,
+          vaffiliation_a9Jh3, vurl_a9Jh4, vemail_a9Jh5)
+         -> permissionParty
+              (makeParty
                  (PartyRow
-                    vid_a6Q2U
-                    vname_a6Q2V
-                    vprename_a6Q2W
-                    vorcid_a6Q2X
-                    vaffiliation_a6Q2Y
-                    vurl_a6Q2Z)
-                 (do { cm_a6Q38 <- vemail_a6Q30;
-                       Just (Account cm_a6Q38) }))
+                    vid_a9JgZ
+                    vname_a9Jh0
+                    vprename_a9Jh1
+                    vorcid_a9Jh2
+                    vaffiliation_a9Jh3
+                    vurl_a9Jh4)
+                 (do { cm_a9Jh6 <- vemail_a9Jh5;
+                       Just (Account cm_a9Jh6) }))
               Nothing
-              ident_a6Q19)
-      ((\ _p_a6Q4g
+              ident_a9zHi)
+      ((\ _p_a9Jh8
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6Q4f
+               (\ _tenv_a9Jh7
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email FROM party LEFT JOIN account USING (id) WHERE party.id = $1")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6Q4g]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6Q4f
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")])
-               (\ _tenv_a6Q4f
-                  [_cid_a6Q4h,
-                   _cname_a6Q4j,
-                   _cprename_a6Q4k,
-                   _corcid_a6Q4l,
-                   _caffiliation_a6Q4n,
-                   _curl_a6Q4o,
-                   _cemail_a6Q4p]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6Q4h, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a6Q4j, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a6Q4k, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a6Q4l, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a6Q4n, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a6Q4o, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6Q4f
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a6Q4p)))
+                       [pgEncodeParameter
+                          _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "integer") _p_a9Jh8]
+                       [pgBinaryColumn _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "bpchar"),
+                        pgBinaryColumn _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn
+                          _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "character varying")])
+               (\ _tenv_a9Jh7
+                  [_cid_a9Jh9,
+                   _cname_a9Jha,
+                   _cprename_a9Jhb,
+                   _corcid_a9Jhc,
+                   _caffiliation_a9Jhd,
+                   _curl_a9Jhe,
+                   _cemail_a9Jhf]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "integer") _cid_a9Jh9, 
+                      pgDecodeColumnNotNull
+                        _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text") _cname_a9Jha, 
+                      pgDecodeColumn
+                        _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text") _cprename_a9Jhb, 
+                      pgDecodeColumn
+                        _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "bpchar") _corcid_a9Jhc, 
+                      pgDecodeColumn
+                        _tenv_a9Jh7
+                        (PGTypeProxy :: PGTypeName "text")
+                        _caffiliation_a9Jhd, 
+                      pgDecodeColumn
+                        _tenv_a9Jh7 (PGTypeProxy :: PGTypeName "text") _curl_a9Jhe, 
+                      pgDecodeColumnNotNull
+                        _tenv_a9Jh7
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cemail_a9Jhf)))
          i)
-Databrary/Model/Party.hs:(140,7)-(144,92): Splicing expression
+src/Databrary/Model/Party.hs:(566,7)-(570,92): Splicing expression
     selectQuery
       (selectPartyRow)
       "$WHERE exists  (select *   from party p2   where p2.prename = party.prename and p2.name = party.name and party.id < p2.id) "
   ======>
     fmap
-      (\ (vid_a6Qaw, vname_a6Qax, vprename_a6Qay, vorcid_a6Qaz,
-          vaffiliation_a6QaA, vurl_a6QaC)
+      (\ (vid_a9Jhk, vname_a9Jhl, vprename_a9Jhm, vorcid_a9Jhn,
+          vaffiliation_a9Jho, vurl_a9Jhp)
          -> PartyRow
-              vid_a6Qaw
-              vname_a6Qax
-              vprename_a6Qay
-              vorcid_a6Qaz
-              vaffiliation_a6QaA
-              vurl_a6QaC)
+              vid_a9Jhk
+              vname_a9Jhl
+              vprename_a9Jhm
+              vorcid_a9Jhn
+              vaffiliation_a9Jho
+              vurl_a9Jhp)
       (\ -> Database.PostgreSQL.Typed.Query.QueryParser
-              (\ _tenv_a6Qcl
+              (\ _tenv_a9Jhq
                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
                       (Data.String.fromString
                          "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url FROM party WHERE exists  (select *   from party p2   where p2.prename = party.prename and p2.name = party.name and party.id < p2.id) ")
                       []
                       []
-                      [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                         _tenv_a6Qcl
-                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                            Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                       Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                         _tenv_a6Qcl
-                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                            Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                       Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                         _tenv_a6Qcl
-                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                            Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                       Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                         _tenv_a6Qcl
-                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                            Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                       Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                         _tenv_a6Qcl
-                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                            Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                       Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                         _tenv_a6Qcl
-                         (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                            Database.PostgreSQL.Typed.Types.PGTypeName "text")])
-              (\ _tenv_a6Qcl
-                 [_cid_a6Qcm,
-                  _cname_a6Qcn,
-                  _cprename_a6Qco,
-                  _corcid_a6Qcp,
-                  _caffiliation_a6Qcq,
-                  _curl_a6Qcr]
-                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Qcl
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _cid_a6Qcm, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Qcl
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cname_a6Qcn, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qcl
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cprename_a6Qco, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qcl
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                       _corcid_a6Qcp, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qcl
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _caffiliation_a6Qcq, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qcl
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _curl_a6Qcr)))
-Databrary/Model/Party.hs:149:13-78: Splicing expression
-    selectQuery
-      (selectPartyAuthorization 'ident_a6QfY) "WHERE party.id > 0"
+                      [pgBinaryColumn _tenv_a9Jhq (PGTypeProxy :: PGTypeName "integer"),
+                       pgBinaryColumn _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text"),
+                       pgBinaryColumn _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text"),
+                       pgBinaryColumn _tenv_a9Jhq (PGTypeProxy :: PGTypeName "bpchar"),
+                       pgBinaryColumn _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text"),
+                       pgBinaryColumn _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text")])
+              (\ _tenv_a9Jhq
+                 [_cid_a9Jhr,
+                  _cname_a9Jhs,
+                  _cprename_a9Jht,
+                  _corcid_a9Jhu,
+                  _caffiliation_a9Jhv,
+                  _curl_a9Jhw]
+                 -> (pgDecodeColumnNotNull
+                       _tenv_a9Jhq (PGTypeProxy :: PGTypeName "integer") _cid_a9Jhr, 
+                     pgDecodeColumnNotNull
+                       _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text") _cname_a9Jhs, 
+                     pgDecodeColumn
+                       _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text") _cprename_a9Jht, 
+                     pgDecodeColumn
+                       _tenv_a9Jhq (PGTypeProxy :: PGTypeName "bpchar") _corcid_a9Jhu, 
+                     pgDecodeColumn
+                       _tenv_a9Jhq
+                       (PGTypeProxy :: PGTypeName "text")
+                       _caffiliation_a9Jhv, 
+                     pgDecodeColumn
+                       _tenv_a9Jhq (PGTypeProxy :: PGTypeName "text") _curl_a9Jhw)))
+src/Databrary/Model/Party.hs:667:16-76: Splicing expression
+    selectQuery (selectAuthParty 'ident_a9JhW) "$WHERE party.id = ${i}"
   ======>
     fmap
-      (\ (vid_a6Qir, vname_a6Qis, vprename_a6Qit, vorcid_a6Qiu,
-          vaffiliation_a6Qiv, vurl_a6Qiw, vemail_a6Qix, vsite_a6Qiz,
-          vmember_a6QiA)
-         -> Databrary.Model.Party.SQL.makePartyAuthorization
-              (Databrary.Model.Party.SQL.permissionParty
-                 (Databrary.Model.Party.SQL.makeParty
-                    (PartyRow
-                       vid_a6Qir
-                       vname_a6Qis
-                       vprename_a6Qit
-                       vorcid_a6Qiu
-                       vaffiliation_a6Qiv
-                       vurl_a6Qiw)
-                    (do { cm_a6QiP <- vemail_a6Qix;
-                          Just (Account cm_a6QiP) }))
-                 Nothing
-                 ident_a6QfY)
-              (do { cm_a6QiV <- vsite_a6Qiz;
-                    cm_a6QiW <- vmember_a6QiA;
-                    Just (Access cm_a6QiV cm_a6QiW) }))
-      (\ -> Database.PostgreSQL.Typed.Query.QueryParser
-              (\ _tenv_a6Qkm
-                 -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                      (BS.concat
-                         [Data.String.fromString
-                            "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_view.site,authorize_view.member FROM party LEFT JOIN account USING (id) LEFT JOIN authorize_view ON party.id = authorize_view.child AND authorize_view.parent = 0 WHERE party.id > 0"]))
-              (\ _tenv_a6Qkm
-                 [_cid_a6Qkn,
-                  _cname_a6Qko,
-                  _cprename_a6Qkp,
-                  _corcid_a6Qkq,
-                  _caffiliation_a6Qkr,
-                  _curl_a6Qks,
-                  _cemail_a6Qkt,
-                  _csite_a6Qku,
-                  _cmember_a6Qkv]
-                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _cid_a6Qkn, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cname_a6Qko, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cprename_a6Qkp, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                       _corcid_a6Qkq, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _caffiliation_a6Qkr, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _curl_a6Qks, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                       _cemail_a6Qkt, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                       _csite_a6Qku, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6Qkm
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                       _cmember_a6Qkv)))
-Databrary/Model/Party.hs:155:16-76: Splicing expression
-    selectQuery (selectAuthParty 'ident_a6QmK) "$WHERE party.id = ${i}"
-  ======>
-    fmap
-      (\ (vid_a6QnL, vname_a6QnM, vprename_a6QnN, vorcid_a6QnO,
-          vaffiliation_a6QnP, vurl_a6QnQ, vemail_a6QnR, vsite_a6QnS,
-          vmember_a6QnT)
-         -> Databrary.Model.Party.SQL.permissionParty
-              (Databrary.Model.Party.SQL.makeParty
+      (\ (vid_a9Ji5, vname_a9Ji6, vprename_a9Ji7, vorcid_a9Ji8,
+          vaffiliation_a9Ji9, vurl_a9Jia, vemail_a9Jib, vsite_a9Jic,
+          vmember_a9Jid)
+         -> permissionParty
+              (makeParty
                  (PartyRow
-                    vid_a6QnL
-                    vname_a6QnM
-                    vprename_a6QnN
-                    vorcid_a6QnO
-                    vaffiliation_a6QnP
-                    vurl_a6QnQ)
-                 (do { cm_a6QnU <- vemail_a6QnR;
-                       Just (Account cm_a6QnU) }))
-              (do { cm_a6QnV <- vsite_a6QnS;
-                    cm_a6QnW <- vmember_a6QnT;
-                    Just (Access cm_a6QnV cm_a6QnW) })
-              ident_a6QmK)
-      ((\ _p_a6QoU _p_a6QoV
+                    vid_a9Ji5
+                    vname_a9Ji6
+                    vprename_a9Ji7
+                    vorcid_a9Ji8
+                    vaffiliation_a9Ji9
+                    vurl_a9Jia)
+                 (do { cm_a9Jie <- vemail_a9Jib;
+                       Just (Account cm_a9Jie) }))
+              (do { cm_a9Jif <- vsite_a9Jic;
+                    cm_a9Jig <- vmember_a9Jid;
+                    Just (Access cm_a9Jif cm_a9Jig) })
+              ident_a9JhW)
+      ((\ _p_a9Jii _p_a9Jij
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6QoS
+               (\ _tenv_a9Jih
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,authorize_valid.site,authorize_valid.member FROM party LEFT JOIN account USING (id) LEFT JOIN authorize_valid ON party.id = authorize_valid.parent AND authorize_valid.child = $1 WHERE party.id = $2")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6QoU,
-                        Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6QoV]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bpchar"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a6QoS
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "permission")])
-               (\ _tenv_a6QoS
-                  [_cid_a6QoW,
-                   _cname_a6QoX,
-                   _cprename_a6QoY,
-                   _corcid_a6QoZ,
-                   _caffiliation_a6Qp0,
-                   _curl_a6Qp1,
-                   _cemail_a6Qp2,
-                   _csite_a6Qp3,
-                   _cmember_a6Qp4]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6QoW, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a6QoX, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a6QoY, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a6QoZ, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a6Qp0, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a6Qp1, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a6Qp2, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a6Qp3, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QoS
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a6Qp4)))
+                       [pgEncodeParameter
+                          _tenv_a9Jih (PGTypeProxy :: PGTypeName "integer") _p_a9Jii,
+                        pgEncodeParameter
+                          _tenv_a9Jih (PGTypeProxy :: PGTypeName "integer") _p_a9Jij]
+                       [pgBinaryColumn _tenv_a9Jih (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_a9Jih (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9Jih (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9Jih (PGTypeProxy :: PGTypeName "bpchar"),
+                        pgBinaryColumn _tenv_a9Jih (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9Jih (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn
+                          _tenv_a9Jih (PGTypeProxy :: PGTypeName "character varying"),
+                        pgBinaryColumn
+                          _tenv_a9Jih (PGTypeProxy :: PGTypeName "permission"),
+                        pgBinaryColumn
+                          _tenv_a9Jih (PGTypeProxy :: PGTypeName "permission")])
+               (\ _tenv_a9Jih
+                  [_cid_a9Jik,
+                   _cname_a9Jil,
+                   _cprename_a9Jim,
+                   _corcid_a9Jin,
+                   _caffiliation_a9Jio,
+                   _curl_a9Jip,
+                   _cemail_a9Jiq,
+                   _csite_a9Jir,
+                   _cmember_a9Jis]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a9Jih (PGTypeProxy :: PGTypeName "integer") _cid_a9Jik, 
+                      pgDecodeColumnNotNull
+                        _tenv_a9Jih (PGTypeProxy :: PGTypeName "text") _cname_a9Jil, 
+                      pgDecodeColumn
+                        _tenv_a9Jih (PGTypeProxy :: PGTypeName "text") _cprename_a9Jim, 
+                      pgDecodeColumn
+                        _tenv_a9Jih (PGTypeProxy :: PGTypeName "bpchar") _corcid_a9Jin, 
+                      pgDecodeColumn
+                        _tenv_a9Jih
+                        (PGTypeProxy :: PGTypeName "text")
+                        _caffiliation_a9Jio, 
+                      pgDecodeColumn
+                        _tenv_a9Jih (PGTypeProxy :: PGTypeName "text") _curl_a9Jip, 
+                      pgDecodeColumnNotNull
+                        _tenv_a9Jih
+                        (PGTypeProxy :: PGTypeName "character varying")
+                        _cemail_a9Jiq, 
+                      pgDecodeColumn
+                        _tenv_a9Jih (PGTypeProxy :: PGTypeName "permission") _csite_a9Jir, 
+                      pgDecodeColumn
+                        _tenv_a9Jih
+                        (PGTypeProxy :: PGTypeName "permission")
+                        _cmember_a9Jis)))
          (view ident :: Id Party) i)
-Databrary/Model/Party.hs:159:19-73: Splicing expression
-    selectQuery selectSiteAuth "WHERE account.email = ${e}"
-  ======>
-    fmap
-      (\ (vid_a6QyG, vname_a6QyI, vprename_a6QyJ, vorcid_a6QyL,
-          vaffiliation_a6QyN, vurl_a6QyO, vemail_a6QyP, vpassword_a6QyQ,
-          vsite_a6QyR, vmember_a6QyS)
-         -> Databrary.Model.Party.SQL.makeSiteAuth
-              (Databrary.Model.Party.SQL.makeUserAccount
-                 (Databrary.Model.Party.SQL.makeAccount
-                    (PartyRow
-                       vid_a6QyG
-                       vname_a6QyI
-                       vprename_a6QyJ
-                       vorcid_a6QyL
-                       vaffiliation_a6QyN
-                       vurl_a6QyO)
-                    (Account vemail_a6QyP)))
-              vpassword_a6QyQ
-              (do { cm_a6Qz5 <- vsite_a6QyR;
-                    cm_a6Qz6 <- vmember_a6QyS;
-                    Just (Access cm_a6Qz5 cm_a6Qz6) }))
-      ((\ _p_a6QFH
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6QFG
-                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                       (BS.concat
-                          [Data.String.fromString
-                             "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,account.password,authorize_view.site,authorize_view.member FROM party JOIN account USING (id) LEFT JOIN authorize_view ON account.id = authorize_view.child AND authorize_view.parent = 0 WHERE account.email = ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6QFG
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6QFH]))
-               (\ _tenv_a6QFG
-                  [_cid_a6QFI,
-                   _cname_a6QFJ,
-                   _cprename_a6QFK,
-                   _corcid_a6QFM,
-                   _caffiliation_a6QFN,
-                   _curl_a6QFP,
-                   _cemail_a6QFR,
-                   _cpassword_a6QFT,
-                   _csite_a6QFU,
-                   _cmember_a6QFW]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6QFI, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a6QFJ, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a6QFK, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a6QFM, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a6QFN, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a6QFP, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a6QFR, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cpassword_a6QFT, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a6QFU, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QFG
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a6QFW)))
-         e)
-Databrary/Model/Party.hs:162:22-98: Splicing expression
-    selectQuery
-      selectSiteAuth "WHERE lower(account.email) = lower(${e}) LIMIT 2"
-  ======>
-    fmap
-      (\ (vid_a6QLV, vname_a6QLW, vprename_a6QLX, vorcid_a6QLZ,
-          vaffiliation_a6QM0, vurl_a6QM1, vemail_a6QM2, vpassword_a6QM3,
-          vsite_a6QM4, vmember_a6QM5)
-         -> Databrary.Model.Party.SQL.makeSiteAuth
-              (Databrary.Model.Party.SQL.makeUserAccount
-                 (Databrary.Model.Party.SQL.makeAccount
-                    (PartyRow
-                       vid_a6QLV
-                       vname_a6QLW
-                       vprename_a6QLX
-                       vorcid_a6QLZ
-                       vaffiliation_a6QM0
-                       vurl_a6QM1)
-                    (Account vemail_a6QM2)))
-              vpassword_a6QM3
-              (do { cm_a6QMz <- vsite_a6QM4;
-                    cm_a6QMA <- vmember_a6QM5;
-                    Just (Access cm_a6QMz cm_a6QMA) }))
-      ((\ _p_a6QNa
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a6QN9
-                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                       (BS.concat
-                          [Data.String.fromString
-                             "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email,account.password,authorize_view.site,authorize_view.member FROM party JOIN account USING (id) LEFT JOIN authorize_view ON account.id = authorize_view.child AND authorize_view.parent = 0 WHERE lower(account.email) = lower(",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a6QN9
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                             _p_a6QNa,
-                           Data.String.fromString ") LIMIT 2"]))
-               (\ _tenv_a6QN9
-                  [_cid_a6QNb,
-                   _cname_a6QNc,
-                   _cprename_a6QNd,
-                   _corcid_a6QNf,
-                   _caffiliation_a6QNg,
-                   _curl_a6QNh,
-                   _cemail_a6QNi,
-                   _cpassword_a6QNj,
-                   _csite_a6QNk,
-                   _cmember_a6QNl]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a6QNb, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a6QNc, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cprename_a6QNd, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                        _corcid_a6QNf, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _caffiliation_a6QNg, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a6QNh, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cemail_a6QNi, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cpassword_a6QNj, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _csite_a6QNk, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a6QN9
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cmember_a6QNl)))
-         e)
-Databrary/Model/Party.hs:(172,22)-(173,114): Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "INSERT INTO audit.account (audit_action, audit_user, audit_ip, id, email) VALUES\n\
-      \    (${if success then AuditActionOpen else AuditActionAttempt}, -1, ${ip}, ${partyId $ partyRow who}, ${email})"
-  ======>
-    (\ _p_a6QTP _p_a6QTQ _p_a6QTR _p_a6QTS
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6QTK
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "INSERT INTO audit.account (audit_action, audit_user, audit_ip, id, email) VALUES\n\
-                          \    (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6QTK
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "audit.action")
-                          _p_a6QTP,
-                        Data.String.fromString ", -1, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6QTK
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a6QTQ,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6QTK
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6QTR,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6QTK
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                          _p_a6QTS,
-                        Data.String.fromString ")"]))
-            (\ _tenv_a6QTK [] -> ()))
-      (if success then AuditActionOpen else AuditActionAttempt)
-      ip
-      (partyId $ partyRow who)
-      email
-Databrary/Model/Party.hs:177:19-176: Splicing expression
-    Language.Haskell.TH.Quote.quoteExp
-      pgSQL
-      "!SELECT count(*) FROM audit.account WHERE audit_action = 'attempt' AND id = ${partyId $ partyRow who} AND audit_time > CURRENT_TIMESTAMP - interval '1 hour'"
-  ======>
-    (\ _p_a6QXP
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a6QXO
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "SELECT count(*) FROM audit.account WHERE audit_action = 'attempt' AND id = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a6QXO
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a6QXP,
-                        Data.String.fromString
-                          " AND audit_time > CURRENT_TIMESTAMP - interval '1 hour'"]))
-            (\ _tenv_a6QXO [_ccount_a6QXQ]
-               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                     _tenv_a6QXO
-                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                        Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                     _ccount_a6QXQ)))
-      (partyId $ partyRow who)
-Databrary/Model/Party.hs:211:33-67: Splicing expression
-    selectQuery (selectParty 'ident_a6R10) ""
-  ======>
-    fmap
-      (\ (vid_a6R3R, vname_a6R3S, vprename_a6R3T, vorcid_a6R3U,
-          vaffiliation_a6R3V, vurl_a6R3W, vemail_a6R3X)
-         -> Databrary.Model.Party.SQL.permissionParty
-              (Databrary.Model.Party.SQL.makeParty
-                 (PartyRow
-                    vid_a6R3R
-                    vname_a6R3S
-                    vprename_a6R3T
-                    vorcid_a6R3U
-                    vaffiliation_a6R3V
-                    vurl_a6R3W)
-                 (do { cm_a6R44 <- vemail_a6R3X;
-                       Just (Account cm_a6R44) }))
-              Nothing
-              ident_a6R10)
-      (\ -> Database.PostgreSQL.Typed.Query.QueryParser
-              (\ _tenv_a6R7j
-                 -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                      (BS.concat
-                         [Data.String.fromString
-                            "SELECT party.id,party.name,party.prename,party.orcid,party.affiliation,party.url,account.email FROM party LEFT JOIN account USING (id) "]))
-              (\ _tenv_a6R7j
-                 [_cid_a6R7m,
-                  _cname_a6R7o,
-                  _cprename_a6R7p,
-                  _corcid_a6R7q,
-                  _caffiliation_a6R7r,
-                  _curl_a6R7s,
-                  _cemail_a6R7t]
-                 -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                       _cid_a6R7m, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cname_a6R7o, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _cprename_a6R7p, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "bpchar")
-                       _corcid_a6R7q, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _caffiliation_a6R7r, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                       _curl_a6R7s, 
-                     Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                       _tenv_a6R7j
-                       (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                          Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                       _cemail_a6R7t)))
-Databrary/Model/Party.hs:216:41-209: Splicing expression
+src/Databrary/Model/Party.hs:1044:41-209: Splicing expression
     selectQuery selectAssetRow
     $ "$JOIN avatar ON asset.id = avatar.asset WHERE avatar.party = ${p} AND asset.volume = "
       ++ pgLiteralString (volumeId $ volumeRow coreVolume)
   ======>
     fmap
-      (\ (vid_a76hX, vformat_a76hY, vrelease_a76hZ, vduration_a76i0,
-          vname_a76i1, vc_a76i2, vsize_a76i3)
-         -> Databrary.Model.Asset.SQL.makeAssetRow
-              vid_a76hX
-              vformat_a76hY
-              vrelease_a76hZ
-              vduration_a76i0
-              vname_a76i1
-              vc_a76i2
-              vsize_a76i3)
-      ((\ _p_a76i5
+      (\ (vid_a9JkO, vformat_a9JkP, vrelease_a9JkQ, vduration_a9JkR,
+          vname_a9JkS, vc_a9JkT, vsize_a9JkU)
+         -> makeAssetRow
+              vid_a9JkO
+              vformat_a9JkP
+              vrelease_a9JkQ
+              vduration_a9JkR
+              vname_a9JkS
+              vc_a9JkT
+              vsize_a9JkU)
+      ((\ _p_a9JkW
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a76i4
+               (\ _tenv_a9JkV
                   -> Database.PostgreSQL.Typed.Query.PreparedQuery
                        (Data.String.fromString
                           "SELECT asset.id,asset.format,asset.release,asset.duration,asset.name,asset.sha1,asset.size FROM asset JOIN avatar ON asset.id = avatar.asset WHERE avatar.party = $1 AND asset.volume = 0")
                        []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76i5]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "release"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "interval"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bytea"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a76i4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "bigint")])
-               (\ _tenv_a76i4
-                  [_cid_a76i6,
-                   _cformat_a76i7,
-                   _crelease_a76i8,
-                   _cduration_a76i9,
-                   _cname_a76ia,
-                   _csha1_a76ib,
-                   _csize_a76ic]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a76i6, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _cformat_a76i7, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "release")
-                        _crelease_a76i8, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "interval")
-                        _cduration_a76i9, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a76ia, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bytea")
-                        _csha1_a76ib, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a76i4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "bigint")
-                        _csize_a76ic)))
+                       [pgEncodeParameter
+                          _tenv_a9JkV (PGTypeProxy :: PGTypeName "integer") _p_a9JkW]
+                       [pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "integer"),
+                        pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "smallint"),
+                        pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "release"),
+                        pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "interval"),
+                        pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "text"),
+                        pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "bytea"),
+                        pgBinaryColumn _tenv_a9JkV (PGTypeProxy :: PGTypeName "bigint")])
+               (\ _tenv_a9JkV
+                  [_cid_a9JkX,
+                   _cformat_a9JkY,
+                   _crelease_a9JkZ,
+                   _cduration_a9Jl0,
+                   _cname_a9Jl1,
+                   _csha1_a9Jl2,
+                   _csize_a9Jl3]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a9JkV (PGTypeProxy :: PGTypeName "integer") _cid_a9JkX, 
+                      pgDecodeColumnNotNull
+                        _tenv_a9JkV (PGTypeProxy :: PGTypeName "smallint") _cformat_a9JkY, 
+                      pgDecodeColumn
+                        _tenv_a9JkV (PGTypeProxy :: PGTypeName "release") _crelease_a9JkZ, 
+                      pgDecodeColumn
+                        _tenv_a9JkV
+                        (PGTypeProxy :: PGTypeName "interval")
+                        _cduration_a9Jl0, 
+                      pgDecodeColumn
+                        _tenv_a9JkV (PGTypeProxy :: PGTypeName "text") _cname_a9Jl1, 
+                      pgDecodeColumn
+                        _tenv_a9JkV (PGTypeProxy :: PGTypeName "bytea") _csha1_a9Jl2, 
+                      pgDecodeColumn
+                        _tenv_a9JkV (PGTypeProxy :: PGTypeName "bigint") _csize_a9Jl3)))
          p)
-Databrary/Model/Party.hs:221:16-84: Splicing expression
-    auditDelete
-      'ident_a76ie "avatar" "party = ${partyId $ partyRow p}" Nothing
-  ======>
-    (\ _p_a76ip _p_a76iq _p_a76ir
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a76io
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (DELETE FROM avatar WHERE party = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76io
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76ip,
-                        Data.String.fromString
-                          " RETURNING *) INSERT INTO audit.avatar SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76io
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76iq,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76io
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a76ir,
-                        Data.String.fromString
-                          ", 'remove'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a76io [] -> ()))
-      (partyId $ partyRow p) (auditWho ident) (auditIp ident)
-Databrary/Model/Party.hs:225:7-114: Splicing expression
-    auditUpdate
-      'ident_a76iu
-      "avatar"
-      [("asset", "${assetId $ assetRow a}")]
-      "party = ${partyId $ partyRow p}"
-      Nothing
-  ======>
-    (\ _p_a76iQ _p_a76iR _p_a76iS _p_a76iT
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a76iP
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (UPDATE avatar SET asset=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76iP
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76iQ,
-                        Data.String.fromString " WHERE party = ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76iP
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76iR,
-                        Data.String.fromString
-                          " RETURNING *) INSERT INTO audit.avatar SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76iP
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76iS,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76iP
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a76iT,
-                        Data.String.fromString
-                          ", 'change'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a76iP [] -> ()))
-      (assetId $ assetRow a)
-      (partyId $ partyRow p)
-      (auditWho ident)
-      (auditIp ident)
-Databrary/Model/Party.hs:226:7-118: Splicing expression
-    auditInsert
-      'ident_a76iu
-      "avatar"
-      [("asset", "${assetId $ assetRow a}"),
-       ("party", "${partyId $ partyRow p}")]
-      Nothing
-  ======>
-    (\ _p_a76ji _p_a76jj _p_a76jk _p_a76jl
-       -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a76jh
-               -> Database.PostgreSQL.Typed.Query.SimpleQuery
-                    (BS.concat
-                       [Data.String.fromString
-                          "WITH audit_row AS (INSERT INTO avatar (asset,party) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76jh
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76ji,
-                        Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76jh
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76jj,
-                        Data.String.fromString
-                          ") RETURNING *) INSERT INTO audit.avatar SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76jh
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a76jk,
-                        Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a76jh
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a76jl,
-                        Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a76jh [] -> ()))
-      (assetId $ assetRow a)
-      (partyId $ partyRow p)
-      (auditWho ident)
-      (auditIp ident)

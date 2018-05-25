@@ -1,23 +1,23 @@
-Databrary/Model/Notification/Boot.hs:14:1-6: Splicing declarations
+src/Databrary/Model/Notification/Boot.hs:14:1-6: Splicing declarations
     useTDB ======>
-Databrary/Model/Notification/Boot.hs:18:33-87: Splicing expression
+src/Databrary/Model/Notification/Boot.hs:18:33-87: Splicing expression
     Language.Haskell.TH.Quote.quoteExp
       pgSQL "SELECT id, name FROM notice WHERE id >= 0 ORDER BY id"
   ======>
     \ -> Database.PostgreSQL.Typed.Query.QueryParser
-           (\ _tenv_a3QXa
+           (\ _tenv_a4B1C
               -> Database.PostgreSQL.Typed.Query.SimpleQuery
                    (Data.ByteString.concat
                       [Data.String.fromString
                          "SELECT id, name FROM notice WHERE id >= 0 ORDER BY id"]))
-           (\ _tenv_a3QXa [_cid_a3QXb, _cname_a3QXc]
+           (\ _tenv_a4B1C [_cid_a4B1D, _cname_a4B1E]
               -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                    _tenv_a3QXa
+                    _tenv_a4B1C
                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                        Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                    _cid_a3QXb, 
+                    _cid_a4B1D, 
                   Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                    _tenv_a3QXa
+                    _tenv_a4B1C
                     (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
                        Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                    _cname_a3QXc))
+                    _cname_a4B1E))

@@ -1,16 +1,11 @@
-Databrary/Model/Format/Types.hs:38:1-31: Splicing declarations
-    makeHasRec ''Format ['formatId]
-  ======>
-    instance Databrary.Has.Has (Id Format) Format where
-      Databrary.Has.view = formatId
-Databrary/Model/Format/Types.hs:39:1-19: Splicing declarations
+src/Databrary/Model/Format/Types.hs:43:1-19: Splicing declarations
     deriveLift ''Format
   ======>
     instance Language.Haskell.TH.Syntax.Lift Format where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a3Xm2
-            -> case e_a3Xm2 of {
-                 Format x0_a3Xm3 x1_a3Xm4 x2_a3Xm5 x3_a3Xm6
+        = \ e_a514p
+            -> case e_a514p of {
+                 Format x0_a514r x1_a514s x2_a514t x3_a514u
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.appE
@@ -20,10 +15,11 @@ Databrary/Model/Format/Types.hs:39:1-19: Splicing declarations
                                        (Language.Haskell.TH.Syntax.mkOccName "Format")
                                        (Language.Haskell.TH.Syntax.NameG
                                           Language.Haskell.TH.Syntax.DataName
-                                          (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                          (Language.Haskell.TH.Syntax.mkPkgName
+                                             "databrary-1-CKdn4uB613l7rh0y53TmMA")
                                           (Language.Haskell.TH.Syntax.mkModName
                                              "Databrary.Model.Format.Types"))))
-                                 (Language.Haskell.TH.Syntax.lift x0_a3Xm3))
-                              (Language.Haskell.TH.Syntax.lift x1_a3Xm4))
-                           (Language.Haskell.TH.Syntax.lift x2_a3Xm5))
-                        (Language.Haskell.TH.Syntax.lift x3_a3Xm6) }
+                                 (Language.Haskell.TH.Syntax.lift x0_a514r))
+                              (Language.Haskell.TH.Syntax.lift x1_a514s))
+                           (Language.Haskell.TH.Syntax.lift x2_a514t))
+                        (Language.Haskell.TH.Syntax.lift x3_a514u) }

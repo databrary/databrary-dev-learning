@@ -1,25 +1,11 @@
-Databrary/Model/Volume/Types.hs:45:1-34: Splicing declarations
-    makeHasRec ''VolumeRow ['volumeId]
-  ======>
-    instance Databrary.Has.Has (Id Volume) VolumeRow where
-      Databrary.Has.view = volumeId
-Databrary/Model/Volume/Types.hs:46:1-51: Splicing declarations
-    makeHasRec ''Volume ['volumeRow, 'volumePermission]
-  ======>
-    instance Databrary.Has.Has VolumeRow Volume where
-      Databrary.Has.view = volumeRow
-    instance Databrary.Has.Has (Id Volume) Volume where
-      Databrary.Has.view = (Databrary.Has.view . volumeRow)
-    instance Databrary.Has.Has Permission Volume where
-      Databrary.Has.view = volumePermission
-Databrary/Model/Volume/Types.hs:47:1-38: Splicing declarations
+src/Databrary/Model/Volume/Types.hs:60:1-38: Splicing declarations
     deriveLiftMany [''VolumeRow, ''Volume]
   ======>
     instance Language.Haskell.TH.Syntax.Lift VolumeRow where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4LWf
-            -> case e_a4LWf of {
-                 VolumeRow x0_a4LWh x1_a4LWi x2_a4LWj x3_a4LWk x4_a4LWl
+        = \ e_a5JQ2
+            -> case e_a5JQ2 of {
+                 VolumeRow x0_a5JQ3 x1_a5JQ4 x2_a5JQ5 x3_a5JQ6 x4_a5JQ7
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.appE
@@ -30,32 +16,36 @@ Databrary/Model/Volume/Types.hs:47:1-38: Splicing declarations
                                           (Language.Haskell.TH.Syntax.mkOccName "VolumeRow")
                                           (Language.Haskell.TH.Syntax.NameG
                                              Language.Haskell.TH.Syntax.DataName
-                                             (Language.Haskell.TH.Syntax.mkPkgName "main")
+                                             (Language.Haskell.TH.Syntax.mkPkgName
+                                                "databrary-1-CKdn4uB613l7rh0y53TmMA")
                                              (Language.Haskell.TH.Syntax.mkModName
                                                 "Databrary.Model.Volume.Types"))))
-                                    (Language.Haskell.TH.Syntax.lift x0_a4LWh))
-                                 (Language.Haskell.TH.Syntax.lift x1_a4LWi))
-                              (Language.Haskell.TH.Syntax.lift x2_a4LWj))
-                           (Language.Haskell.TH.Syntax.lift x3_a4LWk))
-                        (Language.Haskell.TH.Syntax.lift x4_a4LWl) }
+                                    (Language.Haskell.TH.Syntax.lift x0_a5JQ3))
+                                 (Language.Haskell.TH.Syntax.lift x1_a5JQ4))
+                              (Language.Haskell.TH.Syntax.lift x2_a5JQ5))
+                           (Language.Haskell.TH.Syntax.lift x3_a5JQ6))
+                        (Language.Haskell.TH.Syntax.lift x4_a5JQ7) }
     instance Language.Haskell.TH.Syntax.Lift Volume where
       Language.Haskell.TH.Syntax.lift
-        = \ e_a4LWo
-            -> case e_a4LWo of {
-                 Volume x0_a4LWp x1_a4LWq x2_a4LWr x3_a4LWs
+        = \ e_a5JQ9
+            -> case e_a5JQ9 of {
+                 Volume x0_a5JQa x1_a5JQb x2_a5JQc x3_a5JQe x4_a5JQf
                    -> Language.Haskell.TH.Lib.appE
                         (Language.Haskell.TH.Lib.appE
                            (Language.Haskell.TH.Lib.appE
                               (Language.Haskell.TH.Lib.appE
-                                 (Language.Haskell.TH.Lib.conE
-                                    (Language.Haskell.TH.Syntax.Name
-                                       (Language.Haskell.TH.Syntax.mkOccName "Volume")
-                                       (Language.Haskell.TH.Syntax.NameG
-                                          Language.Haskell.TH.Syntax.DataName
-                                          (Language.Haskell.TH.Syntax.mkPkgName "main")
-                                          (Language.Haskell.TH.Syntax.mkModName
-                                             "Databrary.Model.Volume.Types"))))
-                                 (Language.Haskell.TH.Syntax.lift x0_a4LWp))
-                              (Language.Haskell.TH.Syntax.lift x1_a4LWq))
-                           (Language.Haskell.TH.Syntax.lift x2_a4LWr))
-                        (Language.Haskell.TH.Syntax.lift x3_a4LWs) }
+                                 (Language.Haskell.TH.Lib.appE
+                                    (Language.Haskell.TH.Lib.conE
+                                       (Language.Haskell.TH.Syntax.Name
+                                          (Language.Haskell.TH.Syntax.mkOccName "Volume")
+                                          (Language.Haskell.TH.Syntax.NameG
+                                             Language.Haskell.TH.Syntax.DataName
+                                             (Language.Haskell.TH.Syntax.mkPkgName
+                                                "databrary-1-CKdn4uB613l7rh0y53TmMA")
+                                             (Language.Haskell.TH.Syntax.mkModName
+                                                "Databrary.Model.Volume.Types"))))
+                                    (Language.Haskell.TH.Syntax.lift x0_a5JQa))
+                                 (Language.Haskell.TH.Syntax.lift x1_a5JQb))
+                              (Language.Haskell.TH.Syntax.lift x2_a5JQc))
+                           (Language.Haskell.TH.Syntax.lift x3_a5JQe))
+                        (Language.Haskell.TH.Syntax.lift x4_a5JQf) }
