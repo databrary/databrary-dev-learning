@@ -1,436 +1,197 @@
-src/Databrary/Model/Citation.hs:24:59-152: Splicing expression
+src/Model/Citation.hs:30:59-151: Splicing expression
     selectQuery
       selectVolumeCitation
-      "$WHERE volume_citation.volume = ${volumeId $ volumeRow vol}"
+      "WHERE volume_citation.volume = ${volumeId $ volumeRow vol}"
   ======>
     fmap
-      (\ (vhead_a8AB0, vurl_a8AB1, vyear_a8AB2)
-         -> Citation vhead_a8AB0 vurl_a8AB1 vyear_a8AB2)
-      ((\ _p_a8AB4
+      (\ (vhead_a1hHk, vurl_a1hHl, vyear_a1hHm)
+         -> Citation vhead_a1hHk vurl_a1hHl vyear_a1hHm)
+      ((\ _p_a1hUc
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a8AB3
-                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
-                       (Data.String.fromString
-                          "SELECT volume_citation.head,volume_citation.url,volume_citation.year FROM volume_citation WHERE volume_citation.volume = $1")
-                       []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a8AB3
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AB4]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a8AB3
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a8AB3
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a8AB3
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")])
-               (\ _tenv_a8AB3 [_chead_a8AB5, _curl_a8AB6, _cyear_a8AB7]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8AB3
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _chead_a8AB5, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8AB3
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a8AB6, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8AB3
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _cyear_a8AB7)))
-         (volumeId $ volumeRow vol))
-src/Databrary/Model/Citation.hs:29:13-69: Splicing expression
-    selectQuery (selectCitation 'ident_a8ABm) "WHERE volume.id > 0"
-  ======>
-    fmap
-      (\ (vid_a8ACG, vname_a8ACH, vbody_a8ACI, valias_a8ACJ, vdoi_a8ACK,
-          vc_a8ACL, vowners_a8ACM, vpermission_a8ACN, vfull_a8ACO,
-          vhead_a8ACP, vurl_a8ACQ, vyear_a8ACR)
-         -> Databrary.Model.Citation.SQL.makeVolumeCitation
-              (Databrary.Model.Volume.SQL.makeVolume
-                 (Databrary.Model.Volume.SQL.setCreation
-                    (VolumeRow
-                       vid_a8ACG vname_a8ACH vbody_a8ACI valias_a8ACJ vdoi_a8ACK)
-                    vc_a8ACL)
-                 vowners_a8ACM
-                 (Databrary.Model.Volume.SQL.makePermInfo
-                    vpermission_a8ACN vfull_a8ACO))
-              (do { cm_a8ACS <- vhead_a8ACP;
-                    Just (Citation cm_a8ACS vurl_a8ACQ vyear_a8ACR) }))
-      ((\ _p_a8ADw _p_a8ADx _p_a8ADy _p_a8ADz
-          -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a8ADv
+               (\ _tenv_a1hUa
                   -> Database.PostgreSQL.Typed.Query.SimpleQuery
                        (Data.ByteString.concat
                           [Data.String.fromString
-                             "SELECT volume.id,volume.name,volume.body,volume.alias,volume.doi,volume_creation(volume.id),volume_owners.owners,volume_permission.permission,volume_permission.share_full,volume_citation.head,volume_citation.url,volume_citation.year FROM volume LEFT JOIN volume_owners ON volume.id = volume_owners.volume JOIN LATERAL   (VALUES      ( CASE WHEN ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a8ADv
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                             _p_a8ADw,
-                           Data.String.fromString
-                             "              THEN enum_last(NULL::permission)              ELSE volume_access_check(volume.id, ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a8ADv
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a8ADx,
-                           Data.String.fromString ") END      , CASE WHEN ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a8ADv
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                             _p_a8ADy,
-                           Data.String.fromString
-                             "              THEN null              ELSE (select share_full                    from volume_access_view                    where volume = volume.id and party = ",
-                           Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                             _tenv_a8ADv
-                             (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                                Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                             _p_a8ADz,
-                           Data.String.fromString
-                             "                    limit 1) END )   ) AS volume_permission (permission, share_full) ON volume_permission.permission >= 'PUBLIC'::permission LEFT JOIN volume_citation ON volume.id = volume_citation.volume WHERE volume.id > 0"]))
-               (\ _tenv_a8ADv
-                  [_cid_a8ADA,
-                   _cname_a8ADB,
-                   _cbody_a8ADC,
-                   _calias_a8ADD,
-                   _cdoi_a8ADE,
-                   _cvolume_creation_a8ADF,
-                   _cowners_a8ADG,
-                   _cpermission_a8ADH,
-                   _cshare_full_a8ADI,
-                   _chead_a8ADJ,
-                   _curl_a8ADK,
-                   _cyear_a8ADL]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                        _cid_a8ADA, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cname_a8ADB, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _cbody_a8ADC, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _calias_a8ADD, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "character varying")
-                        _cdoi_a8ADE, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "timestamp with time zone")
-                        _cvolume_creation_a8ADF, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text[]")
-                        _cowners_a8ADG, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "permission")
-                        _cpermission_a8ADH, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "boolean")
-                        _cshare_full_a8ADI, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _chead_a8ADJ, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a8ADK, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumn
-                        _tenv_a8ADv
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                        _cyear_a8ADL)))
-         (identitySuperuser ident)
-         (view ident :: Id Party)
-         (identitySuperuser ident)
-         (view ident :: Id Party))
-src/Databrary/Model/Citation.hs:33:13-98: Splicing expression
+                             "SELECT volume_citation.head,volume_citation.url,volume_citation.year FROM volume_citation WHERE volume_citation.volume = ",
+                           pgEscapeParameter
+                             _tenv_a1hUa (PGTypeProxy :: PGTypeName "integer") _p_a1hUc]))
+               (\ _tenv_a1hUa [_chead_a1hUd, _curl_a1hUe, _cyear_a1hUf]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a1hUa (PGTypeProxy :: PGTypeName "text") _chead_a1hUd, 
+                      pgDecodeColumn
+                        _tenv_a1hUa (PGTypeProxy :: PGTypeName "text") _curl_a1hUe, 
+                      pgDecodeColumn
+                        _tenv_a1hUa (PGTypeProxy :: PGTypeName "smallint") _cyear_a1hUf)))
+         (volumeId $ volumeRow vol))
+src/Model/Citation.hs:165:13-97: Splicing expression
     selectQuery
       selectVolumeLink
-      "$WHERE volume_link.volume = ${volumeId $ volumeRow vol}"
+      "WHERE volume_link.volume = ${volumeId $ volumeRow vol}"
   ======>
     fmap
-      (\ (vhead_a8AEb, vurl_a8AEc)
-         -> Citation vhead_a8AEb vurl_a8AEc Nothing Nothing)
-      ((\ _p_a8AF5
+      (\ (vhead_a1i73, vurl_a1i74)
+         -> Citation vhead_a1i73 vurl_a1i74 Nothing Nothing)
+      ((\ _p_a1i7j
           -> Database.PostgreSQL.Typed.Query.QueryParser
-               (\ _tenv_a8AF4
-                  -> Database.PostgreSQL.Typed.Query.PreparedQuery
-                       (Data.String.fromString
-                          "SELECT volume_link.head,volume_link.url FROM volume_link WHERE volume_link.volume = $1")
-                       []
-                       [Database.PostgreSQL.Typed.Types.pgEncodeParameter
-                          _tenv_a8AF4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AF5]
-                       [Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a8AF4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text"),
-                        Database.PostgreSQL.Typed.Types.pgBinaryColumn
-                          _tenv_a8AF4
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")])
-               (\ _tenv_a8AF4 [_chead_a8AF6, _curl_a8AF7]
-                  -> (Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8AF4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _chead_a8AF6, 
-                      Database.PostgreSQL.Typed.Types.pgDecodeColumnNotNull
-                        _tenv_a8AF4
-                        (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                           Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                        _curl_a8AF7)))
+               (\ _tenv_a1i7i
+                  -> Database.PostgreSQL.Typed.Query.SimpleQuery
+                       (Data.ByteString.concat
+                          [Data.String.fromString
+                             "SELECT volume_link.head,volume_link.url FROM volume_link WHERE volume_link.volume = ",
+                           pgEscapeParameter
+                             _tenv_a1i7i (PGTypeProxy :: PGTypeName "integer") _p_a1i7j]))
+               (\ _tenv_a1i7i [_chead_a1i7k, _curl_a1i7l]
+                  -> (pgDecodeColumnNotNull
+                        _tenv_a1i7i (PGTypeProxy :: PGTypeName "text") _chead_a1i7k, 
+                      pgDecodeColumnNotNull
+                        _tenv_a1i7i (PGTypeProxy :: PGTypeName "text") _curl_a1i7l)))
          (volumeId $ volumeRow vol))
-src/Databrary/Model/Citation.hs:39:18-49: Splicing expression
-    deleteVolumeCitation 'ident_a8AFK 'vol_a8AFI
+src/Model/Citation.hs:171:18-49: Splicing expression
+    deleteVolumeCitation 'ident_a1i7D 'vol_a1i7B
   ======>
-    (\ _p_a8AGO _p_a8AGP _p_a8AGQ
+    (\ _p_a1i81 _p_a1i82 _p_a1i83
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a8AGN
+            (\ _tenv_a1i80
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (DELETE FROM volume_citation WHERE volume=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AGN
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AGO,
+                        pgEscapeParameter
+                          _tenv_a1i80 (PGTypeProxy :: PGTypeName "integer") _p_a1i81,
                         Data.String.fromString
                           " RETURNING *) INSERT INTO audit.volume_citation SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AGN
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AGP,
+                        pgEscapeParameter
+                          _tenv_a1i80 (PGTypeProxy :: PGTypeName "integer") _p_a1i82,
                         Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AGN
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a8AGQ,
+                        pgEscapeParameter
+                          _tenv_a1i80 (PGTypeProxy :: PGTypeName "inet") _p_a1i83,
                         Data.String.fromString
                           ", 'remove'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a8AGN [] -> ()))
+            (\ _tenv_a1i80 [] -> ()))
       (volumeId $ volumeRow vol) (auditWho ident) (auditIp ident)
-src/Databrary/Model/Citation.hs:41:9-46: Splicing expression
-    updateVolumeCitation 'ident_a8AFK 'vol_a8AFI 'cite_a8AHd
+src/Model/Citation.hs:173:9-46: Splicing expression
+    updateVolumeCitation 'ident_a1i7D 'vol_a1i7B 'cite_a1i8B
   ======>
-    (\ _p_a8AHB _p_a8AHC _p_a8AHD _p_a8AHE _p_a8AHF _p_a8AHG
+    (\ _p_a1i95 _p_a1i96 _p_a1i97 _p_a1i98 _p_a1i99 _p_a1i9a
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a8AHA
+            (\ _tenv_a1i94
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (UPDATE volume_citation SET head=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AHA
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a8AHB,
+                        pgEscapeParameter
+                          _tenv_a1i94 (PGTypeProxy :: PGTypeName "text") _p_a1i95,
                         Data.String.fromString ",url=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AHA
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a8AHC,
+                        pgEscapeParameter
+                          _tenv_a1i94 (PGTypeProxy :: PGTypeName "text") _p_a1i96,
                         Data.String.fromString ",year=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AHA
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                          _p_a8AHD,
+                        pgEscapeParameter
+                          _tenv_a1i94 (PGTypeProxy :: PGTypeName "smallint") _p_a1i97,
                         Data.String.fromString " WHERE volume=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AHA
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AHE,
+                        pgEscapeParameter
+                          _tenv_a1i94 (PGTypeProxy :: PGTypeName "integer") _p_a1i98,
                         Data.String.fromString
                           " RETURNING *) INSERT INTO audit.volume_citation SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AHA
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AHF,
+                        pgEscapeParameter
+                          _tenv_a1i94 (PGTypeProxy :: PGTypeName "integer") _p_a1i99,
                         Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AHA
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a8AHG,
+                        pgEscapeParameter
+                          _tenv_a1i94 (PGTypeProxy :: PGTypeName "inet") _p_a1i9a,
                         Data.String.fromString
                           ", 'change'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a8AHA [] -> ()))
+            (\ _tenv_a1i94 [] -> ()))
       (citationHead cite)
       (citationURL cite)
       (citationYear cite)
       (volumeId $ volumeRow vol)
       (auditWho ident)
       (auditIp ident)
-src/Databrary/Model/Citation.hs:42:9-46: Splicing expression
-    insertVolumeCitation 'ident_a8AFK 'vol_a8AFI 'cite_a8AHd
+src/Model/Citation.hs:174:9-46: Splicing expression
+    insertVolumeCitation 'ident_a1i7D 'vol_a1i7B 'cite_a1i8B
   ======>
-    (\ _p_a8AL7 _p_a8AL8 _p_a8AL9 _p_a8ALa _p_a8ALb _p_a8ALc
+    (\ _p_a1ia0 _p_a1ia1 _p_a1ia2 _p_a1ia3 _p_a1ia4 _p_a1ia5
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a8AL6
+            (\ _tenv_a1i9Y
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (INSERT INTO volume_citation (volume,head,url,year) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AL6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AL7,
+                        pgEscapeParameter
+                          _tenv_a1i9Y (PGTypeProxy :: PGTypeName "integer") _p_a1ia0,
                         Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AL6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a8AL8,
+                        pgEscapeParameter
+                          _tenv_a1i9Y (PGTypeProxy :: PGTypeName "text") _p_a1ia1,
                         Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AL6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a8AL9,
+                        pgEscapeParameter
+                          _tenv_a1i9Y (PGTypeProxy :: PGTypeName "text") _p_a1ia2,
                         Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AL6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "smallint")
-                          _p_a8ALa,
+                        pgEscapeParameter
+                          _tenv_a1i9Y (PGTypeProxy :: PGTypeName "smallint") _p_a1ia3,
                         Data.String.fromString
                           ") RETURNING *) INSERT INTO audit.volume_citation SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AL6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8ALb,
+                        pgEscapeParameter
+                          _tenv_a1i9Y (PGTypeProxy :: PGTypeName "integer") _p_a1ia4,
                         Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AL6
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a8ALc,
+                        pgEscapeParameter
+                          _tenv_a1i9Y (PGTypeProxy :: PGTypeName "inet") _p_a1ia5,
                         Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a8AL6 [] -> ()))
+            (\ _tenv_a1i9Y [] -> ()))
       (volumeId $ volumeRow vol)
       (citationHead cite)
       (citationURL cite)
       (citationYear cite)
       (auditWho ident)
       (auditIp ident)
-src/Databrary/Model/Citation.hs:49:22-49: Splicing expression
-    deleteVolumeLink 'ident_a8AMR 'vol_a8AMJ
+src/Model/Citation.hs:181:22-49: Splicing expression
+    deleteVolumeLink 'ident_a1iaG 'vol_a1iaE
   ======>
-    (\ _p_a8AOr _p_a8AOs _p_a8AOt
+    (\ _p_a1ibJ _p_a1ibK _p_a1ibL
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a8AOq
+            (\ _tenv_a1ibH
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (DELETE FROM volume_link WHERE volume=",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AOq
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AOr,
+                        pgEscapeParameter
+                          _tenv_a1ibH (PGTypeProxy :: PGTypeName "integer") _p_a1ibJ,
                         Data.String.fromString
                           " RETURNING *) INSERT INTO audit.volume_link SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AOq
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8AOs,
+                        pgEscapeParameter
+                          _tenv_a1ibH (PGTypeProxy :: PGTypeName "integer") _p_a1ibK,
                         Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8AOq
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a8AOt,
+                        pgEscapeParameter
+                          _tenv_a1ibH (PGTypeProxy :: PGTypeName "inet") _p_a1ibL,
                         Data.String.fromString
                           ", 'remove'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a8AOq [] -> ()))
+            (\ _tenv_a1ibH [] -> ()))
       (volumeId $ volumeRow vol) (auditWho ident) (auditIp ident)
-src/Databrary/Model/Citation.hs:50:33-66: Splicing expression
-    insertVolumeLink 'ident_a8AMR 'vol_a8AMJ 'link_a8AQg
+src/Model/Citation.hs:182:33-66: Splicing expression
+    insertVolumeLink 'ident_a1iaG 'vol_a1iaE 'link_a1iee
   ======>
-    (\ _p_a8ATK _p_a8ATL _p_a8ATM _p_a8ATN _p_a8ATO
+    (\ _p_a1ieN _p_a1ieO _p_a1ieP _p_a1ieQ _p_a1ieR
        -> Database.PostgreSQL.Typed.Query.QueryParser
-            (\ _tenv_a8ATJ
+            (\ _tenv_a1ieL
                -> Database.PostgreSQL.Typed.Query.SimpleQuery
                     (Data.ByteString.concat
                        [Data.String.fromString
                           "WITH audit_row AS (INSERT INTO volume_link (volume,head,url) VALUES (",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8ATJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8ATK,
+                        pgEscapeParameter
+                          _tenv_a1ieL (PGTypeProxy :: PGTypeName "integer") _p_a1ieN,
                         Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8ATJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a8ATL,
+                        pgEscapeParameter
+                          _tenv_a1ieL (PGTypeProxy :: PGTypeName "text") _p_a1ieO,
                         Data.String.fromString ",",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8ATJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "text")
-                          _p_a8ATM,
+                        pgEscapeParameter
+                          _tenv_a1ieL (PGTypeProxy :: PGTypeName "text") _p_a1ieP,
                         Data.String.fromString
                           ") RETURNING *) INSERT INTO audit.volume_link SELECT CURRENT_TIMESTAMP, ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8ATJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "integer")
-                          _p_a8ATN,
+                        pgEscapeParameter
+                          _tenv_a1ieL (PGTypeProxy :: PGTypeName "integer") _p_a1ieQ,
                         Data.String.fromString ", ",
-                        Database.PostgreSQL.Typed.Types.pgEscapeParameter
-                          _tenv_a8ATJ
-                          (Database.PostgreSQL.Typed.Types.PGTypeProxy ::
-                             Database.PostgreSQL.Typed.Types.PGTypeName "inet")
-                          _p_a8ATO,
+                        pgEscapeParameter
+                          _tenv_a1ieL (PGTypeProxy :: PGTypeName "inet") _p_a1ieR,
                         Data.String.fromString ", 'add'::audit.action, * FROM audit_row"]))
-            (\ _tenv_a8ATJ [] -> ()))
+            (\ _tenv_a1ieL [] -> ()))
       (volumeId $ volumeRow vol)
       (citationHead link)
       (citationURL link)
